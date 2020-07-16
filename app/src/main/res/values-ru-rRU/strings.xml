@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Финальный Проект</string>
+    <string name="btnGeoData">Гео Данные</string>
+    <string name="btnSoccer">Футбольные Данные</string>
+    <string name="btnSongLyrics">Поиск Лирической Музыки</string>
+    <string name="btnDeezerSong">Поиск Музыки в Deezer</string>
+</resources>

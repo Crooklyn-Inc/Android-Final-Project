@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">FinalProject</string>
+    <string name="app_name">Final Project</string>
+    <string name="btnGeoData">Geo Data Source</string>
+    <string name="btnSoccer">Soccer Match Highlights</string>
+    <string name="btnSongLyrics">Song Lyrics Search</string>
+    <string name="btnDeezerSong">Deezer Song Search</string>
 </resources>
