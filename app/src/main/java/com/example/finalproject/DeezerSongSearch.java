@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class DeezerSongSearch extends AppCompatActivity {
     ProgressBar progressBar;
     SharedPreferences pref;
-
+    public static String EXTRA_MESSAGE = "ARTIST_SONG_LIST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +46,15 @@ public class DeezerSongSearch extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar1);
         TextView txt = findViewById(R.id.EnterArtist);
         EditText artistName = findViewById(R.id.artist);
-        pref = getSharedPreferences("ArtistFile", Context.MODE_PRIVATE);
-        String savedString = pref.getString("ReserveName", " ");
-        artistName.setText(savedString);
+
+        String message = "";
 
         Button search = findViewById(R.id.Search);
         search.setOnClickListener( v -> {
-            if (!artistName.equals(" ")) saveSharedPrefs(artistName.getText().toString());
+            //if (!artistName.equals(" ")) saveSharedPrefs(artistName.getText().toString());
             Intent deezerAct1 = new Intent(DeezerSongSearch.this, Deezer_activity1.class);
+            deezerAct1.putExtra(EXTRA_MESSAGE, artistName.getText().toString().trim());
             startActivity(deezerAct1);
-
         });
 
 
