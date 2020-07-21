@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 
@@ -119,6 +120,7 @@ public class Deezer_activity1 extends AppCompatActivity {
                                 publishProgress(50);
 
                                 URL songsUrl = new URL(tracklist);
+                                //URL songsUrl = new URL("http://api.openweathermap.org/data/2.5/uvi?appid=7e943c97096a9784391a981c4d878b22&lat=45.348945&lon=-75.759389");
                                 HttpURLConnection connSongsList = (HttpURLConnection) songsUrl.openConnection();
                                 connSongsList.setReadTimeout(10000);
                                 connSongsList.setConnectTimeout(15000);
@@ -126,7 +128,7 @@ public class Deezer_activity1 extends AppCompatActivity {
                                 connSongsList.setDoInput(true);
                                 connSongsList.connect();
 
-                                InputStream streamSongs = conn.getInputStream();
+                                InputStream streamSongs = connSongsList.getInputStream();
                                 int responseCode = connSongsList.getResponseCode();
                                 if (responseCode == 200) {
                                     //create a JSON object from the response
@@ -140,7 +142,17 @@ public class Deezer_activity1 extends AppCompatActivity {
                                     }
                                     String result = sb.toString();
                                     JSONObject jObject = new JSONObject(result);
-                                    Log.e("song list", result);
+                                    JSONArray dataArray = jObject.getJSONArray("data");
+
+                                    for (int i = 0; i < dataArray.length(); i++) {
+                                        // create a JSONObject for fetching single user data
+                                        JSONObject dataDetail = dataArray.getJSONObject(i);
+                                        // fetch email and name and store it in arraylist
+                                        String songTitle = dataDetail.getString("title");
+                                        String songDuration = dataDetail.getString("duration");
+                                        Log.e("song list", result);
+                                    }
+
                                 }
 
                                 artistXml = "";
