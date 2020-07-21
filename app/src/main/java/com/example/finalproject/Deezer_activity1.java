@@ -2,6 +2,8 @@ package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -9,10 +11,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Xml;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -22,13 +28,14 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Deezer_activity1 extends AppCompatActivity {
-    private String artist = "fantompower";
+    private String artist = " ";
     String api_url = "https://api.deezer.com/search/artist/?q=XXX&output=xml";
     String api_url_artist = "";
     Bitmap image = null;
     String tracklist;
     ProgressBar progressBar;
     TextView titleTextView, durationTextView, album_nameTextView, album_coverTextView;
+    MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,27 @@ public class Deezer_activity1 extends AppCompatActivity {
 
         api_url_artist = api_url.replace("XXX", artist);
         userQuery.execute(api_url_artist);
+        progressBar = findViewById(R.id.progressBar);
+        ListView listView = findViewById(R.id.ListView);
+        listView.setAdapter(myAdapter = new MyAdapter());
 
+    }
+    public void load(View view) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ArtistFile", Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString("ReserveName", "");
+
+
+        if (name.equals(" ") )){
+
+            Toast.makeText(this,"loading details not found",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            username.setText(name);
+
+
+            Toast.makeText(this,"loading details successfully",Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -201,14 +228,27 @@ public class Deezer_activity1 extends AppCompatActivity {
         }
     }
 
+      class MyAdapter extends BaseAdapter {
 
+          @Override
+          public int getCount() {
+              return 0;
+          }
 
+          @Override
+          public Object getItem(int position) {
+              return null;
+          }
 
-//    protected static final String ACTIVITY_NAME = "WeatherForecast";
-//    private ProgressBar progressBar;
-//private TextView title;
-//    private TextView minTemp;
-//    private TextView maxTemp;
-//    private ImageView weatherImage;
+          @Override
+          public long getItemId(int position) {
+              return 0;
+          }
+
+          @Override
+          public View getView(int position, View convertView, ViewGroup parent) {
+              return null;
+          }
+      }
 
 
