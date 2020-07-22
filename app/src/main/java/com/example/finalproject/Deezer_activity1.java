@@ -101,6 +101,7 @@ public class Deezer_activity1 extends AppCompatActivity {
                 while (eventType != XmlPullParser.END_DOCUMENT) {
                     if (eventType == XmlPullParser.START_TAG) {
                         String artist22 = parser.getName();
+                        publishProgress(25);
                         if (parser.getName().equalsIgnoreCase("artist")) {
                             insideItem = true;
                             eventType = parser.next();
@@ -126,7 +127,9 @@ public class Deezer_activity1 extends AppCompatActivity {
 
                                 InputStream streamSongs = connSongsList.getInputStream();
                                 int responseCode = connSongsList.getResponseCode();
+
                                 if (responseCode == 200) {
+                                    publishProgress(75);
                                     //create a JSON object from the response
                                     BufferedReader reader = new BufferedReader(new InputStreamReader(streamSongs, "UTF-8"), 8);
                                     StringBuilder sb = new StringBuilder();
@@ -227,6 +230,7 @@ public class Deezer_activity1 extends AppCompatActivity {
             MyAdapter adapter = new MyAdapter(Deezer_activity1.this, songLinks);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+            progressBar.setVisibility(View.INVISIBLE);
 
         }
     }

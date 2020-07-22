@@ -46,12 +46,15 @@ public class DeezerSongSearch extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar1);
         TextView txt = findViewById(R.id.EnterArtist);
         EditText artistName = findViewById(R.id.artist);
+        pref = getSharedPreferences("FileName", Context.MODE_PRIVATE);
+        String savedString = pref.getString("ReserveName", "");
+        artistName.setText(savedString);
 
         String message = "";
 
         Button search = findViewById(R.id.Search);
         search.setOnClickListener( v -> {
-            //if (!artistName.equals(" ")) saveSharedPrefs(artistName.getText().toString());
+            saveSharedPrefs(artistName.getText().toString());
             Intent deezerAct1 = new Intent(DeezerSongSearch.this, Deezer_activity1.class);
             deezerAct1.putExtra(EXTRA_MESSAGE, artistName.getText().toString().trim());
             startActivity(deezerAct1);
@@ -60,9 +63,9 @@ public class DeezerSongSearch extends AppCompatActivity {
 
 
     }
-    private void saveSharedPrefs(String stringToSave) {
+    private void saveSharedPrefs(String savedString) {
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString("ReserveName", stringToSave);
+        editor.putString("ReserveName", savedString);
         editor.commit();
         Toast.makeText(this, "Your request is proceed " , Toast.LENGTH_SHORT).show();
     }
