@@ -20,7 +20,7 @@
         android:id="@+id/ListView"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
-        android:dividerHeight="0dp"
+        android:dividerHeight="20dp"
         android:divider="@android:color/transparent"
        />
 

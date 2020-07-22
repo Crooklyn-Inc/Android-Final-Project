@@ -30,6 +30,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Deezer_activity1 extends AppCompatActivity {
     private String artist = "";
@@ -41,12 +43,16 @@ public class Deezer_activity1 extends AppCompatActivity {
     TextView titleTextView, durationTextView, album_nameTextView, album_coverTextView;
     MyAdapter myAdapter;
     ArrayList<String> songLinks = new ArrayList();
+    ListView listView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deezer_activity1);
+        listView = findViewById(R.id.ListView);
+        listView.setAdapter(myAdapter = new MyAdapter());
+        progressBar = findViewById(R.id.progressBar);
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -57,11 +63,7 @@ public class Deezer_activity1 extends AppCompatActivity {
         UserQuery userQuery = new UserQuery();
         userQuery.execute(api_url_artist);
 
-        progressBar = findViewById(R.id.progressBar);
-
-        //ListView listView = findViewById(R.id.ListView);
-        //listView.setAdapter(myAdapter = new MyAdapter());
-
+        myAdapter.notifyDataSetChanged();
     }
 
 
@@ -150,7 +152,9 @@ public class Deezer_activity1 extends AppCompatActivity {
                                         // fetch email and name and store it in arraylist
                                         String songTitle = dataDetail.getString("title");
                                         String songDuration = dataDetail.getString("duration");
-                                        Log.e("song list", result);
+                                        songLinks.add(songTitle);
+
+                                        Log.e("song list", songTitle);
                                     }
 
                                 }
@@ -188,6 +192,10 @@ public class Deezer_activity1 extends AppCompatActivity {
 
             return "Finished tasks";
         }
+
+
+
+
 
 
 //                        }else if (eventType == XmlPullParser.END_TAG && parser.getName().equalsIgnoreCase("tracklist")) {
