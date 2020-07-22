@@ -260,15 +260,6 @@ public class Deezer_activity1 extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
     //        layout for this position
-//           DeezerSongModel model = (DeezerSongModel) getItem(position);
-//            LayoutInflater inflater = getLayoutInflater();
-//            View newView = inflater.inflate(R.layout.list_songs_row, parent, false );
-//
-//            TextView textView = newView.findViewById(R.id.textGoesHere);
-//            textView.setText((CharSequence) songLinks.get(position));
-//          //  textView.setText((String)songLinks.get(position);
-//
-//            return newView;
 
             if (convertView ==  null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.list_songs_row, parent, false);
