@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 
@@ -42,8 +44,9 @@ public class Deezer_activity1 extends AppCompatActivity {
     ProgressBar progressBar;
     TextView titleTextView, durationTextView, album_nameTextView, album_coverTextView;
     MyAdapter myAdapter;
-    ArrayList<String> songLinks = new ArrayList();
+    ArrayList<DeezerSongModel> songLinks = new ArrayList();
     ListView listView;
+    SwipeRefreshLayout swipeRefresh;
 
 
     @Override
@@ -51,7 +54,6 @@ public class Deezer_activity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deezer_activity1);
         listView = findViewById(R.id.ListView);
-        listView.setAdapter(myAdapter = new MyAdapter());
         progressBar = findViewById(R.id.progressBar);
 
         // Get the Intent that started this activity and extract the string
@@ -63,7 +65,6 @@ public class Deezer_activity1 extends AppCompatActivity {
         UserQuery userQuery = new UserQuery();
         userQuery.execute(api_url_artist);
 
-        myAdapter.notifyDataSetChanged();
     }
 
 
@@ -73,6 +74,9 @@ public class Deezer_activity1 extends AppCompatActivity {
 
         protected String doInBackground(String... params) {
             //Log.i(ACTIVITY_NAME, "In doInBackground");
+            String result = "";
+
+            songLinks.clear();
             try {
                 URL url = new URL(params[0]);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -102,16 +106,6 @@ public class Deezer_activity1 extends AppCompatActivity {
                             eventType = parser.next();
                             continue;
                         }
-//                        else if((parser.getName().equalsIgnoreCase("name") && (insideItem == true)) ) {
-//                            if(parser.getAttributeValue(null, "name") == "Fantom") {
-//                                artist = parser.getName();
-//                            }
-//                            else {
-//                                eventType = parser.next();
-//                                continue;
-//                            }
-//                        }
-
                         else if (parser.getName().equalsIgnoreCase("name")) {
                             gotName = true;
                         } else if (parser.getName().equalsIgnoreCase("tracklist")) {
@@ -142,20 +136,20 @@ public class Deezer_activity1 extends AppCompatActivity {
                                     {
                                         sb.append(line + "\n");
                                     }
-                                    String result = sb.toString();
-                                    JSONObject jObject = new JSONObject(result);
-                                    JSONArray dataArray = jObject.getJSONArray("data");
-
-                                    for (int i = 0; i < dataArray.length(); i++) {
-                                        // create a JSONObject for fetching single user data
-                                        JSONObject dataDetail = dataArray.getJSONObject(i);
-                                        // fetch email and name and store it in arraylist
-                                        String songTitle = dataDetail.getString("title");
-                                        String songDuration = dataDetail.getString("duration");
-                                        songLinks.add(songTitle);
-
-                                        Log.e("song list", songTitle);
-                                    }
+                                    result = sb.toString();
+//                                    JSONObject jObject = new JSONObject(result);
+//                                    JSONArray dataArray = jObject.getJSONArray("data");
+//
+//                                    for (int i = 0; i < dataArray.length(); i++) {
+//                                        // create a JSONObject for fetching single user data
+//                                        JSONObject dataDetail = dataArray.getJSONObject(i);
+//                                        // fetch email and name and store it in arraylist
+//                                        String songTitle = dataDetail.getString("title");
+//                                        String songDuration = dataDetail.getString("duration");
+//                                        songLinks.add(songTitle);
+//
+//                                        Log.e("song list", );
+//                                    }
 
                                 }
 
@@ -189,55 +183,12 @@ public class Deezer_activity1 extends AppCompatActivity {
                 Log.i("AsyncTask", "Error");
             }
 
-
-            return "Finished tasks";
+            publishProgress(100);
+            return result;
         }
 
 
-
-
-
-
-//                        }else if (eventType == XmlPullParser.END_TAG && parser.getName().equalsIgnoreCase("tracklist")) {
-//                            insideItem = false;
-//                        }
-
-
-//                    if (parser.getName().equals("tracklist")) {
-//                        current = parser.getAttributeValue(null, "value");
-//                        publishProgress(25);
-//                        min = parser.getAttributeValue(null, "min");
-//                        publishProgress(50);
-//                        max = parser.getAttributeValue(null, "max");
-//                        publishProgress(75);
-//                    }
-//                    if (parser.getName().equals("weather")) {
-//                        iconName = parser.getAttributeValue(null, "icon");
-//                        String iconFile = iconName+".png";
-//                        if (fileExistance(iconFile)) {
-//                            FileInputStream inputStream = null;
-//                            try {
-//                                inputStream = new FileInputStream(getBaseContext().getFileStreamPath(iconFile));
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                            icon = BitmapFactory.decodeStream(inputStream);
-//                            Log.i(ACTIVITY_NAME, "Image already exists");
-//                        } else {
-//                            URL iconUrl = new URL("http://openweathermap.org/img/w/" + iconName + ".png");
-//                            icon = getImage(iconUrl);
-//                            FileOutputStream outputStream = openFileOutput(iconName + ".png", Context.MODE_PRIVATE);
-//                            icon.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
-//                            outputStream.flush();
-//                            outputStream.close();
-//                            Log.i(ACTIVITY_NAME, "Adding new image");
-//                        }
-//                        Log.i(ACTIVITY_NAME, "file name="+iconFile);
-//                        publishProgress(100);
-//                    }
-
-
-        //        @Override
+        @Override
         protected void onProgressUpdate(Integer... value) {
             Log.i("Tag", "In onProgressUpdate");
             progressBar.setVisibility(View.VISIBLE);
@@ -245,28 +196,60 @@ public class Deezer_activity1 extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            String degree = Character.toString((char) 0x00B0);
+        public void onPostExecute(String s) {
+            super .onPostExecute(s);
 
-            titleTextView.setText(title);
-            durationTextView.setText(duration);
-            album_nameTextView.setText(album_name);
-            album_coverTextView.setText("Album " + album_cover);
-            progressBar.setVisibility(View.INVISIBLE);
+            try {
+                    if(s != "")
+                    {
+                        JSONObject jObject = new JSONObject(s);
+                        JSONArray dataArray = jObject.getJSONArray("data");
+
+                    for (int i = 0; i < dataArray.length(); i++) {
+
+                        JSONObject jsonObject = dataArray.getJSONObject(i);
+
+                        String songTitle = jsonObject.getString("title");
+                        String songDuration = jsonObject.getString("duration");
+                        String songAlbum = jsonObject.getJSONObject("album").getString("title");
+
+                        DeezerSongModel songmodel = new DeezerSongModel();
+                        songmodel.setTitle(songTitle);
+                        songmodel.setDuration(songDuration);
+                        songmodel.setAlbum_name(songAlbum);
+                        songLinks.add(songmodel);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            MyAdapter adapter = new MyAdapter(Deezer_activity1.this, songLinks);
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
         }
     }
 
 
     class MyAdapter extends BaseAdapter {
+        Context context;
+        ArrayList<DeezerSongModel> arrayList;
+
+        public MyAdapter(Context context, ArrayList<DeezerSongModel> arrayList) {
+            this.context = context;
+            this.arrayList = arrayList;
+        }
+
 
         @Override
         public int getCount() {
-            return songLinks.size();
+            return arrayList.size();
         }
 
         @Override
-        public String getItem(int position) {
-            return songLinks.get(position);
+        public DeezerSongModel getItem(int position) {
+            return arrayList.get(position);
         }
 
         @Override
@@ -277,12 +260,28 @@ public class Deezer_activity1 extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
     //        layout for this position
-            LayoutInflater inflater = getLayoutInflater();
-            View newView = inflater.inflate(R.layout.list_songs_row, parent, false );
-            TextView textView = newView.findViewById(R.id.textGoesHere);
-            textView.setText((String)getItem(position));
+//           DeezerSongModel model = (DeezerSongModel) getItem(position);
+//            LayoutInflater inflater = getLayoutInflater();
+//            View newView = inflater.inflate(R.layout.list_songs_row, parent, false );
+//
+//            TextView textView = newView.findViewById(R.id.textGoesHere);
+//            textView.setText((CharSequence) songLinks.get(position));
+//          //  textView.setText((String)songLinks.get(position);
+//
+//            return newView;
 
-            return newView;
+            if (convertView ==  null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.list_songs_row, parent, false);
+            }
+            TextView title, duration, album_name;
+            title = (TextView) convertView.findViewById(R.id.songtitle);
+            //duration = (TextView) convertView.findViewById(R.id.duration);
+            //album_name = (TextView) convertView.findViewById(R.id.album_name);
+            title.setText(arrayList.get(position).getTitle());
+            //duration.setText(arrayList.get(position).getDuration());
+            //album_name.setText(arrayList.get(position).getAlbum_name());
+
+            return convertView;
         }
 
     }
