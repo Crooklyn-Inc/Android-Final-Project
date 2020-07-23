@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -47,6 +48,8 @@ public class Deezer_activity1 extends AppCompatActivity {
     ArrayList<DeezerSongModel> songLinks = new ArrayList();
     ListView listView;
     SwipeRefreshLayout swipeRefresh;
+    public static String ARTIST_DETAILS = "ARTIST_DETAILS";
+    JSONArray dataArraySongs = null;
 
 
     @Override
@@ -65,8 +68,19 @@ public class Deezer_activity1 extends AppCompatActivity {
         UserQuery userQuery = new UserQuery();
         userQuery.execute(api_url_artist);
 
-    }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
 
+            Intent deezerAct2 = new Intent(Deezer_activity1.this, Deezer_activity2.class);
+            JSONObject jsonObjectSongsTemp = null;
+            try {
+                jsonObjectSongsTemp = dataArraySongs.getJSONObject((int)id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            deezerAct2.putExtra(ARTIST_DETAILS, jsonObjectSongsTemp.toString());
+                startActivity(deezerAct2);
+            });
+        }
 
     private class UserQuery extends AsyncTask<String, Integer, String> {
         String title, duration, album_name, album_cover;
@@ -207,15 +221,15 @@ public class Deezer_activity1 extends AppCompatActivity {
                     if(s != "")
                     {
                         JSONObject jObject = new JSONObject(s);
-                        JSONArray dataArray = jObject.getJSONArray("data");
+                        dataArraySongs = jObject.getJSONArray("data");
 
-                    for (int i = 0; i < dataArray.length(); i++) {
+                    for (int i = 0; i < dataArraySongs.length(); i++) {
 
-                        JSONObject jsonObject = dataArray.getJSONObject(i);
+                        JSONObject jsonObjectSongs = dataArraySongs.getJSONObject(i);
 
-                        String songTitle = jsonObject.getString("title");
-                        String songDuration = jsonObject.getString("duration");
-                        String songAlbum = jsonObject.getJSONObject("album").getString("title");
+                        String songTitle = jsonObjectSongs.getString("title");
+                        String songDuration = jsonObjectSongs.getString("duration");
+                        String songAlbum = jsonObjectSongs.getJSONObject("album").getString("title");
 
                         DeezerSongModel songmodel = new DeezerSongModel();
                         songmodel.setTitle(songTitle);
@@ -234,6 +248,7 @@ public class Deezer_activity1 extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
 
         }
+
 
     }
 

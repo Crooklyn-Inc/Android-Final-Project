@@ -4,4 +4,9 @@
     <string name="btnSoccer">Футбольные Данные</string>
     <string name="btnSongLyrics">Поиск Лирической Музыки</string>
     <string name="btnDeezerSong">Поиск Музыки в Deezer</string>
+    <string name="albumTitle">Название Альбома</string>
+    <string name="title">Название песни</string>
+    <string name="songDuration">Продолжительность</string>
+
+
 </resources>

@@ -4,4 +4,10 @@
     <string name="btnSoccer">Soccer Match Highlights</string>
     <string name="btnSongLyrics">Song Lyrics Search</string>
     <string name="btnDeezerSong">Deezer Song Search</string>
+    <string name="albumTitle">Album Title</string>
+    <string name="title">Title</string>
+    <string name="songDuration">Duration</string>
+
+
+
 </resources>
