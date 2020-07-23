@@ -4,6 +4,9 @@
     <string name="btnSoccer">Футбольные Данные</string>
     <string name="btnSongLyrics">Поиск Лирической Музыки</string>
     <string name="btnDeezerSong">Поиск Музыки в Deezer</string>
+    <string name="albumTitle">Название Альбома</string>
+    <string name="title">Название песни</string>
+    <string name="songDuration">Продолжительность</string>
     <string name="geoTxtViewFindCities">Поиск ближайших городов</string>
     <string name="geoEditTxtLat">Введите широту в десятичных грдусах</string>
     <string name="geoEditTxtLon">Введите долготу в десятичных грдусах</string>
