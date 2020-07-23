@@ -98,10 +98,11 @@ public class Deezer_activity1 extends AppCompatActivity {
 
 
                 int eventType = parser.getEventType(); //The parser is currently at START_DOCUMENT
+                 publishProgress(25);
                 while (eventType != XmlPullParser.END_DOCUMENT) {
                     if (eventType == XmlPullParser.START_TAG) {
                         String artist22 = parser.getName();
-                        publishProgress(25);
+
                         if (parser.getName().equalsIgnoreCase("artist")) {
                             insideItem = true;
                             eventType = parser.next();
@@ -233,6 +234,7 @@ public class Deezer_activity1 extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
 
         }
+
     }
 
 
