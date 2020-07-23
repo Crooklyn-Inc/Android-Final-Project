@@ -16,12 +16,6 @@ import org.json.JSONObject;
 
 public class Deezer_activity2 extends AppCompatActivity {
 
-    ImageView albumImage = (ImageView) findViewById(R.id.albumImageView);
-    TextView albumTitle = (TextView) findViewById(R.id.albumTitle);
-    TextView title = (TextView) findViewById(R.id.title);
-    TextView songDuration = (TextView) findViewById(R.id.songDuration);
-    ProgressBar progressBar = findViewById(R.id.progressBarActivity2);
-
     JSONObject jObjectArtistDetails;
     String titleOfAlbum = "";
     String titleOfSong = "";
@@ -33,18 +27,26 @@ public class Deezer_activity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deezer_activity2);
 
+        ImageView albumImage = (ImageView) findViewById(R.id.albumImageView);
+        TextView albumTitle = (TextView) findViewById(R.id.albumTitle);
+        TextView title = (TextView) findViewById(R.id.title);
+        TextView songDuration = (TextView) findViewById(R.id.songDuration);
+        ProgressBar progressBar = findViewById(R.id.progressBarActivity2);
 
         try {
             jObjectArtistDetails = new JSONObject(getIntent().getStringExtra("ARTIST_DETAILS"));
-            JSONArray dataArraySongs = jObjectArtistDetails.getJSONArray("artist");
-            JSONObject jobjSongDetails = dataArraySongs.getJSONObject(0);
+            //JSONArray dataArraySongs = jObjectArtistDetails.getJSONArray("artist");
+            //JSONObject jobjSongDetails = dataArraySongs.getJSONObject(0);
 
-            titleOfSong = jobjSongDetails.getString("title");
-            durationOfSong = jobjSongDetails.getString("duration");
-            titleOfAlbum = jobjSongDetails.getJSONObject("album").getString("title");
+            titleOfSong = jObjectArtistDetails.getString("title");
+            durationOfSong = jObjectArtistDetails.getString("duration");
+            titleOfAlbum = jObjectArtistDetails.getJSONObject("album").getString("title");
 
+            albumTitle.setText("Album title: " + titleOfAlbum);
+            title.setText("Song name: " + titleOfSong);
+            songDuration.setText("Song duration: " + durationOfSong);
 
-            Log.e("TAG", "Example Item: " + jObjectArtistDetails.getString("KEY"));
+            Log.e("Tag", "Example Item: " + jObjectArtistDetails.getString("KEY"));
 
         } catch (JSONException e) {
             e.printStackTrace();

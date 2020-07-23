@@ -16,6 +16,7 @@ import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -68,19 +69,21 @@ public class Deezer_activity1 extends AppCompatActivity {
         UserQuery userQuery = new UserQuery();
         userQuery.execute(api_url_artist);
 
-        listView.setOnItemClickListener((parent, view, position, id) -> {
 
+        listView.setOnItemClickListener((parent, view, position, id) -> {
             Intent deezerAct2 = new Intent(Deezer_activity1.this, Deezer_activity2.class);
             JSONObject jsonObjectSongsTemp = null;
+
             try {
                 jsonObjectSongsTemp = dataArraySongs.getJSONObject((int)id);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             deezerAct2.putExtra(ARTIST_DETAILS, jsonObjectSongsTemp.toString());
-                startActivity(deezerAct2);
-            });
-        }
+            startActivity(deezerAct2);
+        });
+    }
 
     private class UserQuery extends AsyncTask<String, Integer, String> {
         String title, duration, album_name, album_cover;
