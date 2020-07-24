@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarDeezerActivity1"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ListView"
-        android:stackFromBottom="true"
+        android:stackFromBottom="false"
         android:transcriptMode="alwaysScroll"
         android:dividerHeight="20dp"
         android:divider="@android:color/transparent"

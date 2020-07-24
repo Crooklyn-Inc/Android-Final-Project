@@ -58,7 +58,7 @@ public class Deezer_activity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deezer_activity1);
         listView = findViewById(R.id.ListView);
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBarDeezerActivity1);
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
