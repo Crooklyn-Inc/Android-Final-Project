@@ -12,6 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".GeoCityList" android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".DeezerSongSearch" />
+        <activity android:name=".SongLyricsSearch" />
+        <activity android:name=".SoccerMatchHighlights" />
+        <activity android:name=".GeoDataSource" android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".DeezerCustomProgressBarActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -22,7 +28,6 @@
         </activity>
         <activity android:name=".Deezer_activity1" />
         <activity android:name=".Deezer_activity2" />
-        <activity android:name=".DeezerSongSearch" />
     </application>
 
 </manifest>
