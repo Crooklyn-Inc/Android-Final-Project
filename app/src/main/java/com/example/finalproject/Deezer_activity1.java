@@ -55,6 +55,7 @@ public class Deezer_activity1 extends AppCompatActivity {
     JSONArray dataArraySongs = null;
     DeezerSongDBHelper dbOpener;
     SQLiteDatabase db;
+    boolean isSaved;
 
 
 
@@ -62,8 +63,11 @@ public class Deezer_activity1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deezer_activity1);
+        DeezerSongDBHelper dbOpener = new DeezerSongDBHelper(this);
 
         dbOpener = new DeezerSongDBHelper(this);
+        db = dbOpener.getWritableDatabase();
+      //  if (db != null){
 
 
         listView = findViewById(R.id.ListView);
@@ -89,7 +93,7 @@ public class Deezer_activity1 extends AppCompatActivity {
             JSONObject jsonObjectSongsTemp = null;
 
             try {
-                jsonObjectSongsTemp = dataArraySongs.getJSONObject((int)id);
+                jsonObjectSongsTemp = dataArraySongs.getJSONObject((int)position);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -101,28 +105,57 @@ public class Deezer_activity1 extends AppCompatActivity {
 
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle(getResources().getString(R.string.alertBuilderTitle))
-                    .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + position + "\n" + getResources().getString(R.string.alertBuilderMsg2) + " " + id)
 
+            JSONObject jsonObjectSongsTemp = null;
+            String songTitle2 = null;
+            String songDuration2 = null;
+            String songAlbum2 = null;
+            try {
+                jsonObjectSongsTemp = dataArraySongs.getJSONObject((int)position);
+                songTitle2 = jsonObjectSongsTemp.getString("title");
+                songDuration2 = jsonObjectSongsTemp.getString("duration");
+                songAlbum2 = jsonObjectSongsTemp.getJSONObject("album").getString("title");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            String finalSongTitle = songTitle2;
+            String finalSongDuration = songDuration2;
+            String finalSongAlbum = songAlbum2;
+
+            DeezerSongDBHelper dbOpener1 = new DeezerSongDBHelper(this);
+            Boolean recordExist = dbOpener1.checkIfRecordExist(finalSongTitle, finalSongDuration);
+
+         //   if(!recordExist) {
+                alert.setTitle(getResources().getString(R.string.alertBuilderTitle))
+                    .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + position)
                     .setPositiveButton(R.string.yes, (click, b) -> {
+                        if(!recordExist) {
                         ContentValues updatedValues = new ContentValues();
-                        updatedValues.put(DeezerSongDBHelper.COL_TITLE, songTitle.getText().toString());
-                        updatedValues.put(DeezerSongDBHelper.COL_DURATION, songDuration.getText().toString());
-                        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, songAlbumName.getText().toString());
 
-                        //now call the update function:
+                        updatedValues.put(DeezerSongDBHelper.COL_TITLE, finalSongTitle);
+                        updatedValues.put(DeezerSongDBHelper.COL_DURATION, finalSongDuration);
+                        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, finalSongAlbum);
+
+                        //now call the insert function:
                         db.insert(DeezerSongDBHelper.DB_TABLE, null, updatedValues);
-                        myAdapter.notifyDataSetChanged(); //the email and name have changed so rebuild the list
+                        Toast.makeText(getApplicationContext(), "Song is successfully added to your favorites ", Toast.LENGTH_SHORT).show();}
+                        else {
+                            Toast.makeText(getApplicationContext(), "Song is already exist in your favorites ", Toast.LENGTH_SHORT).show();
+                                }
+                        //Toast.makeText(getApplicationContext(), "Song is already exist in your favorites ", Toast.LENGTH_SHORT).show();}
                     })
                     .setNegativeButton(getResources().getString(R.string.no), (click, arg) -> {
                     });
+                alert.create().show();
+                return true;
 
 
-
-            alert.create().show();
-
-            return true;
+            //return true;
+           // return false;
         });
+
 //        public void  updateDB(DeezerSongModel d)
 //        {
 //            //Create a ContentValues object to represent a database row:
@@ -134,6 +167,7 @@ public class Deezer_activity1 extends AppCompatActivity {
 //            //now call the update function:
 //            db.update(DeezerSongDBHelper.DB_TABLE, updatedValues, DeezerSongDBHelper.COL_SONG_ID + "= ?", new String[] {Long.toString(d.getId())});
 //        }
+
     }
 
 

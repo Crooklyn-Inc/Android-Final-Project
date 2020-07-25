@@ -10,11 +10,12 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import static com.example.finalproject.GeoDBOpener.TABLE_NAME;
+
 public class DeezerSongDBHelper extends SQLiteOpenHelper {
 
     static final String DB_NAME = "DeezerSongs";
     static final String DB_TABLE = "Songs";
-    SQLiteDatabase db;
 
     //columns
     static final String COL_TITLE = "Title";
@@ -25,7 +26,7 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
 
     static final int VERSION_NUM = 1;
     //queries
-    private static final String CREATE_TABLE = "CREATE TABLE "+DB_TABLE+" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+COL_TITLE +" TEXT,"+COL_ALBUM_NAME  +" TEXT, "+COL_DURATION+" INTEGER);";
+    private static final String CREATE_TABLE = "CREATE TABLE "+DB_TABLE+" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+COL_TITLE +" TEXT,"+COL_ALBUM_NAME  +" TEXT, "+COL_DURATION+" TEXT);";
 
     public DeezerSongDBHelper(Context context) {
         super(context,DB_NAME, null, VERSION_NUM );
@@ -46,6 +47,33 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
         onCreate(db);
     }
+
+
+    public boolean checkIfRecordExist(String songTitle, String songDuration)
+    {
+        try
+        {
+            SQLiteDatabase db=this.getReadableDatabase();
+            String sql = "SELECT * FROM " + DB_TABLE + " WHERE "+ COL_TITLE + "='" + songTitle + "' and " + COL_DURATION + " = '" + songDuration + "'";
+            Cursor cursor=db.rawQuery(sql,null);
+            if (cursor.moveToFirst())
+            {
+                db.close();
+                Log.d("Record  Already Exists", "Table is:"+DB_TABLE+" ColumnName:"+COL_TITLE);
+                return true;//record Exists
+
+            }
+            Log.d("New Record  ", "Table is:"+DB_TABLE+" ColumnName:"+COL_TITLE+" Column Value:"+songTitle);
+            db.close();
+        }
+        catch(Exception errorException)
+        {
+            Log.d("Exception occured", "Exception occured "+errorException);
+            // db.close();
+        }
+        return false;
+    }
+
 //    public void  updateDB(DeezerSongModel d)
 //    {
 //        //Create a ContentValues object to represent a database row:
@@ -67,6 +95,7 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DeezerSongDBHelper.COL_TITLE, title);
         if (isSaved)
+
             contentValues.put(DeezerSongDBHelper.COL_DURATION, duration);
             contentValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, album_name);
 
