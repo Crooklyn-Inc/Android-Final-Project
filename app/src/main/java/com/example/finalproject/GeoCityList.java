@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class GeoCityList extends AppCompatActivity {
 
     static final int RESULT_NO_CITY_IN_JSON = 200;
-    private ArrayList<ArrayList<Object>> cityData = new ArrayList<ArrayList<Object>>();
+    private ArrayList<ArrayList<Object>> cityWebDataArray = new ArrayList<ArrayList<Object>>();
     ListView geoListViewCities;
     GeoListViewAdapter geoListViewAdapter;
 
@@ -34,6 +34,7 @@ public class GeoCityList extends AppCompatActivity {
 
         geoListViewCities = findViewById(R.id.geoListViewCities);
 
+        clearArrList(cityWebDataArray);
         Intent intent = getIntent();
         String json = intent.getStringExtra("json");
 
@@ -52,7 +53,7 @@ public class GeoCityList extends AppCompatActivity {
                         singleCityArray.add(GeoDataSource.ATTR_MAP.get(k).isReal ? jObject.getDouble(GeoDataSource.ATTR_MAP.get(k).string) : jObject.getString(GeoDataSource.ATTR_MAP.get(k).string));
                     }
 
-                    cityData.add(singleCityArray);
+                    cityWebDataArray.add(singleCityArray);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -61,44 +62,54 @@ public class GeoCityList extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (cityData == null || cityData.isEmpty()) {
+        if (cityWebDataArray == null || cityWebDataArray.isEmpty()) {
             setResult(RESULT_NO_CITY_IN_JSON);
             finish();
             return;
         }
 
         geoListViewCities.setAdapter(geoListViewAdapter = new GeoListViewAdapter());
-        Toast.makeText(GeoCityList.this, cityData.size() + " " + getString(R.string.geoMessageNumberOfCitiesFound), Toast.LENGTH_LONG).show();
-        Snackbar.make(geoListViewCities, cityData.size() + " " + getString(R.string.geoMessageNumberOfCitiesFound), Snackbar.LENGTH_LONG).show();
+        Toast.makeText(GeoCityList.this, cityWebDataArray.size() + " " + getString(R.string.geoMessageNumberOfCitiesFound), Toast.LENGTH_LONG).show();
+        Snackbar.make(geoListViewCities, cityWebDataArray.size() + " " + getString(R.string.geoMessageNumberOfCitiesFound), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+    }
 
-        for(ArrayList<Object> array: cityData) {
-            for(Object obj: array) obj = null;
-            array.clear();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        clearArrList(cityWebDataArray);
+        cityWebDataArray = null;
+    }
+
+    private void clearArrList(ArrayList<ArrayList<Object>> arrListOfArrLists) {
+        if (!arrListOfArrLists.isEmpty()) {
+            for(ArrayList<Object> array: arrListOfArrLists) {
+                for(Object obj: array) obj = null;
+                array.clear();
+            }
+            arrListOfArrLists.clear();
         }
-        cityData.clear();
-        cityData = null;
     }
 
     class GeoListViewAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return cityData.size();
+            return cityWebDataArray.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return (String) cityData.get(position).get(1);
+            return (String) cityWebDataArray.get(position).get(1);
         }
 
         @Override
         public long getItemId(int position) {
-            return (Long) cityData.get(position).get(0);
+            return (Long) cityWebDataArray.get(position).get(0);
         }
 
         @Override
@@ -114,7 +125,7 @@ public class GeoCityList extends AppCompatActivity {
             TextView geoTxtViewCityRow = newView.findViewById(R.id.geoTxtViewCityRow);
             geoTxtViewCityRow.setText((String) getItem(position));
             TextView geoTxtViewCityDistRow = newView.findViewById(R.id.geoTxtViewCityDistRow);
-            geoTxtViewCityDistRow.setText(String.format("%.1f km", Math.round((Double) cityData.get(position).get(GeoDataSource.ATTR_MAP.size() - 1) * 10d) / 10d));
+            geoTxtViewCityDistRow.setText(String.format("%.1f km", Math.round((Double) cityWebDataArray.get(position).get(GeoDataSource.ATTR_MAP.size() - 1) * 10d) / 10d));
 
             return newView;
         }

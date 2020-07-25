@@ -1,9 +1,14 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,6 +17,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar mainToolbar = (Toolbar)findViewById(R.id.mainToolbar);
+        setSupportActionBar(mainToolbar);
+
 
         Button btnGeoData = findViewById(R.id.btnGeoData);
         btnGeoData.setOnClickListener( v -> {
@@ -36,5 +45,34 @@ public class MainActivity extends AppCompatActivity {
             Intent intentDeezerSong = new Intent(MainActivity.this, DeezerSongSearch.class);
             startActivity(intentDeezerSong);
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        Intent intent;
+
+        if (item.getItemId() ==  R.id.geoMenuItem) {
+            intent = new Intent(MainActivity.this, GeoDataSource.class);
+        }
+        else if (item.getItemId() ==  R.id.soccerMenuItem) {
+            intent = new Intent(MainActivity.this, SoccerMatchHighlights.class);
+        }
+        else if (item.getItemId() ==  R.id.lyricsMenuItem) {
+            intent = new Intent(MainActivity.this, SongLyricsSearch.class);
+        }
+        else {
+            intent = new Intent(MainActivity.this, DeezerSongSearch.class);
+        }
+
+        startActivity(intent);
+        return true;
     }
 }

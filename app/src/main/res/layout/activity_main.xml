@@ -6,6 +6,11 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainToolbar"/>
+
     <Button
         android:id="@+id/btnGeoData"
         android:layout_width="match_parent"

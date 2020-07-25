@@ -10,11 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GeoCityList"></activity>
+        <activity android:name=".GeoCityList" android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".DeezerSongSearch" />
         <activity android:name=".SongLyricsSearch" />
         <activity android:name=".SoccerMatchHighlights" />
-        <activity android:name=".GeoDataSource" />
+        <activity android:name=".GeoDataSource" android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
