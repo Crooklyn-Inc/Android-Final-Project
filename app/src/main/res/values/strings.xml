@@ -7,6 +7,11 @@
     <string name="albumTitle">Album Title</string>
     <string name="title">Title</string>
     <string name="songDuration">Duration</string>
+    <string name="alertBuilderTitle">Add to favourites?</string>
+    <string name="alertBuilderMsg1">The selected row is:  </string>
+    <string name="alertBuilderMsg2">The database id is:  </string>
+    <string name="yes">Yes  </string>
+    <string name="no">No </string>
 
 
 </resources>

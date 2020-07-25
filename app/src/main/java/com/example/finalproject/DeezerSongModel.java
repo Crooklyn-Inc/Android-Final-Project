@@ -13,8 +13,19 @@ public class DeezerSongModel {
         this.album_name = album_name;
         this.id = id;
     }
+    public  DeezerSongModel (String title, String duration, String album_name, long id) {
+        this.title = title;
+        this.duration = duration;
+        this.album_name = album_name;
+        this.id = id;
 
-    public DeezerSongModel() {
+    }
+
+    public void update(String t, String d, String a)
+    {
+        title = t;
+       duration = d;
+       album_name =a;
     }
 
 
