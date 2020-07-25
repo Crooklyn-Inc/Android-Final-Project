@@ -4,9 +4,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -51,14 +53,25 @@ public class Deezer_activity1 extends AppCompatActivity {
     SwipeRefreshLayout swipeRefresh;
     public static String ARTIST_DETAILS = "ARTIST_DETAILS";
     JSONArray dataArraySongs = null;
+    DeezerSongDBHelper dbOpener;
+    SQLiteDatabase db;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deezer_activity1);
+
+        dbOpener = new DeezerSongDBHelper(this);
+
+
         listView = findViewById(R.id.ListView);
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBarDeezerActivity1);
+        TextView songTitle = findViewById(R.id.songtitle);
+        TextView songDuration = findViewById(R.id.duration);
+        TextView songAlbumName = findViewById(R.id.album_name);
+
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -68,6 +81,7 @@ public class Deezer_activity1 extends AppCompatActivity {
 
         UserQuery userQuery = new UserQuery();
         userQuery.execute(api_url_artist);
+
 
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
@@ -83,7 +97,45 @@ public class Deezer_activity1 extends AppCompatActivity {
             deezerAct2.putExtra(ARTIST_DETAILS, jsonObjectSongsTemp.toString());
             startActivity(deezerAct2);
         });
+
+
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle(getResources().getString(R.string.alertBuilderTitle))
+                    .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + position + "\n" + getResources().getString(R.string.alertBuilderMsg2) + " " + id)
+
+                    .setPositiveButton(R.string.yes, (click, b) -> {
+                        ContentValues updatedValues = new ContentValues();
+                        updatedValues.put(DeezerSongDBHelper.COL_TITLE, songTitle.getText().toString());
+                        updatedValues.put(DeezerSongDBHelper.COL_DURATION, songDuration.getText().toString());
+                        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, songAlbumName.getText().toString());
+
+                        //now call the update function:
+                        db.insert(DeezerSongDBHelper.DB_TABLE, null, updatedValues);
+                        myAdapter.notifyDataSetChanged(); //the email and name have changed so rebuild the list
+                    })
+                    .setNegativeButton(getResources().getString(R.string.no), (click, arg) -> {
+                    });
+
+
+
+            alert.create().show();
+
+            return true;
+        });
+//        public void  updateDB(DeezerSongModel d)
+//        {
+//            //Create a ContentValues object to represent a database row:
+//            ContentValues updatedValues = new ContentValues();
+//            updatedValues.put(DeezerSongDBHelper.COL_TITLE, d.getTitle());
+//            updatedValues.put(DeezerSongDBHelper.COL_DURATION, d.getDuration());
+//            updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, d.getAlbum_name());
+//
+//            //now call the update function:
+//            db.update(DeezerSongDBHelper.DB_TABLE, updatedValues, DeezerSongDBHelper.COL_SONG_ID + "= ?", new String[] {Long.toString(d.getId())});
+//        }
     }
+
 
     private class UserQuery extends AsyncTask<String, Integer, String> {
         String title, duration, album_name, album_cover;
@@ -278,7 +330,7 @@ public class Deezer_activity1 extends AppCompatActivity {
 
         @Override
         public long getItemId(int position) {
-            return (long)position;
+            return getItem(position).getId();
         }
 
         @Override
@@ -290,10 +342,10 @@ public class Deezer_activity1 extends AppCompatActivity {
             }
             TextView title, duration, album_name;
             title = (TextView) convertView.findViewById(R.id.songtitle);
-            //duration = (TextView) convertView.findViewById(R.id.duration);
-            //album_name = (TextView) convertView.findViewById(R.id.album_name);
+           // duration = (TextView) convertView.findViewById(R.id.duration);
+          //  album_name = (TextView) convertView.findViewById(R.id.album_name);
             title.setText(arrayList.get(position).getTitle());
-            //duration.setText(arrayList.get(position).getDuration());
+           // duration.setText(arrayList.get(position).getDuration());
             //album_name.setText(arrayList.get(position).getAlbum_name());
 
             return convertView;

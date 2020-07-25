@@ -7,6 +7,11 @@
     <string name="albumTitle">Название Альбома</string>
     <string name="title">Название песни</string>
     <string name="songDuration">Продолжительность</string>
+    <string name="alertBuilderTitle">Добавить в избранное?</string>
+    <string name="alertBuilderMsg1">Выбранный ряд: </string>
+    <string name="alertBuilderMsg2">ID базы данных:  </string>
+    <string name="yes">Да  </string>
+    <string name="no">Нет </string>
     <string name="geoTxtViewFindCities">Поиск ближайших городов</string>
     <string name="geoEditTxtLat">Введите широту в десятичных грдусах</string>
     <string name="geoEditTxtLon">Введите долготу в десятичных грдусах</string>

@@ -14,6 +14,7 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
 
     static final String DB_NAME = "DeezerSongs";
     static final String DB_TABLE = "Songs";
+    SQLiteDatabase db;
 
     //columns
     static final String COL_TITLE = "Title";
@@ -45,9 +46,21 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
         onCreate(db);
     }
+//    public void  updateDB(DeezerSongModel d)
+//    {
+//        //Create a ContentValues object to represent a database row:
+//        ContentValues updatedValues = new ContentValues();
+//        updatedValues.put(DeezerSongDBHelper.COL_TITLE, d.getTitle());
+//        updatedValues.put(DeezerSongDBHelper.COL_DURATION, d.getDuration());
+//        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, d.getDuration());
+//
+//        //now call the update function:
+//        db.update(DeezerSongDBHelper.DB_TABLE, updatedValues, DeezerSongDBHelper.COL_SONG_ID + "= ?", new String[] {Long.toString(d.getId())});
+//    }
+
 
     //insert data
-    public boolean insertData(String title, int duration, String album_name) {
+    public boolean insertData(String title, String duration, String album_name) {
 
 
         SQLiteDatabase db = this.getWritableDatabase();

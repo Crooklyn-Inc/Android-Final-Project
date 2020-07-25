@@ -7,4 +7,12 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/songtitle" />
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/duration" />
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/album_name" />
 </LinearLayout>
