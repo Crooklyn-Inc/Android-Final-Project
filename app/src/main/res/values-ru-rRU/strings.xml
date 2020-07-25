@@ -12,6 +12,16 @@
     <string name="alertBuilderMsg2">ID базы данных:  </string>
     <string name="yes">Да  </string>
     <string name="no">Нет </string>
-
-
+    <string name="geoTxtViewFindCities">Поиск ближайших городов</string>
+    <string name="geoEditTxtLat">Введите широту в десятичных грдусах</string>
+    <string name="geoEditTxtLon">Введите долготу в десятичных грдусах</string>
+    <string name="geoBtnSearchCities">Найти и отобразить</string>
+    <string name="geoBtnFavourites">Сохраненные Города</string>
+    <string name="geoMessageLatitudeEmpty">Введите пожалуйста широту</string>
+    <string name="geoMessageLongitudeEmpty">Введите пожалуйста долготу</string>
+    <string name="geoMessageInvalidLatitude">Широта должна быть десятичным числом в диапазоне [-90, 90]. Пожалуйста скорректируйте</string>
+    <string name="geoMessageInvalidLongitude">Долгота должна быть десятичным числом в диапазоне [-180, 180]. Пожалуйста скорректируйте</string>
+    <string name="geoMessageNoCitiesFound">Ни один город не был найден в окресностях указанных координат</string>
+    <string name="geoMessageNoCitiesInJson">В полученном пакете JSON не найдено ни одного города</string>
+    <string name="geoMessageNumberOfCitiesFound">городов найдено и отображено</string>
 </resources>

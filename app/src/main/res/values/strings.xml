@@ -12,6 +12,16 @@
     <string name="alertBuilderMsg2">The database id is:  </string>
     <string name="yes">Yes  </string>
     <string name="no">No </string>
-
-
+    <string name="geoTxtViewFindCities">Find Nearby Cities</string>
+    <string name="geoEditTxtLat">Enter latitude in decimal degrees here</string>
+    <string name="geoEditTxtLon">Enter longitude in decimal degrees here</string>
+    <string name="geoBtnSearchCities">Find and Display</string>
+    <string name="geoBtnFavourites">Favourite Cities</string>
+    <string name="geoMessageLatitudeEmpty">Enter Latitude please</string>
+    <string name="geoMessageLongitudeEmpty">Enter Longitude please</string>
+    <string name="geoMessageInvalidLatitude">Latitude must be a decimal numeric value within [-90, 90] range. Please re-enter</string>
+    <string name="geoMessageInvalidLongitude">Longitude must be a decimal numeric value within [-180, 180] range. Please re-enter</string>
+    <string name="geoMessageNoCitiesFound">No cities were found nearby specified geographic location</string>
+    <string name="geoMessageNoCitiesInJson">No cities were found in the received JSON data</string>
+    <string name="geoMessageNumberOfCitiesFound">cities were found and displayed</string>
 </resources>
