@@ -4,6 +4,14 @@
     <string name="btnSoccer">Soccer Match Highlights</string>
     <string name="btnSongLyrics">Song Lyrics Search</string>
     <string name="btnDeezerSong">Deezer Song Search</string>
+    <string name="albumTitle">Album Title</string>
+    <string name="title">Title</string>
+    <string name="songDuration">Duration</string>
+    <string name="alertBuilderTitle">Add to favourites?</string>
+    <string name="alertBuilderMsg1">The selected row is:  </string>
+    <string name="alertBuilderMsg2">The database id is:  </string>
+    <string name="yes">Yes  </string>
+    <string name="no">No </string>
     <string name="geoTxtViewFindCities">Find Nearby Cities</string>
     <string name="geoEditTxtLat">Enter latitude in decimal degrees here</string>
     <string name="geoEditTxtLon">Enter longitude in decimal degrees here</string>
