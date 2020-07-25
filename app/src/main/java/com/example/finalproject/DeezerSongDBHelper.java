@@ -10,6 +10,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import static com.example.finalproject.GeoDBOpener.TABLE_NAME;
+
 public class DeezerSongDBHelper extends SQLiteOpenHelper {
 
     static final String DB_NAME = "DeezerSongs";
@@ -45,6 +47,33 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
         onCreate(db);
     }
+
+
+    public boolean checkIfRecordExist(String songTitle, String songDuration)
+    {
+        try
+        {
+            SQLiteDatabase db=this.getReadableDatabase();
+            String sql = "SELECT * FROM " + DB_TABLE + " WHERE "+ COL_TITLE + "='" + songTitle + "' and " + COL_DURATION + " = '" + songDuration + "'";
+            Cursor cursor=db.rawQuery(sql,null);
+            if (cursor.moveToFirst())
+            {
+                db.close();
+                Log.d("Record  Already Exists", "Table is:"+DB_TABLE+" ColumnName:"+COL_TITLE);
+                return true;//record Exists
+
+            }
+            Log.d("New Record  ", "Table is:"+DB_TABLE+" ColumnName:"+COL_TITLE+" Column Value:"+songTitle);
+            db.close();
+        }
+        catch(Exception errorException)
+        {
+            Log.d("Exception occured", "Exception occured "+errorException);
+            // db.close();
+        }
+        return false;
+    }
+
 //    public void  updateDB(DeezerSongModel d)
 //    {
 //        //Create a ContentValues object to represent a database row:
