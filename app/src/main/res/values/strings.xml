@@ -16,4 +16,9 @@
     <string name="geoMessageNoCitiesFound">No cities were found nearby specified geographic location</string>
     <string name="geoMessageNoCitiesInJson">No cities were found in the received JSON data</string>
     <string name="geoMessageNumberOfCitiesFound">cities were found and displayed</string>
+    <string name="collegeName">Algonquin College</string>
+    <string name="courseCode">CST2335 Graphical Interface Programming</string>
+    <string name="projectName">Final Project</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>

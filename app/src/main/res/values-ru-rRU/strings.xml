@@ -16,4 +16,9 @@
     <string name="geoMessageNoCitiesFound">Ни один город не был найден в окресностях указанных координат</string>
     <string name="geoMessageNoCitiesInJson">В полученном пакете JSON не найдено ни одного города</string>
     <string name="geoMessageNumberOfCitiesFound">городов найдено и отображено</string>
+    <string name="collegeName">Алгонкин Колледж</string>
+    <string name="courseCode">CST2335 Программирование Графического Интерфейса</string>
+    <string name="projectName">Финальный Проект</string>
+    <string name="open">Открыть</string>
+    <string name="close">Закрыть</string>
 </resources>

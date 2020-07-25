@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,28 +12,52 @@
         android:layout_height="wrap_content"
         android:id="@+id/mainToolbar"/>
 
-    <Button
-        android:id="@+id/btnGeoData"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/mainDrawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btnGeoData" />
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+        <!-- THIS IS WHAT IS VISIBLE ON SCREEN:-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnSoccer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btnSoccer" />
+            <Button
+                android:id="@+id/btnGeoData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btnGeoData" />
 
-    <Button
-        android:id="@+id/btnSongLyrics"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btnSongLyrics" />
+            <Button
+                android:id="@+id/btnSoccer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btnSoccer" />
 
-    <Button
-        android:id="@+id/btnDeezerSong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btnDeezerSong" />
+            <Button
+                android:id="@+id/btnSongLyrics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btnSongLyrics" />
+
+            <Button
+                android:id="@+id/btnDeezerSong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btnDeezerSong" />
+                </LinearLayout>
+
+        <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/main_nav_drawer_header_layout"
+            app:menu="@menu/main_menu"
+            android:id="@+id/mainNavigationView"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </LinearLayout>
