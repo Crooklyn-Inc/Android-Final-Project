@@ -62,8 +62,11 @@ public class Deezer_activity1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deezer_activity1);
+        DeezerSongDBHelper dbOpener = new DeezerSongDBHelper(this);
 
         dbOpener = new DeezerSongDBHelper(this);
+        db = dbOpener.getWritableDatabase();
+      //  if (db != null){
 
 
         listView = findViewById(R.id.ListView);
@@ -101,14 +104,34 @@ public class Deezer_activity1 extends AppCompatActivity {
 
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+            JSONObject jsonObjectSongsTemp = null;
+            String songTitle2 = null;
+            String songDuration2 = null;
+            String songAlbum2 = null;
+            try {
+                jsonObjectSongsTemp = dataArraySongs.getJSONObject((int)id);
+                songTitle2 = jsonObjectSongsTemp.getString("title");
+                songDuration2 = jsonObjectSongsTemp.getString("duration");
+                songAlbum2 = jsonObjectSongsTemp.getJSONObject("album").getString("title");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            String finalSongTitle = songTitle2;
+            String finalSongDuration = songDuration2;
+            String finalSongAlbum = songAlbum2;
+
             alert.setTitle(getResources().getString(R.string.alertBuilderTitle))
                     .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + position + "\n" + getResources().getString(R.string.alertBuilderMsg2) + " " + id)
 
                     .setPositiveButton(R.string.yes, (click, b) -> {
                         ContentValues updatedValues = new ContentValues();
-                        updatedValues.put(DeezerSongDBHelper.COL_TITLE, songTitle.getText().toString());
-                        updatedValues.put(DeezerSongDBHelper.COL_DURATION, songDuration.getText().toString());
-                        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, songAlbumName.getText().toString());
+
+                        updatedValues.put(DeezerSongDBHelper.COL_TITLE, finalSongTitle);
+                        updatedValues.put(DeezerSongDBHelper.COL_DURATION, finalSongDuration);
+                        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, finalSongAlbum);
 
                         //now call the update function:
                         db.insert(DeezerSongDBHelper.DB_TABLE, null, updatedValues);

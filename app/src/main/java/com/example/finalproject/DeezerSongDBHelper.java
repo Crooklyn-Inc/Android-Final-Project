@@ -14,7 +14,6 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
 
     static final String DB_NAME = "DeezerSongs";
     static final String DB_TABLE = "Songs";
-    SQLiteDatabase db;
 
     //columns
     static final String COL_TITLE = "Title";
@@ -25,7 +24,7 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
 
     static final int VERSION_NUM = 1;
     //queries
-    private static final String CREATE_TABLE = "CREATE TABLE "+DB_TABLE+" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+COL_TITLE +" TEXT,"+COL_ALBUM_NAME  +" TEXT, "+COL_DURATION+" INTEGER);";
+    private static final String CREATE_TABLE = "CREATE TABLE "+DB_TABLE+" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+COL_TITLE +" TEXT,"+COL_ALBUM_NAME  +" TEXT, "+COL_DURATION+" TEXT);";
 
     public DeezerSongDBHelper(Context context) {
         super(context,DB_NAME, null, VERSION_NUM );
@@ -67,6 +66,7 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DeezerSongDBHelper.COL_TITLE, title);
         if (isSaved)
+
             contentValues.put(DeezerSongDBHelper.COL_DURATION, duration);
             contentValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, album_name);
 
