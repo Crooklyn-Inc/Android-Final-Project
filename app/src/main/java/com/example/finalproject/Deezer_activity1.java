@@ -101,17 +101,18 @@ public class Deezer_activity1 extends AppCompatActivity {
 
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            DeezerSongModel selectedSong = songLinks.get(position);
             alert.setTitle(getResources().getString(R.string.alertBuilderTitle))
                     .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + position + "\n" + getResources().getString(R.string.alertBuilderMsg2) + " " + id)
 
-                    .setPositiveButton("Update", (click, b) -> {
-                        selectedSong.update(songTitle.getText().toString(), songDuration.getText().toString(), songAlbumName.getText().toString());
-                        updateDB(selectedSong);
-                        myAdapter.notifyDataSetChanged(); //the email and name have changed so rebuild the list
-                    })
-                    .setNegativeButton( (click, b) -> {
+                    .setPositiveButton(R.string.yes, (click, b) -> {
+                        ContentValues updatedValues = new ContentValues();
+                        updatedValues.put(DeezerSongDBHelper.COL_TITLE, songTitle.getText().toString());
+                        updatedValues.put(DeezerSongDBHelper.COL_DURATION, songDuration.getText().toString());
+                        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, songAlbumName.getText().toString());
 
+                        //now call the update function:
+                        db.insert(DeezerSongDBHelper.DB_TABLE, null, updatedValues);
+                        myAdapter.notifyDataSetChanged(); //the email and name have changed so rebuild the list
                     })
                     .setNegativeButton(getResources().getString(R.string.no), (click, arg) -> {
                     });

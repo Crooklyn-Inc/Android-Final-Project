@@ -6,6 +6,7 @@ public class DeezerSongModel {
     private String album_name;
     private String duration;
     protected long id;
+    public  DeezerSongModel(){}
 
     public  DeezerSongModel (String title, String duration, String album_name){
         this.title = title;
