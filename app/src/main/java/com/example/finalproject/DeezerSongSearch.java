@@ -38,6 +38,11 @@ public class DeezerSongSearch extends AppCompatActivity {
         String message = "";
 
         Button favor = findViewById(R.id.deezFavourites);
+        favor.setOnClickListener( v -> {
+            Intent deezerAct3 = new Intent(DeezerSongSearch.this, Dee.class);
+            deezerAct3.putExtra(EXTRA_MESSAGE, artistName.getText().toString().trim());
+            startActivity(deezerAct3);
+        });
         Button search = findViewById(R.id.Search);
         search.setOnClickListener( v -> {
             saveSharedPrefs(artistName.getText().toString());
