@@ -33,5 +33,9 @@
     <string name="deezerNavigTitle">Поиск песен в Deezer</string>
     <string name="deezerNavAuthor">Автор проекта Юлия Цветкова</string>
     <string name="versionN">Версия 1</string>
+    <string name="deezToolAboutProject">Deezer проект, автор Юлия Цветкова</string>
+    <string name="deezerSearch">Поиск в Deezer</string>
+    <string name="deezerFavor">Избранное</string>
+
 
 </resources>

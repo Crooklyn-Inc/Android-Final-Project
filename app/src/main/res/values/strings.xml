@@ -33,6 +33,10 @@
     <string name="deezerNavigTitle">Deezer Song Search</string>
     <string name="deezerNavAuthor">Author Yulia Tsvetkova</string>
     <string name="versionN">Version 1</string>
+    <string name="deezToolAboutProject">This is the Deezer activity, written by Yulia Tsvetkova</string>
+    <string name="deezerSearch">Deezer Song Search</string>
+    <string name="deezerFavor">Favourites</string>
+
 
 
 

@@ -51,7 +51,17 @@
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginBottom="10dp"
-        android:text="Search"
+        android:text="@string/deezerSearch"
+        />
+    <Button
+        android:id="@+id/deezFavourites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/deezerFavor"
         />
 
 
