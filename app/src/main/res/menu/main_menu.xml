@@ -25,4 +25,10 @@
         android:icon="@drawable/ic_deezer"
         android:orderInCategory="400"
         app:showAsAction="always"/>
+
+<!--    <item android:id="@+id/aboutProjectMenuItem"-->
+<!--        android:title="@string/aboutProjectMenuItem"-->
+<!--        android:icon="@drawable/ic_about_project"-->
+<!--        android:orderInCategory="500"-->
+<!--        app:showAsAction="never"/>-->
 </menu>

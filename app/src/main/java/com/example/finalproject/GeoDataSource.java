@@ -58,19 +58,19 @@ public class GeoDataSource extends AppCompatActivity {
         geoProgressBar.setMax(MAX_PROGRESS);
 
         if (ATTR_MAP.isEmpty()) {
-            ATTR_MAP.add(new GeoAttr("_id", false));
-            ATTR_MAP.add(new GeoAttr("city", false));
-            ATTR_MAP.add(new GeoAttr("country", false));
-            ATTR_MAP.add(new GeoAttr("region", false));
-            ATTR_MAP.add(new GeoAttr("latitude", true));
-            ATTR_MAP.add(new GeoAttr("longitude", true));
-            ATTR_MAP.add(new GeoAttr("currency_code", false));
-            ATTR_MAP.add(new GeoAttr("currency_name", false));
-            ATTR_MAP.add(new GeoAttr("currency_symbol", false));
-            ATTR_MAP.add(new GeoAttr("sunrise", false));
-            ATTR_MAP.add(new GeoAttr("sunset", false));
-            ATTR_MAP.add(new GeoAttr("time_zone", false));
-            ATTR_MAP.add(new GeoAttr("distance_km", true));
+            ATTR_MAP.add(new GeoAttr("_id", R.string.geoCityAttr_0, false));                //  "Database Record ID"
+            ATTR_MAP.add(new GeoAttr("city", R.string.geoCityAttr_1, false));               //  "City"
+            ATTR_MAP.add(new GeoAttr("country", R.string.geoCityAttr_2, false));            //  "Country"
+            ATTR_MAP.add(new GeoAttr("region", R.string.geoCityAttr_3, false));             //  "Region"
+            ATTR_MAP.add(new GeoAttr("latitude", R.string.geoCityAttr_4, true));            //  "Latitude"
+            ATTR_MAP.add(new GeoAttr("longitude", R.string.geoCityAttr_5, true));           //  "Longitude"
+            ATTR_MAP.add(new GeoAttr("currency_code", R.string.geoCityAttr_6, false));      //  "Currency Code"
+            ATTR_MAP.add(new GeoAttr("currency_name", R.string.geoCityAttr_7, false));      //  "Currency Name"
+            ATTR_MAP.add(new GeoAttr("currency_symbol", R.string.geoCityAttr_8, false));    //  "Currency Symbol"
+            ATTR_MAP.add(new GeoAttr("sunrise", R.string.geoCityAttr_9, false));            //  "Sunrise"
+            ATTR_MAP.add(new GeoAttr("sunset", R.string.geoCityAttr_10, false));            //  "Sunset"
+            ATTR_MAP.add(new GeoAttr("time_zone", R.string.geoCityAttr_11, false));         //  "Time Zone"
+            ATTR_MAP.add(new GeoAttr("distance_km", R.string.geoCityAttr_12, true));        //  "Distance km"
         }
 
         geoBtnSearchCities.setOnClickListener( e -> {
@@ -195,10 +195,12 @@ public class GeoDataSource extends AppCompatActivity {
 
     public class GeoAttr {
         String string = null;
+        int resID;
         Boolean isReal;
 
-        GeoAttr(String string, Boolean isReal) {
+        GeoAttr(String string, int resID, Boolean isReal) {
             this.string = string;
+            this.resID = resID;
             this.isReal = isReal;
         }
     }

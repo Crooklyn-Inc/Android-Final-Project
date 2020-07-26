@@ -29,4 +29,23 @@
     <string name="projectName">Финальный Проект</string>
     <string name="open">Открыть</string>
     <string name="close">Закрыть</string>
+    <string name="geoAboutProjectMenuItem">О Данном Проекте</string>
+    <string name="geoCityDetailsTitle">Информация о Городе</string>
+    <string name="geoBtnGoToGoogleMaps">Карта</string>
+    <string name="geoBtnAddToFavourites">Добавить в Избранные</string>
+    <string name="geoBtnRemoveFromFavourites">Удалить из Избранных</string>
+    <string name="geoNotApplicable">Нет в Базе</string>
+    <string name="geoCityAttr_0">ID в Базе</string>
+    <string name="geoCityAttr_1">Название</string>
+    <string name="geoCityAttr_2">Страна</string>
+    <string name="geoCityAttr_3">Регион</string>
+    <string name="geoCityAttr_4">Широта</string>
+    <string name="geoCityAttr_5">Долгота</string>
+    <string name="geoCityAttr_6">Код Денежной Единицы</string>
+    <string name="geoCityAttr_7">Название Денежной Единицы</string>
+    <string name="geoCityAttr_8">Символ Денежной Единицы</string>
+    <string name="geoCityAttr_9">Восход</string>
+    <string name="geoCityAttr_10">Закат</string>
+    <string name="geoCityAttr_11">Часовой Пояс</string>
+    <string name="geoCityAttr_12">Расстояние</string>
 </resources>

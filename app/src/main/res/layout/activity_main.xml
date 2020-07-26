@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/btnDeezerSong" />
-                </LinearLayout>
+        </LinearLayout>
 
         <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
         <com.google.android.material.navigation.NavigationView

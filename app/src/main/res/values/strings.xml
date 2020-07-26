@@ -29,4 +29,23 @@
     <string name="projectName">Final Project</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="geoAboutProjectMenuItem">About This Project</string>
+    <string name="geoCityDetailsTitle">City Information</string>
+    <string name="geoBtnGoToGoogleMaps">Map</string>
+    <string name="geoBtnAddToFavourites">Add To Favourites</string>
+    <string name="geoBtnRemoveFromFavourites">Remove From Favourites</string>
+    <string name="geoNotApplicable">N/A</string>
+    <string name="geoCityAttr_0">DB Record ID</string>
+    <string name="geoCityAttr_1">Name</string>
+    <string name="geoCityAttr_2">Country</string>
+    <string name="geoCityAttr_3">Region</string>
+    <string name="geoCityAttr_4">Latitude</string>
+    <string name="geoCityAttr_5">Longitude</string>
+    <string name="geoCityAttr_6">Currency Code</string>
+    <string name="geoCityAttr_7">Currency Name</string>
+    <string name="geoCityAttr_8">Currency Symbol</string>
+    <string name="geoCityAttr_9">Sunrise</string>
+    <string name="geoCityAttr_10">Sunset</string>
+    <string name="geoCityAttr_11">Time Zone</string>
+    <string name="geoCityAttr_12">Distance</string>
 </resources>
