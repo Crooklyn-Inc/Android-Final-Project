@@ -29,4 +29,9 @@
     <string name="projectName">Финальный Проект</string>
     <string name="open">Открыть</string>
     <string name="close">Закрыть</string>
+    <string name="projectInfo">О проекте</string>
+    <string name="deezerNavigTitle">Поиск песен в Deezer</string>
+    <string name="deezerNavAuthor">Автор проекта Юлия Цветкова</string>
+    <string name="versionN">Версия 1</string>
+
 </resources>

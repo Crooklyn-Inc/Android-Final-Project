@@ -1,38 +1,19 @@
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.nfc.Tag;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Xml;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.finalproject.R;
-
-import org.xmlpull.v1.XmlPullParser;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
 
 public class DeezerSongSearch extends AppCompatActivity {
     ProgressBar progressBar;
@@ -49,6 +30,9 @@ public class DeezerSongSearch extends AppCompatActivity {
         pref = getSharedPreferences("FileName", Context.MODE_PRIVATE);
         String savedString = pref.getString("ReserveName", "");
         artistName.setText(savedString);
+        Toolbar myToolbar = (Toolbar)findViewById(R.id.deezerToolbar);
+        setSupportActionBar(myToolbar);
+
 
         String message = "";
 
@@ -69,6 +53,15 @@ public class DeezerSongSearch extends AppCompatActivity {
         editor.commit();
         Toast.makeText(this, "Your request is proceed " , Toast.LENGTH_SHORT).show();
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.deezer_ьутг, menu);
+        return true;
+    }
+
+
+
 
 
 }

@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/deezerToolbar"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        />
+
+
 
     <ProgressBar
         android:layout_width="match_parent"
@@ -19,6 +28,7 @@
         android:layout_height="wrap_content"
         android:text="Enter  artist's name:"
         android:textSize="20dp" />
+
 
     <EditText
         android:id="@+id/artist"
@@ -43,8 +53,6 @@
         android:layout_marginBottom="10dp"
         android:text="Search"
         />
-
-
 
 
 </LinearLayout>

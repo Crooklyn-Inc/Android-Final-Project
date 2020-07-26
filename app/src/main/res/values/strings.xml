@@ -29,4 +29,11 @@
     <string name="projectName">Final Project</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="projectInfo">About this project</string>
+    <string name="deezerNavigTitle">Deezer Song Search</string>
+    <string name="deezerNavAuthor">Author Yulia Tsvetkova</string>
+    <string name="versionN">Version 1</string>
+
+
+
 </resources>
