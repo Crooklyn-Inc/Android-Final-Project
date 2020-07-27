@@ -13,8 +13,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-//import com.google.android.material.snackbar.Snackbar;
-
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.BufferedReader;
@@ -29,10 +27,13 @@ import java.util.List;
 
 public class GeoDataSource extends AppCompatActivity {
 
-    private static final String FORMATTED_REQUEST = "https://api.geodatasource.com/cities?key=%S&format=json&lat=%S&lng=%S&zoom=14";
+    private static final String FORMATTED_REQUEST = "https://api.geodatasource.com/cities?key=%S&format=json&lat=%S&lng=%S";
     private static final String API_KEY = "YR5XMSKGHMHTIWDKTLRADSUYNYTJNYNK";
     public static final List<GeoAttr> ATTR_MAP = new ArrayList<>(13);
     public static final String ACTIVITY_NAME = "GEO_DATA_SOURCE";
+    public static final int LAT_INDEX = 4;
+    public static final int LON_INDEX = 5;
+    public static final String JSON_INTENT_DATA = "JSON";
 
     private static final int MIN_PROGRESS = 0;
     private static final int MAX_PROGRESS = 100;
@@ -58,22 +59,22 @@ public class GeoDataSource extends AppCompatActivity {
         geoProgressBar.setMax(MAX_PROGRESS);
 
         if (ATTR_MAP.isEmpty()) {
-            ATTR_MAP.add(new GeoAttr("_id", R.string.geoCityAttr_0, false));                //  "Database Record ID"
-            ATTR_MAP.add(new GeoAttr("city", R.string.geoCityAttr_1, false));               //  "City"
-            ATTR_MAP.add(new GeoAttr("country", R.string.geoCityAttr_2, false));            //  "Country"
-            ATTR_MAP.add(new GeoAttr("region", R.string.geoCityAttr_3, false));             //  "Region"
-            ATTR_MAP.add(new GeoAttr("latitude", R.string.geoCityAttr_4, true));            //  "Latitude"
-            ATTR_MAP.add(new GeoAttr("longitude", R.string.geoCityAttr_5, true));           //  "Longitude"
-            ATTR_MAP.add(new GeoAttr("currency_code", R.string.geoCityAttr_6, false));      //  "Currency Code"
-            ATTR_MAP.add(new GeoAttr("currency_name", R.string.geoCityAttr_7, false));      //  "Currency Name"
-            ATTR_MAP.add(new GeoAttr("currency_symbol", R.string.geoCityAttr_8, false));    //  "Currency Symbol"
-            ATTR_MAP.add(new GeoAttr("sunrise", R.string.geoCityAttr_9, false));            //  "Sunrise"
-            ATTR_MAP.add(new GeoAttr("sunset", R.string.geoCityAttr_10, false));            //  "Sunset"
-            ATTR_MAP.add(new GeoAttr("time_zone", R.string.geoCityAttr_11, false));         //  "Time Zone"
-            ATTR_MAP.add(new GeoAttr("distance_km", R.string.geoCityAttr_12, true));        //  "Distance km"
+            ATTR_MAP.add(new GeoAttr("_id", R.string.geoCityAttr_0, false, 5));                //  "Database Record ID"
+            ATTR_MAP.add(new GeoAttr("city", R.string.geoCityAttr_1, false, 22));               //  "City"
+            ATTR_MAP.add(new GeoAttr("country", R.string.geoCityAttr_2, false, 15));            //  "Country"
+            ATTR_MAP.add(new GeoAttr("region", R.string.geoCityAttr_3, false, 18));             //  "Region"
+            ATTR_MAP.add(new GeoAttr("latitude", R.string.geoCityAttr_4, true, 9));            //  "Latitude"
+            ATTR_MAP.add(new GeoAttr("longitude", R.string.geoCityAttr_5, true, 10));           //  "Longitude"
+            ATTR_MAP.add(new GeoAttr("currency_code", R.string.geoCityAttr_6, false, 13));      //  "Currency Code"
+            ATTR_MAP.add(new GeoAttr("currency_name", R.string.geoCityAttr_7, false, 22));      //  "Currency Name"
+            ATTR_MAP.add(new GeoAttr("currency_symbol", R.string.geoCityAttr_8, false, 15));    //  "Currency Symbol"
+            ATTR_MAP.add(new GeoAttr("sunrise", R.string.geoCityAttr_9, false, 7));            //  "Sunrise"
+            ATTR_MAP.add(new GeoAttr("sunset", R.string.geoCityAttr_10, false, 6));            //  "Sunset"
+            ATTR_MAP.add(new GeoAttr("time_zone", R.string.geoCityAttr_11, false, 9));         //  "Time Zone"
+            ATTR_MAP.add(new GeoAttr("distance_km", R.string.geoCityAttr_12, true, 11));        //  "Distance km"
         }
 
-        geoBtnSearchCities.setOnClickListener( e -> {
+        geoBtnSearchCities.setOnClickListener( v -> {
             String latStr = geoEditTxtLat.getText().toString().trim();
             String lonStr = geoEditTxtLon.getText().toString().trim();
 
@@ -100,6 +101,11 @@ public class GeoDataSource extends AppCompatActivity {
             String request = String.format(FORMATTED_REQUEST, API_KEY, latStr, lonStr);
             geoProgressBar.setVisibility(View.VISIBLE);
             (new GeoDataRequest()).execute(request);
+        });
+
+        geoBtnFavourites.setOnClickListener( v -> {
+            Intent cityListIntent = new Intent(GeoDataSource.this, GeoCityList.class);
+            startActivity(cityListIntent);
         });
     }
 
@@ -142,9 +148,9 @@ public class GeoDataSource extends AppCompatActivity {
 
                 if (!(jsonString == null || jsonString.isEmpty())) {
                     int progress = 5;
-                    while (progress < 95) {
+                    while (progress < 90) {
                         publishProgress(progress += 5);
-                        Thread.sleep(50);
+                        Thread.sleep(20);
                     }
                 }
             } catch (MalformedURLException e) {
@@ -179,7 +185,7 @@ public class GeoDataSource extends AppCompatActivity {
             geoProgressBar.setProgress(MAX_PROGRESS);
 
             Intent cityListIntent = new Intent(GeoDataSource.this, GeoCityList.class);
-            cityListIntent.putExtra("json", result);
+            cityListIntent.putExtra(JSON_INTENT_DATA, result);
             startActivityForResult(cityListIntent, REQUEST_CITY_DISPLAY);
         }
     }
@@ -197,11 +203,13 @@ public class GeoDataSource extends AppCompatActivity {
         String string = null;
         int resID;
         Boolean isReal;
+        int logColumnWidth;
 
-        GeoAttr(String string, int resID, Boolean isReal) {
+        GeoAttr(String string, int resID, Boolean isReal, int logColumnWidth) {
             this.string = string;
             this.resID = resID;
             this.isReal = isReal;
+            this.logColumnWidth = logColumnWidth;
         }
     }
 }

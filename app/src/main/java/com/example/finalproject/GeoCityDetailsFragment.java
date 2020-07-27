@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,8 +30,10 @@ public class GeoCityDetailsFragment extends Fragment {
 
     private OnCityStatusChangeListener onCityStatusChangeListener;
     ListView geoListViewCityAttributes;
+    Button geoBtnAddRemoveFavourites;
     private Bundle incomingBundle;
     private long incomingCityId;
+    private static final String GOOGLE_MAP_REQUEST = "https://www.google.com/maps/@?api=1&map_action=map&center=%S,%S&zoom=15";
 
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -91,16 +95,30 @@ public class GeoCityDetailsFragment extends Fragment {
         incomingBundle = getArguments();
         incomingCityId = incomingBundle.getLong(GeoDataSource.ATTR_MAP.get(0).string);
 
-        View inflatedView =  inflater.inflate(R.layout.fragment_geo_city_details, container, false);
+        View inflatedView = inflater.inflate(R.layout.fragment_geo_city_details, container, false);
 
         ImageView geoImgViewFavouriteSign = inflatedView.findViewById(R.id.geoImgViewFavouriteSign);
-        geoImgViewFavouriteSign.setImageResource(incomingCityId > 0 ? R.drawable.ic_geo_favourite : R.drawable.ic_geo_unfavourite);
+        geoImgViewFavouriteSign.setImageResource(incomingCityId > 0 ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off);
 
         Button geoBtnAddRemoveFavourites = inflatedView.findViewById(R.id.geoBtnAddRemoveFavourites);
         geoBtnAddRemoveFavourites.setText(incomingCityId > 0 ? R.string.geoBtnRemoveFromFavourites : R.string.geoBtnAddToFavourites);
 
         geoListViewCityAttributes = inflatedView.findViewById(R.id.geoListViewCityAttributes);
         geoListViewCityAttributes.setAdapter(new GeoListViewCityAttrAdapter());
+
+        geoBtnAddRemoveFavourites = inflatedView.findViewById(R.id.geoBtnAddRemoveFavourites);
+
+        geoBtnAddRemoveFavourites.setOnClickListener( v -> onCityStatusChangeListener.onCityStatusChange(incomingCityId));
+
+        Button geoBtnGoToGoogleMaps = inflatedView.findViewById(R.id.geoBtnGoToGoogleMaps);
+
+        geoBtnGoToGoogleMaps.setOnClickListener( v -> {
+            String latStr = String.valueOf(incomingBundle.getDouble(GeoDataSource.ATTR_MAP.get(GeoDataSource.LAT_INDEX).string));
+            String lonStr = String.valueOf(incomingBundle.getDouble(GeoDataSource.ATTR_MAP.get(GeoDataSource.LON_INDEX).string));
+            String urlString = String.format(GOOGLE_MAP_REQUEST, latStr, lonStr);
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+            startActivity(browserIntent);
+       });
 
         return inflatedView;
     }
@@ -119,7 +137,7 @@ public class GeoCityDetailsFragment extends Fragment {
                 return (cityID > 0) ? String.valueOf(cityID) : getString(R.string.geoNotApplicable);
             }
             else if (GeoDataSource.ATTR_MAP.get(position).isReal) {
-                return String.format("%.4f \\u00B0", Math.round(incomingBundle.getDouble(GeoDataSource.ATTR_MAP.get(position).string) * 10000d) / 10000d);
+                return String.format("%.6f\u00B0", Math.round(incomingBundle.getDouble(GeoDataSource.ATTR_MAP.get(position).string) * 1000000d) / 1000000d);
             }
             else {
                 return incomingBundle.getString(GeoDataSource.ATTR_MAP.get(position).string);
@@ -141,11 +159,11 @@ public class GeoCityDetailsFragment extends Fragment {
             }
             else newView = convertView;
 
-            TextView geoTxtViewCityRow = newView.findViewById(R.id.geoTxtViewCityAttrName);
-            geoTxtViewCityRow.setText(getString(GeoDataSource.ATTR_MAP.get(0).resID));
+            TextView geoTxtViewCityAttrName = newView.findViewById(R.id.geoTxtViewCityAttrName);
+            geoTxtViewCityAttrName.setText(getString(GeoDataSource.ATTR_MAP.get(position).resID));
 
-            TextView geoTxtViewCityDistRow = newView.findViewById(R.id.geoTxtViewCityAttrValue);
-            geoTxtViewCityDistRow.setText((String) getItem(position));
+            TextView geoTxtViewCityAttrValue = newView.findViewById(R.id.geoTxtViewCityAttrValue);
+            geoTxtViewCityAttrValue.setText((String) getItem(position));
 
             return newView;
         }

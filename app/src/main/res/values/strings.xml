@@ -48,4 +48,6 @@
     <string name="geoCityAttr_10">Sunset</string>
     <string name="geoCityAttr_11">Time Zone</string>
     <string name="geoCityAttr_12">Distance</string>
+    <string name="geoMessageCityAddedToFavourites">has been added to Favourites</string>
+    <string name="geoMessageCityRemovedFromFavourites">has been removed from Favourites</string>
 </resources>

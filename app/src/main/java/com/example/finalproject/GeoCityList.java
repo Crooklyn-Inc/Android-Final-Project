@@ -2,8 +2,12 @@ package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +28,16 @@ import java.util.ArrayList;
 public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFragment.OnCityStatusChangeListener {
 
     static final int RESULT_NO_CITY_IN_JSON = 200;
+    static final String CITY_LIST_POSITION = "city_list_position";
+
+    private SQLiteDatabase sqlLiteDb = null;
     private ArrayList<ArrayList<Object>> cityWebDataArray = new ArrayList<ArrayList<Object>>();
-    ListView geoListViewCities;
-    GeoListViewAdapter geoListViewAdapter;
+    private ArrayList<ArrayList<Object>> favouriteCityArray = new ArrayList<ArrayList<Object>>();
+    private ListView geoListViewCities;
+    private GeoListViewAdapter geoListViewAdapter;
+    private boolean isTablet;
+    private View selectedListView;
+    private int selectedListPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,58 +45,83 @@ public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFrag
         setContentView(R.layout.activity_geo_city_list);
 
         geoListViewCities = findViewById(R.id.geoListViewCities);
-        boolean isTablet = findViewById(R.id.geoFrameLayout) != null;
+        isTablet = findViewById(R.id.geoFrameLayout) != null;
+        selectedListView = null;
+        selectedListPosition = -1;
 
         clearArrList(cityWebDataArray);
         Intent intent = getIntent();
-        String json = intent.getStringExtra("json");
+        String json = intent.getStringExtra(GeoDataSource.JSON_INTENT_DATA);
 
-        try {
-            JSONObject jObject;
-            ArrayList<Object> singleCityArray;
-            JSONArray jArray = new JSONArray(json);
+        loadDataFromDatabase();
 
-            for(int i = 0; i < jArray.length(); i++) {
-                try {
-                    jObject = jArray.getJSONObject(i);
-                    singleCityArray = new ArrayList<>(GeoDataSource.ATTR_MAP.size());
-
-                    singleCityArray.add(new Long(-i));
-                    for (int k = 1; k < GeoDataSource.ATTR_MAP.size(); k++) {
-                        singleCityArray.add(GeoDataSource.ATTR_MAP.get(k).isReal ? jObject.getDouble(GeoDataSource.ATTR_MAP.get(k).string) : jObject.getString(GeoDataSource.ATTR_MAP.get(k).string));
-                    }
-
-                    cityWebDataArray.add(singleCityArray);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (json == null) {
+            cityWebDataArray.addAll(favouriteCityArray);
+            favouriteCityArray.clear();
+            favouriteCityArray = null;
         }
+        else {
+            try {
+                JSONObject jObject;
+                ArrayList<Object> singleCityArray;
+                JSONArray jArray = new JSONArray(json);
 
-        if (cityWebDataArray == null || cityWebDataArray.isEmpty()) {
-            setResult(RESULT_NO_CITY_IN_JSON);
-            finish();
-            return;
+                for (int i = 0; i < jArray.length(); i++) {
+                    try {
+                        jObject = jArray.getJSONObject(i);
+                        singleCityArray = new ArrayList<>(GeoDataSource.ATTR_MAP.size());
+
+                        singleCityArray.add(new Long(-i));
+                        for (int k = 1; k < GeoDataSource.ATTR_MAP.size(); k++) {
+                            singleCityArray.add(GeoDataSource.ATTR_MAP.get(k).isReal ? jObject.getDouble(GeoDataSource.ATTR_MAP.get(k).string) : jObject.getString(GeoDataSource.ATTR_MAP.get(k).string));
+                        }
+
+                        for (ArrayList<Object> favouriteCity: favouriteCityArray) {
+                            if (areSameCities(singleCityArray, favouriteCity)) {
+                                singleCityArray.set(0, favouriteCity.get(0));
+                                break;
+                            }
+                        }
+                        cityWebDataArray.add(singleCityArray);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                clearArrList(favouriteCityArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (cityWebDataArray == null || cityWebDataArray.isEmpty()) {
+                setResult(RESULT_NO_CITY_IN_JSON);
+                finish();
+                return;
+            }
         }
 
         geoListViewCities.setAdapter(geoListViewAdapter = new GeoListViewAdapter());
+        geoListViewCities.smoothScrollToPosition(0);
 
-        geoListViewCities.setOnItemClickListener((list, item, position, id) -> {
+        geoListViewCities.setOnItemClickListener((parent, view, position, id) -> {
+            selectedListPosition = position;
             //Create a bundle to pass data to the new fragment
             Bundle dataToPass = new Bundle();
             dataToPass.putLong(GeoDataSource.ATTR_MAP.get(0).string, id);
             for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
                 if(GeoDataSource.ATTR_MAP.get(i).isReal) {
-                    dataToPass.putDouble(GeoDataSource.ATTR_MAP.get(0).string, (Double)cityWebDataArray.get(position).get(i));
+                    dataToPass.putDouble(GeoDataSource.ATTR_MAP.get(i).string, (Double)cityWebDataArray.get(position).get(i));
                 }
                 else {
-                    dataToPass.putString(GeoDataSource.ATTR_MAP.get(0).string, (String)cityWebDataArray.get(position).get(i));
+                    dataToPass.putString(GeoDataSource.ATTR_MAP.get(i).string, (String)cityWebDataArray.get(position).get(i));
                 }
             }
 
             if(isTablet) {
+                if (selectedListView != null)
+                    selectedListView.setBackgroundColor(getColor(android.R.color.transparent));
+                view.setBackgroundColor(getColor(R.color.colorGeoBackground));
+                selectedListView = view;
 
                 GeoCityDetailsFragment gcdFragment = new GeoCityDetailsFragment();
                 gcdFragment.setArguments(dataToPass);
@@ -96,13 +132,24 @@ public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFrag
             }
             else {
                 Intent nextActivity = new Intent(GeoCityList.this, GeoCityInfo.class);
+                dataToPass.putLong(CITY_LIST_POSITION, (new Long(position)).longValue());
                 nextActivity.putExtras(dataToPass); //send data to next activity
-                startActivity(nextActivity); //make the transition
+                startActivityForResult(nextActivity, 10); //make the transition
             }
         });
 
         Toast.makeText(GeoCityList.this, cityWebDataArray.size() + " " + getString(R.string.geoMessageNumberOfCitiesFound), Toast.LENGTH_LONG).show();
         Snackbar.make(geoListViewCities, cityWebDataArray.size() + " " + getString(R.string.geoMessageNumberOfCitiesFound), Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -115,13 +162,16 @@ public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFrag
         super.onDestroy();
         clearArrList(cityWebDataArray);
         cityWebDataArray = null;
+        if (sqlLiteDb != null) sqlLiteDb.close();
     }
 
     private void clearArrList(ArrayList<ArrayList<Object>> arrListOfArrLists) {
         if (!arrListOfArrLists.isEmpty()) {
             for(ArrayList<Object> array: arrListOfArrLists) {
-                for(Object obj: array) obj = null;
-                array.clear();
+                if (array != null) {
+                    for (Object obj : array) obj = null;
+                    array.clear();
+                }
             }
             arrListOfArrLists.clear();
         }
@@ -129,7 +179,28 @@ public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFrag
 
     @Override
     public void onCityStatusChange(Long index) {
-
+        if (index <= 0L) {
+            cityWebDataArray.get(-index.intValue()).set(0, addCityToFavourites(-index.intValue()));
+            ImageView geoImgViewFavouriteSign = selectedListView.findViewById(R.id.geoImgViewFavouriteSign);
+            geoImgViewFavouriteSign.setImageResource(android.R.drawable.btn_star_big_on);
+            geoListViewCities.performItemClick(selectedListView, -index.intValue(), geoListViewCities.getItemIdAtPosition(-index.intValue()));
+            Toast.makeText(GeoCityList.this, cityWebDataArray.get(-index.intValue()).get(1) + " " + getString(R.string.geoMessageCityAddedToFavourites), Toast.LENGTH_LONG).show();
+        }
+        else {
+            ArrayList<Object> tempArray;
+            for (int i = 0; i < cityWebDataArray.size() ; i++) {
+                tempArray = cityWebDataArray.get(i);
+                if (((Long)tempArray.get(0)).equals(index)) {
+                    removeCityFromFavourites(index);
+                    tempArray.set(0, new Long(-i));
+                    ImageView geoImgViewFavouriteSign = selectedListView.findViewById(R.id.geoImgViewFavouriteSign);
+                    geoImgViewFavouriteSign.setImageResource(android.R.drawable.btn_star_big_off);
+                    geoListViewCities.performItemClick(selectedListView, i, geoListViewCities.getItemIdAtPosition(i));
+                    Toast.makeText(GeoCityList.this, cityWebDataArray.get(i).get(1) + " " + getString(R.string.geoMessageCityRemovedFromFavourites), Toast.LENGTH_LONG).show();
+                    break;
+                }
+            }
+        }
     }
 
     class GeoListViewAdapter extends BaseAdapter {
@@ -157,16 +228,134 @@ public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFrag
             if (convertView == null) {
                 newView = inflater.inflate(R.layout.geo_city_row, parent, false);
             }
-            else newView = convertView;
+            else {
+                newView = convertView;
+                if (isTablet) newView.setBackgroundColor(getColor(android.R.color.transparent));
+            }
+
+            if (selectedListPosition == position && isTablet) newView.setBackgroundColor(getColor(R.color.colorGeoBackground));
 
             ImageView geoImgViewFavouriteSign = newView.findViewById(R.id.geoImgViewFavouriteSign);
-            geoImgViewFavouriteSign.setImageResource((Long)cityWebDataArray.get(position).get(0) > 0 ? R.drawable.ic_geo_favourite : R.drawable.ic_geo_unfavourite);
+            geoImgViewFavouriteSign.setImageResource((Long)cityWebDataArray.get(position).get(0) > 0 ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off);
             TextView geoTxtViewCityRow = newView.findViewById(R.id.geoTxtViewCityRow);
             geoTxtViewCityRow.setText((String) getItem(position));
             TextView geoTxtViewCityDistRow = newView.findViewById(R.id.geoTxtViewCityDistRow);
-            geoTxtViewCityDistRow.setText(String.format("%.1f km", Math.round((Double) cityWebDataArray.get(position).get(GeoDataSource.ATTR_MAP.size() - 1) * 10d) / 10d));
+            Double distance = (Double) cityWebDataArray.get(position).get(GeoDataSource.ATTR_MAP.size() - 1);
+            geoTxtViewCityDistRow.setText(distance == null ? "" : String.format("%.1f km", Math.round(distance * 10d) / 10d));
 
             return newView;
+        }
+    }
+
+    private void loadDataFromDatabase() {
+        GeoDBOpener dbOpener = new GeoDBOpener(this);
+        clearArrList(favouriteCityArray);
+        sqlLiteDb = dbOpener.getWritableDatabase();
+
+        String[] columns = new String[GeoDataSource.ATTR_MAP.size() - 1];
+        for (int i = 0; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
+            columns[i] = GeoDataSource.ATTR_MAP.get(i).string.toUpperCase();
+        }
+        Cursor cursor = sqlLiteDb.query(false, GeoDBOpener.TABLE_NAME, columns, null, null, null, null, null, null);
+
+        int[] columnMap = new int[GeoDataSource.ATTR_MAP.size() - 1];
+        cursor.moveToFirst();
+        columnMap[0] = cursor.getColumnIndex(GeoDataSource.ATTR_MAP.get(0).string);
+        for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
+            columnMap[i] = cursor.getColumnIndex(GeoDataSource.ATTR_MAP.get(i).string.toUpperCase());
+        }
+        printCursor(cursor);
+
+        ArrayList<Object> singleCityArray;
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            singleCityArray = new ArrayList<>(GeoDataSource.ATTR_MAP.size());
+            singleCityArray.add(cursor.getLong(columnMap[0]));
+            for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
+                if (GeoDataSource.ATTR_MAP.get(i).isReal) {
+                    singleCityArray.add(cursor.getDouble(columnMap[i]));
+                }
+                else {
+                    singleCityArray.add(cursor.getString(columnMap[i]));
+                }
+            }
+            singleCityArray.add(null);
+            favouriteCityArray.add(singleCityArray);
+            cursor.moveToNext();
+        }
+    }
+
+    long addCityToFavourites(int index) {
+        ContentValues contentValues = new ContentValues();
+        for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
+            if (GeoDataSource.ATTR_MAP.get(i).isReal) {
+                contentValues.put(GeoDataSource.ATTR_MAP.get(i).string.toUpperCase(), (Double)cityWebDataArray.get(index).get(i));
+            }
+            else {
+                contentValues.put(GeoDataSource.ATTR_MAP.get(i).string.toUpperCase(), (String)cityWebDataArray.get(index).get(i));
+            }
+        }
+        long newRecordId = sqlLiteDb.insert(GeoDBOpener.TABLE_NAME, null, contentValues);
+        printCursor();
+        return newRecordId;
+    }
+
+    void removeCityFromFavourites(Long id) {
+        sqlLiteDb.delete(GeoDBOpener.TABLE_NAME, GeoDBOpener.COL_ID + " = ?", new String[] {id.toString()});
+        printCursor();
+    }
+
+    private boolean areSameCities(ArrayList<Object> city1, ArrayList<Object> city2) {
+        for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
+            if (GeoDataSource.ATTR_MAP.get(i).isReal) {
+                if (!((Double)city1.get(i)).equals((Double)city2.get(i))) return false;
+            }
+            else {
+                if (!((String)city1.get(i)).equals((String)city2.get(i))) return false;
+            }
+        }
+        return true;
+    }
+
+    private void printCursor() {
+        if (sqlLiteDb != null) {
+            String[] columns = new String[GeoDataSource.ATTR_MAP.size() - 1];
+            columns[0] = GeoDataSource.ATTR_MAP.get(0).string;
+            for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
+                columns[i] = GeoDataSource.ATTR_MAP.get(i).string.toUpperCase();
+            }
+            printCursor(sqlLiteDb.query(false, GeoDBOpener.TABLE_NAME, columns, null, null, null, null, null, null));
+        }
+    }
+
+    private void printCursor(Cursor c) {
+        int numOfCols = c.getColumnCount();
+        int numOfRows = c.getCount();
+        StringBuilder sb;
+
+        Log.i("Database version number", String.valueOf(sqlLiteDb.getVersion()));
+        Log.i("Number of columns", String.format("%7d", numOfCols));
+        Log.i("Number of rows", String.format("%10d", numOfRows));
+
+        sb = new StringBuilder();
+        sb.append(String.format("%" + GeoDataSource.ATTR_MAP.get(0).logColumnWidth + "s", c.getColumnNames()[0]));
+        for(int k = 1; k < numOfCols; k++) {
+            sb.append(" | " + String.format("%" + GeoDataSource.ATTR_MAP.get(k).logColumnWidth + "s", c.getColumnNames()[k]));
+        }
+
+        Log.i("Column names", sb.toString());
+
+        c.moveToFirst();
+        for(int i = 0; i < numOfRows; i++) {
+            sb = new StringBuilder();
+            sb.append(String.format("%" + GeoDataSource.ATTR_MAP.get(0).logColumnWidth + "s", c.getString(0)));
+            for(int k = 1; k < numOfCols; k++) {
+                sb.append(" | " + String.format("%" + GeoDataSource.ATTR_MAP.get(k).logColumnWidth + "s", c.getString(k)));
+            }
+
+            Log.i(String.format("Row # %6d", i), sb.toString());
+
+            c.moveToNext();
         }
     }
 }

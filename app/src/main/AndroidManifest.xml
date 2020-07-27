@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GeoCityInfo"></activity>
+        <activity android:name=".GeoCityInfo"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".GeoCityList"
             android:configChanges="keyboardHidden|orientation|screenSize" />

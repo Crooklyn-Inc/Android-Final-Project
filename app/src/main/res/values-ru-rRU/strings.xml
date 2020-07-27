@@ -48,4 +48,6 @@
     <string name="geoCityAttr_10">Закат</string>
     <string name="geoCityAttr_11">Часовой Пояс</string>
     <string name="geoCityAttr_12">Расстояние</string>
+    <string name="geoMessageCityAddedToFavourites">добавлен в Избранные</string>
+    <string name="geoMessageCityRemovedFromFavourites">удален из Избранных</string>
 </resources>

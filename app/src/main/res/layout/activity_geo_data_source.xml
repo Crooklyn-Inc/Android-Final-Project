@@ -25,7 +25,7 @@
         android:inputType="numberSigned|numberDecimal"
         android:paddingVertical="15dp"
         android:textSize="18sp"
-        android:text="37.3861" />
+        android:text="45.4215" />
 
     <EditText
         android:id="@+id/geoEditTxtLon"
@@ -36,7 +36,7 @@
         android:inputType="numberSigned|numberDecimal"
         android:paddingVertical="15dp"
         android:textSize="18sp"
-        android:text="-122.084" />
+        android:text="-75.6972" />
 
     <ProgressBar
         android:id="@+id/geoProgressBar"

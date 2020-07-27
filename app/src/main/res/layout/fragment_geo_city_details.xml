@@ -14,7 +14,7 @@
         android:layout_marginTop="3dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="3dp"
-        android:src="@drawable/ic_geo_favourite" />
+        android:src="@android:drawable/btn_star_big_on" />
 
     <TextView
         android:id="@+id/geoTxtViewCityDetailsTitle"
@@ -42,8 +42,8 @@
         android:layout_below="@id/geoTxtViewCityDetailsTitle"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
+        android:divider="@color/colorGeoListDivider"
+        android:dividerHeight="3px"
         android:paddingVertical="5dp"
         android:stackFromBottom="false"
         android:textSize="18sp"

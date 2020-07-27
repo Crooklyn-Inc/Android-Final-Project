@@ -2,11 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="5dp"
-    android:paddingRight="5dp"
-    android:paddingLeft="5dp"
     android:clipToPadding="false"
-    android:tag="receive">
+    android:paddingVertical="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
 
     <ImageView
         android:id="@+id/geoImgViewFavouriteSign"
@@ -15,7 +14,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
-        android:src="@drawable/ic_geo_favourite" />
+        android:src="@android:drawable/btn_star_big_on" />
 
     <TextView
         android:id="@+id/geoTxtViewCityRow"
@@ -41,11 +40,11 @@
         android:layout_alignTop="@id/geoTxtViewCityRow"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginBottom="3dp"
         android:paddingLeft="5dp"
         android:paddingTop="3dp"
-        android:paddingRight="5dp"
+        android:paddingRight="10dp"
         android:paddingBottom="5dp"
         android:textSize="18sp" />
 
