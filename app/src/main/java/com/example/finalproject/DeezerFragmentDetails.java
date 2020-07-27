@@ -29,7 +29,7 @@ public class DeezerFragmentDetails extends Fragment {
         dataFromActivity = getArguments();
 
 
-        View result = inflater.inflate(R.layout.deezer_fragment_details_activity, container, false);
+        View result = inflater.inflate(R.layout.fragment_deezer_details, container, false);
         ImageView albumImage = (ImageView) result.findViewById(R.id.albumImageView);
         TextView albumTitle = (TextView) result.findViewById(R.id.albumTitle);
         TextView title = (TextView) result.findViewById(R.id.title);
