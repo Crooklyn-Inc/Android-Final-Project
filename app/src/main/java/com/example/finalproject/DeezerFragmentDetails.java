@@ -32,8 +32,11 @@ public class DeezerFragmentDetails extends Fragment {
         View result = inflater.inflate(R.layout.fragment_deezer_details, container, false);
         ImageView albumImage = (ImageView) result.findViewById(R.id.albumImageView);
         TextView albumTitle = (TextView) result.findViewById(R.id.albumTitle);
+        albumTitle.setText("Album Name : \"" + dataFromActivity.getString(Deezer_activity3.ALBUM_NAME) + "\"");
         TextView title = (TextView) result.findViewById(R.id.title);
+        title.setText("Song Name : \"" + dataFromActivity.getString(Deezer_activity3.TITLE) + "\"");
         TextView songDuration = (TextView) result.findViewById(R.id.songDuration);
+       songDuration.setText("Duration : \"" + dataFromActivity.getString(Deezer_activity3.DURATION) + "\"");
 
         return result;
     }

@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".DeezerEmptyActivity"></activity>
 
-            tools:ignore="Instantiatable" />
+
         <activity android:name=".Deezer_activity3" />
         <activity
             android:name=".GeoCityList"
