@@ -36,11 +36,12 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
 
     @Override
     public void onCityStatusChange(Long index) {
+        GeoCityDetailsFragment gcdFragment = new GeoCityDetailsFragment();
+        if (sqlLiteDb == null) sqlLiteDb = (new GeoDBOpener(this)).getWritableDatabase();
+
         if (index > 0L) {
-            if (sqlLiteDb == null) sqlLiteDb = (new GeoDBOpener(this)).getWritableDatabase();
             removeCityFromFavourites(index);
             incomingBundle.putLong(GeoDataSource.ATTR_MAP.get(0).string, -incomingBundle.getLong(GeoCityList.CITY_LIST_POSITION));
-            GeoCityDetailsFragment gcdFragment = new GeoCityDetailsFragment();
             gcdFragment.setArguments(incomingBundle);
             getSupportFragmentManager()
                     .beginTransaction()
@@ -49,7 +50,6 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
         }
         else {
             incomingBundle.putLong(GeoDataSource.ATTR_MAP.get(0).string, addCityToFavourites(incomingBundle));
-            GeoCityDetailsFragment gcdFragment = new GeoCityDetailsFragment();
             gcdFragment.setArguments(incomingBundle);
             getSupportFragmentManager()
                     .beginTransaction()
