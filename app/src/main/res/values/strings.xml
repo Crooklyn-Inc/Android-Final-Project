@@ -36,6 +36,7 @@
     <string name="deezToolAboutProject">This is the Deezer activity, written by Yulia Tsvetkova</string>
     <string name="deezerSearch">Deezer Song Search</string>
     <string name="deezerFavor">Favourites</string>
+    <string name="alertBuilderTitle2">Do you want to delete this song from your favourites?</string>
 
 
 </resources>

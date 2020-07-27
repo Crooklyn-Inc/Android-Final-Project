@@ -39,7 +39,7 @@ public class DeezerSongSearch extends AppCompatActivity {
 
         Button favor = findViewById(R.id.deezFavourites);
         favor.setOnClickListener( v -> {
-            Intent deezerAct3 = new Intent(DeezerSongSearch.this, Dee.class);
+            Intent deezerAct3 = new Intent(DeezerSongSearch.this, Deezer_activity3.class);
             deezerAct3.putExtra(EXTRA_MESSAGE, artistName.getText().toString().trim());
             startActivity(deezerAct3);
         });

@@ -25,6 +25,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.MyAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,6 +87,7 @@ public class Deezer_activity1 extends AppCompatActivity {
 
         UserQuery userQuery = new UserQuery();
         userQuery.execute(api_url_artist);
+
 
 
 
@@ -156,17 +159,6 @@ public class Deezer_activity1 extends AppCompatActivity {
            // return false;
         });
 
-//        public void  updateDB(DeezerSongModel d)
-//        {
-//            //Create a ContentValues object to represent a database row:
-//            ContentValues updatedValues = new ContentValues();
-//            updatedValues.put(DeezerSongDBHelper.COL_TITLE, d.getTitle());
-//            updatedValues.put(DeezerSongDBHelper.COL_DURATION, d.getDuration());
-//            updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, d.getAlbum_name());
-//
-//            //now call the update function:
-//            db.update(DeezerSongDBHelper.DB_TABLE, updatedValues, DeezerSongDBHelper.COL_SONG_ID + "= ?", new String[] {Long.toString(d.getId())});
-//        }
 
     }
 
@@ -342,49 +334,49 @@ public class Deezer_activity1 extends AppCompatActivity {
     }
 
 
-    class MyAdapter extends BaseAdapter {
-        Context context;
-        ArrayList<DeezerSongModel> arrayList;
-
-        public MyAdapter(Context context, ArrayList<DeezerSongModel> arrayList) {
-            this.context = context;
-            this.arrayList = arrayList;
-        }
-
-
-        @Override
-        public int getCount() {
-            return arrayList.size();
-        }
-
-        @Override
-        public DeezerSongModel getItem(int position) {
-            return arrayList.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return getItem(position).getId();
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-    //        layout for this position
-
-            if (convertView ==  null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.list_songs_row, parent, false);
-            }
-            TextView title, duration, album_name;
-            title = (TextView) convertView.findViewById(R.id.songtitle);
-           // duration = (TextView) convertView.findViewById(R.id.duration);
-          //  album_name = (TextView) convertView.findViewById(R.id.album_name);
-            title.setText(arrayList.get(position).getTitle());
-           // duration.setText(arrayList.get(position).getDuration());
-            //album_name.setText(arrayList.get(position).getAlbum_name());
-
-            return convertView;
-        }
-
-    }
+//    class MyAdapter extends BaseAdapter {
+//        Context context;
+//        ArrayList<DeezerSongModel> arrayList;
+//
+//        public MyAdapter(Context context, ArrayList<DeezerSongModel> arrayList) {
+//            this.context = context;
+//            this.arrayList = arrayList;
+//        }
+//
+//
+//        @Override
+//        public int getCount() {
+//            return arrayList.size();
+//        }
+//
+//        @Override
+//        public DeezerSongModel getItem(int position) {
+//            return arrayList.get(position);
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return getItem(position).getId();
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//    //        layout for this position
+//
+//            if (convertView ==  null) {
+//                convertView = LayoutInflater.from(context).inflate(R.layout.list_songs_row, parent, false);
+//            }
+//            TextView title, duration, album_name;
+//            title = (TextView) convertView.findViewById(R.id.songtitle);
+//           // duration = (TextView) convertView.findViewById(R.id.duration);
+//          //  album_name = (TextView) convertView.findViewById(R.id.album_name);
+//            title.setText(arrayList.get(position).getTitle());
+//           // duration.setText(arrayList.get(position).getDuration());
+//            //album_name.setText(arrayList.get(position).getAlbum_name());
+//
+//            return convertView;
+//        }
+//
+//    }
 }
 
