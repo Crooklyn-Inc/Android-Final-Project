@@ -6,26 +6,26 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:allowBackup="true"
-            android:fullBackupContent="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity
-                android:name=".DeezerEmptyActivity"
-                tools:ignore="Instantiatable" />
+            android:name=".DeezerEmptyActivity"
+            tools:ignore="Instantiatable" />
         <activity android:name=".Deezer_activity3" />
         <activity
-                android:name=".GeoCityList"
-                android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:name=".GeoCityList"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".DeezerSongSearch" />
         <activity android:name=".SongLyricsSearch" />
         <activity android:name=".SoccerMatchHighlights" />
         <activity
-                android:name=".GeoDataSource"
-                android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:name=".GeoDataSource"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".DeezerCustomProgressBarActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
