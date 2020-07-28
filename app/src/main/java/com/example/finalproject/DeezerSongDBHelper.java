@@ -22,11 +22,12 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
     static final String COL_DURATION = "Duration";
     static final String COL_SONG_ID = "_id";
     static final String COL_ALBUM_NAME = "Album_Name";
+    static final String COL_ALBUM_IMAGE = "Album_Image";
     boolean isSaved;
 
     static final int VERSION_NUM = 1;
     //queries
-    private static final String CREATE_TABLE = "CREATE TABLE "+DB_TABLE+" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+COL_TITLE +" TEXT,"+COL_ALBUM_NAME  +" TEXT, "+COL_DURATION+" TEXT);";
+    private static final String CREATE_TABLE = "CREATE TABLE "+DB_TABLE+" (_id INTEGER PRIMARY KEY AUTOINCREMENT, "+COL_TITLE +" TEXT,"+COL_ALBUM_NAME  +" TEXT, "+COL_DURATION+" TEXT, "+COL_ALBUM_IMAGE+" TEXT);";
 
     public DeezerSongDBHelper(Context context) {
         super(context,DB_NAME, null, VERSION_NUM );
@@ -88,7 +89,7 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
 
 
     //insert data
-    public boolean insertData(String title, String duration, String album_name) {
+    public boolean insertData(String title, String duration, String album_name, String album_url) {
 
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -98,6 +99,7 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
 
             contentValues.put(DeezerSongDBHelper.COL_DURATION, duration);
             contentValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, album_name);
+            contentValues.put(DeezerSongDBHelper.COL_ALBUM_IMAGE, album_url);
 
         long result = db.insert(DeezerSongDBHelper.DB_TABLE, null, contentValues);
 
