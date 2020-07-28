@@ -3,7 +3,7 @@
 
 
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_weather_forecast"
+    android:id="@+id/activity_deezer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"

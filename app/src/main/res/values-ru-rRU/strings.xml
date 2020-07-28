@@ -72,4 +72,12 @@
     <string name="geoActivityName">Источник Гео Данных - Поиск Ближайших Городов по Широте и Долготе</string>
     <string name="geoAuthor">Автор: Павел Самарин</string>
     <string name="geoVersionNumber">Версия: 1.1.1</string>
+    <string name="projectInfo">О проекте</string>
+    <string name="deezerNavigTitle">Поиск песен в Deezer</string>
+    <string name="deezerNavAuthor">Автор проекта Юлия Цветкова</string>
+    <string name="versionN">Версия 1</string>
+    <string name="deezToolAboutProject">Deezer проект, автор Юлия Цветкова</string>
+    <string name="deezerSearch">Поиск в Deezer</string>
+    <string name="alertBuilderTitle2">Вы хотите удалить из избранного?</string>
+    <string name="deezerFavor">Избранное</string>
 </resources>
