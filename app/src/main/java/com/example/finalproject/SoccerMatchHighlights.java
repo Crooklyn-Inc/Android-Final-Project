@@ -139,7 +139,7 @@ public class SoccerMatchHighlights extends AppCompatActivity {
                 JSONArray jArray = new JSONArray(result);
 
 
-                int publishProgress = 0;
+                int publishProgress = 4;
                 for (int i = 0; i < 25; i++) {
 
                     try {
@@ -167,7 +167,8 @@ public class SoccerMatchHighlights extends AppCompatActivity {
                     } catch (Exception ex) {
 
                     }
-                    publishProgress(25);
+                    publishProgress(publishProgress);
+                    publishProgress += 4;
 
                 }
 
@@ -186,11 +187,14 @@ public class SoccerMatchHighlights extends AppCompatActivity {
 
             progressBar.setProgress(args[0]);
 
+
         }
 
         public void onPostExecute(String fromDoInBackground) {
             myAdapter.notifyDataSetChanged();
-            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setProgress(100);
+
+//            progressBar.setVisibility(View.INVISIBLE);
         }
 
     }

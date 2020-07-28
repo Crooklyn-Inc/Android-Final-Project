@@ -14,7 +14,8 @@
         android:padding="20dp"
         android:textAlignment="center"
         android:textColor="@color/blackSMH"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:background="@color/test"/>
 
     <RelativeLayout
         android:id="@+id/relativeLayoutSMH"
@@ -37,7 +38,8 @@
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:textColor="@color/blackSMH"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:background="@color/test"/>
 
             <TextView
                 android:id="@+id/team2"
@@ -46,7 +48,8 @@
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:textColor="@color/blackSMH"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:background="@color/test"/>
         </LinearLayout>
 
         <TextView
@@ -56,14 +59,15 @@
             android:layout_below="@+id/teams"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:textColor="@color/blackSMH" />
+            android:textColor="@color/blackSMH"
+            android:background="@color/test"/>
 
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:layout_below="@id/relativeLayoutSMH"
         android:layout_centerHorizontal="true" />
 

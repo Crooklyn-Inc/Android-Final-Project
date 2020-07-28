@@ -29,7 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/showFavourites"
             android:layout_centerHorizontal="true"
-            android:visibility="invisible" />
+            android:visibility="visible"
+            android:background="@color/greySMH"
+
+            />
 
         <Button
             android:id="@+id/showFavourites"

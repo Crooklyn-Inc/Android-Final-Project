@@ -38,32 +38,11 @@ public class ListOfFavourites extends AppCompatActivity {
         setContentView(R.layout.activity_list_of_favourites);
 
 
-
         listOfFavourites = findViewById(R.id.listOfFavourites);
         myAdapter = new MyListAdapter();
         listOfFavourites.setAdapter(myAdapter);
 
         showMatches();
-
-
-        listOfFavourites.setOnItemLongClickListener((parent, view, position, id) -> {
-
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-            alertBuilder.setTitle("You are about to delete " + matchArray.get(position) + " match from your list")
-                    .setPositiveButton("Yes", (dialog, which) -> {
-                        Match selected = matchArray.get(position);
-                        myOpener.deleteMessage(selected);
-                        matchArray.remove(position);
-                        myAdapter.notifyDataSetChanged();
-
-                    })
-                    .setNegativeButton("NO", (dialog, which) -> {
-
-                    });
-
-            alertBuilder.create().show();
-            return true;
-        });
 
 
     }
@@ -106,7 +85,7 @@ public class ListOfFavourites extends AppCompatActivity {
 
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ListOfFavourites.this);
                 alertBuilder.setTitle("Are you sure tou want to delete")
-                        .setMessage("Match " + matchArray.get(position).getTitle())
+                        .setMessage("Match " + matchArray.get(position).getTitle() + " from your match list?")
                         .setPositiveButton("YES", (dialog, which) -> {
                             Match selected = matchArray.get(position);
                             myOpener.deleteMessage(selected);
@@ -115,6 +94,9 @@ public class ListOfFavourites extends AppCompatActivity {
                             Snackbar.make(remove, "Item Deleted Successfully!", Snackbar.LENGTH_SHORT).show();
 
                         })
+                        .setNegativeButton("NO", ((dialog, which) -> {
+
+                        }))
                         .create().show();
 
 
