@@ -26,6 +26,7 @@ public class Deezer_activity3 extends AppCompatActivity {
     public static String TITLE = "TITLE";
     public static String ALBUM_NAME = "ALBUM_NAME";
     public static String DURATION = "DURATION";
+    public static String ALBUM_IMAGE = "ALBUM_IMAGE";
 
 
     DeezerSongDBHelper dbOpener = new DeezerSongDBHelper(this);
@@ -46,6 +47,7 @@ public class Deezer_activity3 extends AppCompatActivity {
             dataToPass.putString(TITLE, arrayListDb.get(position).getTitle());
             dataToPass.putString(ALBUM_NAME, arrayListDb.get(position).getAlbum_name());
             dataToPass.putString(DURATION, arrayListDb.get(position).getDuration());
+            dataToPass.putString(ALBUM_IMAGE, arrayListDb.get(position).getAlbum_Image());
 
 
             if (isTablet) {
@@ -114,7 +116,7 @@ public class Deezer_activity3 extends AppCompatActivity {
 
 
             // We want to get all of the columns. Look at MyOpener.java for the definitions:
-            String[] columns = {dbOpener.COL_SONG_ID,dbOpener.COL_TITLE, dbOpener.COL_DURATION, dbOpener.COL_ALBUM_NAME};
+            String[] columns = {dbOpener.COL_SONG_ID,dbOpener.COL_TITLE, dbOpener.COL_ALBUM_NAME, dbOpener.COL_DURATION, dbOpener.COL_ALBUM_IMAGE};
             //query all the results from the database:
             Cursor results = db.query(false, dbOpener.DB_TABLE, columns, null, null, null, null, null, null);
 
@@ -124,6 +126,7 @@ public class Deezer_activity3 extends AppCompatActivity {
             int albumNameColIndex = results.getColumnIndex(dbOpener.COL_ALBUM_NAME);
             int durationColIndex = results.getColumnIndex(dbOpener.COL_DURATION);
             int idIndex = results.getColumnIndex(dbOpener.COL_SONG_ID);
+            int albumImageColIndex = results.getColumnIndex(dbOpener.COL_ALBUM_IMAGE);
 
             //iterate over the results, return true if there is a next item:
             while (results.moveToNext()) {
@@ -131,10 +134,11 @@ public class Deezer_activity3 extends AppCompatActivity {
                 String albumNameDB = results.getString(albumNameColIndex);
                 long id = results.getLong(idIndex);
                 String durationDB = results.getString(durationColIndex);
+                String albumImageDB = results.getString(albumImageColIndex);
 
 
-                //add the new Contact to the array list:
-                arrayListDb.add(new DeezerSongModel(titleDB, albumNameDB, durationDB, id));
+                //add the new song to the array list:
+                arrayListDb.add(new DeezerSongModel(titleDB, durationDB, albumNameDB, id, albumImageDB));
             }
 
 

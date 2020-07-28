@@ -113,11 +113,17 @@ public class Deezer_activity1 extends AppCompatActivity {
             String songTitle2 = null;
             String songDuration2 = null;
             String songAlbum2 = null;
+            String songAlbumImage2 = null;
             try {
                 jsonObjectSongsTemp = dataArraySongs.getJSONObject((int)position);
                 songTitle2 = jsonObjectSongsTemp.getString("title");
                 songDuration2 = jsonObjectSongsTemp.getString("duration");
                 songAlbum2 = jsonObjectSongsTemp.getJSONObject("album").getString("title");
+
+                JSONArray jimageContributors = jsonObjectSongsTemp.getJSONArray("contributors");
+                String s1 = jimageContributors.get(0).toString();
+                JSONObject j2 = new JSONObject(s1);
+                songAlbumImage2 = j2.getString("picture_small");
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -126,6 +132,7 @@ public class Deezer_activity1 extends AppCompatActivity {
             String finalSongTitle = songTitle2;
             String finalSongDuration = songDuration2;
             String finalSongAlbum = songAlbum2;
+            String finalSongAlbumImage = songAlbumImage2;
 
             DeezerSongDBHelper dbOpener1 = new DeezerSongDBHelper(this);
             Boolean recordExist = dbOpener1.checkIfRecordExist(finalSongTitle, finalSongDuration);
@@ -140,6 +147,7 @@ public class Deezer_activity1 extends AppCompatActivity {
                         updatedValues.put(DeezerSongDBHelper.COL_TITLE, finalSongTitle);
                         updatedValues.put(DeezerSongDBHelper.COL_DURATION, finalSongDuration);
                         updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, finalSongAlbum);
+                        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_IMAGE, finalSongAlbumImage);
 
                         //now call the insert function:
                         db.insert(DeezerSongDBHelper.DB_TABLE, null, updatedValues);

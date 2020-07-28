@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,7 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class DeezerSongSearch extends AppCompatActivity {
+public class DeezerSongSearch extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ProgressBar progressBar;
     SharedPreferences pref;
     private DrawerLayout drawerLayout;
@@ -42,7 +43,7 @@ public class DeezerSongSearch extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar)findViewById(R.id.deezerToolbar);
         setSupportActionBar(myToolbar);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
+        navigationView.setNavigationItemSelectedListener( this);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
@@ -114,7 +115,8 @@ public class DeezerSongSearch extends AppCompatActivity {
     }
 
 
-
-
-
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
 }

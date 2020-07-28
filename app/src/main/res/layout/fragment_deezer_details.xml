@@ -7,7 +7,6 @@
     tools:context=".DeezerFragmentDetails">
 
     <LinearLayout
-
         android:id="@+id/activity_deezer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,9 +48,6 @@
             android:layout_margin="10dp"
             android:typeface="monospace"
             android:text="@string/songDuration"/>
-
-
-
 
     </LinearLayout>
 </FrameLayout>
