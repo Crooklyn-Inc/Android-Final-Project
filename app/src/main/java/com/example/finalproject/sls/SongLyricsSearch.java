@@ -1,10 +1,12 @@
-package com.example.finalproject;
+package com.example.finalproject.sls;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import com.example.finalproject.R;
 
 public class SongLyricsSearch extends AppCompatActivity {
 
