@@ -199,7 +199,7 @@ public class Deezer_activity1 extends AppCompatActivity {
                 boolean insideItem = false;
                 boolean gotName = false;
 
-
+                publishProgress(10);
                 int eventType = parser.getEventType(); //The parser is currently at START_DOCUMENT
                  publishProgress(25);
                 while (eventType != XmlPullParser.END_DOCUMENT) {
