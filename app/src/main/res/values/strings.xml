@@ -4,4 +4,41 @@
     <string name="btnSoccer">Soccer Match Highlights</string>
     <string name="btnSongLyrics">Song Lyrics Search</string>
     <string name="btnDeezerSong">Deezer Song Search</string>
+    <string name="albumTitle">Album Title</string>
+    <string name="title">Title</string>
+    <string name="songDuration">Duration</string>
+    <string name="alertBuilderTitle">Add to favourites?</string>
+    <string name="alertBuilderMsg1">The selected row is:  </string>
+    <string name="alertBuilderMsg2">The database id is:  </string>
+    <string name="yes">Yes  </string>
+    <string name="no">No </string>
+    <string name="geoTxtViewFindCities">Find Nearby Cities</string>
+    <string name="geoEditTxtLat">Enter latitude in decimal degrees here</string>
+    <string name="geoEditTxtLon">Enter longitude in decimal degrees here</string>
+    <string name="geoBtnSearchCities">Find and Display</string>
+    <string name="geoBtnFavourites">Favourite Cities</string>
+    <string name="geoMessageLatitudeEmpty">Enter Latitude please</string>
+    <string name="geoMessageLongitudeEmpty">Enter Longitude please</string>
+    <string name="geoMessageInvalidLatitude">Latitude must be a decimal numeric value within [-90, 90] range. Please re-enter</string>
+    <string name="geoMessageInvalidLongitude">Longitude must be a decimal numeric value within [-180, 180] range. Please re-enter</string>
+    <string name="geoMessageNoCitiesFound">No cities were found nearby specified geographic location</string>
+    <string name="geoMessageNoCitiesInJson">No cities were found in the received JSON data</string>
+    <string name="geoMessageNumberOfCitiesFound">cities were found and displayed</string>
+    <string name="collegeName">Algonquin College</string>
+    <string name="courseCode">CST2335 Graphical Interface Programming</string>
+    <string name="projectName">Final Project</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="projectInfo">About this project</string>
+    <string name="deezerNavigTitle">Deezer Song Search</string>
+    <string name="deezerNavAuthor">Author Yulia Tsvetkova</string>
+    <string name="versionN">Version 1</string>
+    <string name="deezToolAboutProject">This is the Deezer activity, written by Yulia Tsvetkova</string>
+    <string name="deezerSearch">Deezer Song Search</string>
+    <string name="deezerFavor">Favourites</string>
+    <string name="alertBuilderTitle2">Do you want to delete this song from your favourites?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
