@@ -1,43 +1,37 @@
 package com.example.finalproject.sls.data;
 
 public class MessageDTO {
-    private Long    id;
-    private String  message;
-    private boolean isSent;
+    private Long   id;
+    private String band;
+    private String song;
+    private String lyrics;
 
-    public MessageDTO() {    }
+    public MessageDTO() { }
 
-    public MessageDTO(String message, boolean isSent) {
-        this(null, message, isSent);
+    public MessageDTO(String band, String song, String lyrics) {
+        this(null, band, song, lyrics);
     }
 
-    public MessageDTO(Long id, String message, boolean isSent) {
-        this.id      = id;
-        this.message = message;
-        this.isSent  = isSent;
+    public MessageDTO(Long id, String band, String song, String lyrics) {
+        this.id     = id;
+        this.band   = band;
+        this.song   = song;
+        this.lyrics = lyrics;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId()              { return id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id)       { this.id = id; }
 
-    public String getMessage() {
-        return message;
-    }
+    public String getBand()          { return band; }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    public void setBand(String band) { this.band = band; }
 
-    public boolean isSent() {
-        return isSent;
-    }
+    public String getSong()          { return song; }
 
-    public void setSent(boolean sent) {
-        isSent = sent;
-    }
+    public void setSong(String song) { this.song = song; }
+
+    public String getLyrics()            { return lyrics; }
+
+    public void setLyrics(String lyrics) { this.lyrics = lyrics; }
 }

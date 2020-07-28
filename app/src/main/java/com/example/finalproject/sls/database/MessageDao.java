@@ -14,9 +14,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MessageDao {
-    private SQLiteDatabase database;
+    private SQLiteDatabase        database;
     private MessageDatabaseHelper dbHelper;
-    private String[] allColumns = { MessageTable.ID, MessageTable.TEXT, MessageTable.IS_SENT };
+    private String[]              allColumns = {
+        MessageTable.ID,
+        MessageTable.BAND,
+        MessageTable.SONG,
+        MessageTable.LYRICS
+    };
+
     private static final String TAG = MessageDao.class.getSimpleName();
 
     public MessageDao(Context context) {
@@ -35,7 +41,7 @@ public class MessageDao {
         List<MessageDTO> messageList = new ArrayList<>();
 
         Cursor cursor = database.query(MessageTable.TABLE_NAME,
-                allColumns, null, null, null, null, null);
+            allColumns, null, null, null, null, null);
 
         printCursor(cursor);
 
@@ -52,8 +58,8 @@ public class MessageDao {
 
     public MessageDTO findById(long id) {
         Cursor cursor = database.query(MessageTable.TABLE_NAME,
-                allColumns, MessageTable.ID + " = " + id, null,
-                null, null, null);
+            allColumns, MessageTable.ID + " = " + id, null,
+            null, null, null);
         printCursor(cursor);
 
         MessageDTO message = null;
@@ -69,8 +75,9 @@ public class MessageDao {
 
     public MessageDTO create(MessageDTO messageDTO) {
         ContentValues values = new ContentValues();
-        values.put(MessageTable.TEXT, messageDTO.getMessage());
-        values.put(MessageTable.IS_SENT, String.valueOf(messageDTO.isSent()));
+        values.put(MessageTable.BAND, messageDTO.getBand());
+        values.put(MessageTable.SONG, messageDTO.getSong());
+        values.put(MessageTable.LYRICS, messageDTO.getLyrics());
 
         long insertId = database.insert(MessageTable.TABLE_NAME, null, values);
 
@@ -87,8 +94,9 @@ public class MessageDao {
     private MessageDTO convertToMessage(Cursor cursor) {
         MessageDTO messageDTO = new MessageDTO();
         messageDTO.setId(cursor.getLong(0));
-        messageDTO.setMessage(cursor.getString(1));
-        messageDTO.setSent(Boolean.valueOf(cursor.getString(2)));
+        messageDTO.setBand(cursor.getString(1));
+        messageDTO.setSong(cursor.getString(2));
+        messageDTO.setLyrics(cursor.getString(3));
         return messageDTO;
     }
 
@@ -105,10 +113,11 @@ public class MessageDao {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             logMsg.append("\t{")
-                    .append(cursor.getLong(cursor.getColumnIndex(MessageTable.ID))).append(",")
-                    .append(cursor.getString(cursor.getColumnIndex(MessageTable.TEXT))).append(",")
-                    .append(cursor.getString(cursor.getColumnIndex(MessageTable.IS_SENT)))
-                    .append("}\n");
+                .append(cursor.getLong(cursor.getColumnIndex(MessageTable.ID))).append(",")
+                .append(cursor.getString(cursor.getColumnIndex(MessageTable.BAND))).append(",")
+                .append(cursor.getString(cursor.getColumnIndex(MessageTable.SONG))).append(",")
+                .append(cursor.getString(cursor.getColumnIndex(MessageTable.LYRICS)))
+                .append("}\n");
             cursor.moveToNext();
         }
         cursor.moveToFirst();

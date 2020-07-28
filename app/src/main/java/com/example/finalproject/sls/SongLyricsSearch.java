@@ -22,6 +22,11 @@ public class SongLyricsSearch extends AppCompatActivity {
             startActivity(intentSongLyrics);
         });
 
+        Button btnFavoriteList = findViewById(R.id.slsFavouriteList);
+        btnFavoriteList.setOnClickListener(v -> {
+            Intent intentSongLyrics = new Intent(SongLyricsSearch.this, SongLyricsSearchFavoriteList.class);
+            startActivity(intentSongLyrics);
+        });
 
     }
 }

@@ -48,6 +48,7 @@
     <string name="slsLyricsText">LYRICS</string>
     <string name="slsAddToFavoriteListBtn">Add to Favorites</string>
     <string name="slsSearchGoogleBtn">Google search</string>
+    <string name="slsAlertDeleteTitle">Remove from Favorites?</string>
 
 
 </resources>
