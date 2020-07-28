@@ -140,7 +140,7 @@ public class SoccerMatchHighlights extends AppCompatActivity {
 
 
                 int publishProgress = 0;
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 25; i++) {
 
                     try {
                         Match m = new Match();
