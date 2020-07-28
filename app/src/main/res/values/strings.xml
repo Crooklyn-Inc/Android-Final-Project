@@ -23,7 +23,7 @@
     <string name="geoMessageInvalidLongitude">Longitude must be a decimal numeric value within [-180, 180] range. Please re-enter</string>
     <string name="geoMessageNoCitiesFound">No cities were found nearby specified geographic location</string>
     <string name="geoMessageNoCitiesInJson">No cities were found in the received JSON data</string>
-    <string name="geoMessageNumberOfCitiesFound">cities were found and displayed</string>
+    <string name="geoMessageNumberOfFoundCities">cities were found and displayed</string>
     <string name="collegeName">Algonquin College</string>
     <string name="courseCode">CST2335 Graphical Interface Programming</string>
     <string name="projectName">Final Project</string>
@@ -50,4 +50,26 @@
     <string name="geoCityAttr_12">Distance</string>
     <string name="geoMessageCityAddedToFavourites">has been added to Favourites</string>
     <string name="geoMessageCityRemovedFromFavourites">has been removed from Favourites</string>
+    <string name="geoMessageUserPressedBackButton">User pressed Back button</string>
+    <string name="geoMessageUserDidNotChangeCityStatus">User did not change City status</string>
+    <string name="geoMessageUserSavedCityToFavourites">User saved City to Favourites</string>
+    <string name="geoMessageUserRemovedCityFromFavourites">User removed City from Favourites</string>
+    <string name="geoMessageWrongCityListedPosition">Returned City listed position is wrong</string>
+    <string name="geoMessageNumberOfFavouriteCities">favourite cities in the Database</string>
+    <string name="geoLoginMenuItem">Login</string>
+    <string name="geoLogoutMenuItem">Logout</string>
+    <string name="geoInstructionsMenuItem">Instructions</string>
+    <string name="geoAboutApiMenuItem">About API</string>
+    <string name="geoDonateMenuItem">Donate to Project</string>
+    <string name="geoMessageForAboutProjectMenuItem">This is the Geo Data Source activity, written by Pavel Samarin</string>
+    <string name="geoInstructionsMessage">Enter latitude and longitude coordinates and press ‘Find and Display’ to get the list of nearest cities.\n\nOtherwise press ‘Favourite Cities’ to get the list of favourite cities stored in the application database.\n\nSelect a city in the list to view detailed info, to add or remove the city from Favourites as well as to view the city in Google Maps.</string>
+    <string name="ok">Ok</string>
+    <string name="geoDonationTitle">Please give generou$ly</string>
+    <string name="geoDonationMessage">How much money do you want to donate?</string>
+    <string name="geoThankYou">Thank you</string>
+    <string name="geoCancel">Cancel</string>
+    <string name="geoThreeCurrencySigns">$$$</string>
+    <string name="geoActivityName">Activity: Geo Data Source – Find nearby cities based on latitude and longitude</string>
+    <string name="geoAuthor">Author: Pavel Samarin</string>
+    <string name="geoVersionNumber">Version: 1.1.1</string>
 </resources>

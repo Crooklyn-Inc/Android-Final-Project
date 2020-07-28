@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
@@ -27,8 +28,9 @@ import java.util.ArrayList;
 
 public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFragment.OnCityStatusChangeListener {
 
-    static final int RESULT_NO_CITY_IN_JSON = 200;
-    static final String CITY_LIST_POSITION = "city_list_position";
+    static final int RESULT_NO_CITY_IN_JSON = 50;
+    static final int CITY_DETAILED_VIEW_REQUEST = 150;
+    static final String CITY_LIST_POSITION = "city_listed_position";
 
     private SQLiteDatabase sqlLiteDb = null;
     private ArrayList<ArrayList<Object>> cityWebDataArray = new ArrayList<ArrayList<Object>>();
@@ -131,15 +133,16 @@ public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFrag
                         .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
             }
             else {
+                selectedListView = view;
                 Intent nextActivity = new Intent(GeoCityList.this, GeoCityInfo.class);
                 dataToPass.putLong(CITY_LIST_POSITION, (new Long(position)).longValue());
                 nextActivity.putExtras(dataToPass); //send data to next activity
-                startActivityForResult(nextActivity, 10); //make the transition
+                startActivityForResult(nextActivity, CITY_DETAILED_VIEW_REQUEST); //make the transition
             }
         });
 
-        Toast.makeText(GeoCityList.this, cityWebDataArray.size() + " " + getString(R.string.geoMessageNumberOfCitiesFound), Toast.LENGTH_LONG).show();
-        Snackbar.make(geoListViewCities, cityWebDataArray.size() + " " + getString(R.string.geoMessageNumberOfCitiesFound), Snackbar.LENGTH_LONG).show();
+        Toast.makeText(GeoCityList.this, cityWebDataArray.size() + " " + (json == null ? getString(R.string.geoMessageNumberOfFavouriteCities) : getString(R.string.geoMessageNumberOfFoundCities)), Toast.LENGTH_LONG).show();
+        Snackbar.make(geoListViewCities, cityWebDataArray.size() + " " + (json == null ? getString(R.string.geoMessageNumberOfFavouriteCities) : getString(R.string.geoMessageNumberOfFoundCities)), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -163,6 +166,60 @@ public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFrag
         clearArrList(cityWebDataArray);
         cityWebDataArray = null;
         if (sqlLiteDb != null) sqlLiteDb.close();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CITY_DETAILED_VIEW_REQUEST) {
+            Bundle returningBundle = data.getExtras();
+            ArrayList<Object> incomingAttributes = new ArrayList<>(GeoDataSource.ATTR_MAP.size());
+
+            if (returningBundle == null) return;
+
+            incomingAttributes.add(returningBundle.getLong(GeoDataSource.ATTR_MAP.get(0).string));
+            for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
+                if (GeoDataSource.ATTR_MAP.get(i).isReal) {
+                    incomingAttributes.add(returningBundle.getDouble(GeoDataSource.ATTR_MAP.get(i).string));
+                }
+                else {
+                    incomingAttributes.add(returningBundle.getString(GeoDataSource.ATTR_MAP.get(i).string));
+                }
+            }
+
+            Long cityIndex = returningBundle.getLong(CITY_LIST_POSITION);
+
+            if (cityIndex.intValue() == selectedListPosition) {
+                if (!((Long)cityWebDataArray.get(selectedListPosition).get(0)).equals((Long)incomingAttributes.get(0))) {
+                    if ((Long)cityWebDataArray.get(selectedListPosition).get(0) <= 0L && (Long)incomingAttributes.get(0) > 0L)
+                        Toast.makeText(GeoCityList.this, (String)cityWebDataArray.get(selectedListPosition).get(1) + " " + getString(R.string.geoMessageCityAddedToFavourites), Toast.LENGTH_LONG).show();
+                    else if ((Long)cityWebDataArray.get(selectedListPosition).get(0) > 0L && (Long)incomingAttributes.get(0) <= 0L)
+                        Toast.makeText(GeoCityList.this, (String)cityWebDataArray.get(selectedListPosition).get(1) + " " + getString(R.string.geoMessageCityRemovedFromFavourites), Toast.LENGTH_LONG).show();
+
+                    cityWebDataArray.get(selectedListPosition).set(0, incomingAttributes.get(0));
+                    ImageView geoImgViewFavouriteSign = selectedListView.findViewById(R.id.geoImgViewFavouriteSign);
+                    geoImgViewFavouriteSign.setImageResource((Long) incomingAttributes.get(0) > 0L ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off);
+                }
+            }
+            else {
+                Snackbar.make(geoListViewCities, R.string.geoMessageWrongCityListedPosition, Snackbar.LENGTH_LONG).show();
+//                Toast.makeText(GeoCityList.this, R.string.geoMessageWrongCityListedPosition, Toast.LENGTH_LONG).show();
+            }
+
+//            if (resultCode == RESULT_CANCELED) {
+//                Toast.makeText(GeoCityList.this, R.string.geoMessageUserPressedBackButton, Toast.LENGTH_LONG).show();
+//            }
+//            else if (resultCode == GeoCityInfo.UNCHANGED) {
+//                Toast.makeText(GeoCityList.this, R.string.geoMessageUserDidNotChangeCityStatus, Toast.LENGTH_LONG).show();
+//            }
+//            else if (resultCode == GeoCityInfo.FAVOURABLE) {
+//                Toast.makeText(GeoCityList.this, R.string.geoMessageUserSavedCityToFavourites, Toast.LENGTH_LONG).show();
+//            }
+//            else if (resultCode == GeoCityInfo.UNFAVOURABLE) {
+//                Toast.makeText(GeoCityList.this, R.string.geoMessageUserRemovedCityFromFavourites, Toast.LENGTH_LONG).show();
+//            }
+        }
     }
 
     private void clearArrList(ArrayList<ArrayList<Object>> arrListOfArrLists) {
@@ -306,7 +363,7 @@ public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFrag
     }
 
     private boolean areSameCities(ArrayList<Object> city1, ArrayList<Object> city2) {
-        for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
+        for (int i = 1; i < 6; i++) {
             if (GeoDataSource.ATTR_MAP.get(i).isReal) {
                 if (!((Double)city1.get(i)).equals((Double)city2.get(i))) return false;
             }
@@ -338,12 +395,12 @@ public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFrag
         Log.i("Number of rows", String.format("%10d", numOfRows));
 
         sb = new StringBuilder();
-        sb.append(String.format("%" + GeoDataSource.ATTR_MAP.get(0).logColumnWidth + "s", c.getColumnNames()[0]));
+        sb.append(String.format("%" + (GeoDataSource.ATTR_MAP.get(0).logColumnWidth + 3) + "s", c.getColumnNames()[0]));
         for(int k = 1; k < numOfCols; k++) {
             sb.append(" | " + String.format("%" + GeoDataSource.ATTR_MAP.get(k).logColumnWidth + "s", c.getColumnNames()[k]));
         }
 
-        Log.i("Column names", sb.toString());
+        Log.i("Columns", sb.toString());
 
         c.moveToFirst();
         for(int i = 0; i < numOfRows; i++) {
@@ -353,7 +410,7 @@ public class GeoCityList extends AppCompatActivity implements GeoCityDetailsFrag
                 sb.append(" | " + String.format("%" + GeoDataSource.ATTR_MAP.get(k).logColumnWidth + "s", c.getString(k)));
             }
 
-            Log.i(String.format("Row # %6d", i), sb.toString());
+            Log.i(String.format("Row # %4d", i + 1), sb.toString());
 
             c.moveToNext();
         }

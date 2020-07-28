@@ -27,25 +27,29 @@
                 android:id="@+id/btnGeoData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btnGeoData" />
+                android:text="@string/btnGeoData"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnSoccer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btnSoccer" />
+                android:text="@string/btnSoccer"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnSongLyrics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btnSongLyrics" />
+                android:text="@string/btnSongLyrics"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnDeezerSong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btnDeezerSong" />
+                android:text="@string/btnDeezerSong"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->

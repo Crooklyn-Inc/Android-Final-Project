@@ -3,6 +3,7 @@ package com.example.finalproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,7 +11,11 @@ import android.util.Log;
 
 public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFragment.OnCityStatusChangeListener {
 
+    static final int UNCHANGED = 100;
+    static final int FAVOURABLE = 200;
+    static final int UNFAVOURABLE = 300;
     private SQLiteDatabase sqlLiteDb = null;
+    private Intent resultIntent;
     private Bundle incomingBundle;
 
     @Override
@@ -18,7 +23,8 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geo_city_info);
 
-        incomingBundle = getIntent().getExtras();
+        Intent intent = getIntent();
+        incomingBundle = intent.getExtras();
 
         GeoCityDetailsFragment gcdFragment = new GeoCityDetailsFragment();
         gcdFragment.setArguments(incomingBundle);
@@ -26,6 +32,10 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
                 .beginTransaction()
                 .replace(R.id.geoFrameLayout, gcdFragment) // Add the fragment in FrameLayout
                 .commit(); // actually load the fragment. Calls onCreate() in DetailFragment
+
+        resultIntent = new Intent();
+        resultIntent.putExtras(incomingBundle);
+        setResult(UNCHANGED, resultIntent);
     }
 
     @Override
@@ -47,6 +57,8 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
                     .beginTransaction()
                     .replace(R.id.geoFrameLayout, gcdFragment) // Add the fragment in FrameLayout
                     .commit(); // actually load the fragment. Calls onCreate() in DetailFragment
+            resultIntent.putExtras(incomingBundle);
+            setResult(UNFAVOURABLE, resultIntent);
         }
         else {
             incomingBundle.putLong(GeoDataSource.ATTR_MAP.get(0).string, addCityToFavourites(incomingBundle));
@@ -55,6 +67,8 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
                     .beginTransaction()
                     .replace(R.id.geoFrameLayout, gcdFragment) // Add the fragment in FrameLayout
                     .commit(); // actually load the fragment. Calls onCreate() in DetailFragment
+            resultIntent.putExtras(incomingBundle);
+            setResult(FAVOURABLE, resultIntent);
         }
     }
 
@@ -98,12 +112,12 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
         Log.i("Number of rows", String.format("%10d", numOfRows));
 
         sb = new StringBuilder();
-        sb.append(String.format("%" + GeoDataSource.ATTR_MAP.get(0).logColumnWidth + "s", c.getColumnNames()[0]));
+        sb.append(String.format("%" + (GeoDataSource.ATTR_MAP.get(0).logColumnWidth +3) + "s", c.getColumnNames()[0]));
         for(int k = 1; k < numOfCols; k++) {
             sb.append(" | " + String.format("%" + GeoDataSource.ATTR_MAP.get(k).logColumnWidth + "s", c.getColumnNames()[k]));
         }
 
-        Log.i("Column names", sb.toString());
+        Log.i("Columns", sb.toString());
 
         c.moveToFirst();
         for(int i = 0; i < numOfRows; i++) {
@@ -113,7 +127,7 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
                 sb.append(" | " + String.format("%" + GeoDataSource.ATTR_MAP.get(k).logColumnWidth + "s", c.getString(k)));
             }
 
-            Log.i(String.format("Row # %6d", i), sb.toString());
+            Log.i(String.format("Row # %4d", i + 1), sb.toString());
 
             c.moveToNext();
         }
