@@ -37,7 +37,11 @@
     <string name="deezerSearch">Поиск в Deezer</string>
     <string name="alertBuilderTitle2">Вы хотите удалить из избранного?</string>
     <string name="deezerFavor">Избранное</string>
-
+    <string name="slsSearchBtnText">Искать тест песни</string>
+    <string name="slsFavoriteListBtn">Сохраненные тексты</string>
+    <string name="hello_blank_fragment">" "</string>
+    <string name="slsHeaderText">Введите \"Группу - Песню\" для поиска:</string>
+    <string name="slsSearchInputHint">Группа - Песня</string>
 
 
 </resources>
