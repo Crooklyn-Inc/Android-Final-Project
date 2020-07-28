@@ -2,14 +2,20 @@ package com.example.finalproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -116,7 +122,59 @@ public class DeezerSongSearch extends AppCompatActivity implements NavigationVie
 
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.dzIstructions:
+
+                if (!menuItem.isChecked()) {
+       //             selectedIndex = ALERT_DIALOG;
+                    menuItem.setChecked(true);
+
+                    final AlertDialog.Builder dialog = new AlertDialog.Builder(DeezerSongSearch.this);
+                    dialog.setIcon(R.drawable.ic_deezer);
+                    dialog.setTitle(R.string.genInstructions);
+
+               dialog.setMessage(getString(R.string.instructions)) ;
+               dialog.create().show();
+                return true;}
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.dzAPI:
+                if (!menuItem.isChecked()) {
+                    //             selectedIndex = ALERT_DIALOG;
+                    menuItem.setChecked(true);
+
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://developers.deezer.com/guidelines"));
+                    startActivity(browserIntent);
+                }
+             //   startActivity(new Intent(this, Activity1.class));
+                break;
+            case R.id.dzDonate:
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle(R.string.donationTitle);
+                alert.setMessage(R.string.donationMessage);
+                final EditText input = new EditText(this);
+                input.setHint("$$$");
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setRawInputType(Configuration.KEYBOARD_12KEY);
+                alert.setView(input);
+                alert.setPositiveButton((R.string.thanks), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //Put actions for OK button here
+                    }
+                });
+                alert.setNegativeButton((R.string.cancel), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //Put actions for CANCEL button here, or leave in blank
+                    }
+                });
+                alert.show();
+                break;
+        //    DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+       //     drawerLayout.closeDrawer(GravityCompat.START);
+
+        //   Toast.makeText(this, "NavigationDrawer: " +  Toast.LENGTH_LONG).show();
+        }
         return false;
     }
 }

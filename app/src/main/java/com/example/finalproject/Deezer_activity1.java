@@ -139,7 +139,7 @@ public class Deezer_activity1 extends AppCompatActivity {
 
          //   if(!recordExist) {
                 alert.setTitle(getResources().getString(R.string.alertBuilderTitle))
-                    .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + position)
+                    .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + (position+1))
                     .setPositiveButton(R.string.yes, (click, b) -> {
                         if(!recordExist) {
                         ContentValues updatedValues = new ContentValues();
@@ -171,7 +171,7 @@ public class Deezer_activity1 extends AppCompatActivity {
     }
 
 
-    private class UserQuery extends AsyncTask<String, Integer, String> {
+    public  class UserQuery extends AsyncTask<String, Integer, String> {
         String title, duration, album_name, album_cover;
 
 

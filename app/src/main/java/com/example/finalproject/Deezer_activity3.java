@@ -4,11 +4,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.MyAdapter;
 
@@ -38,11 +41,23 @@ public class Deezer_activity3 extends AppCompatActivity {
         setContentView(R.layout.activity_deezer_3);
         ListView listViewDbFav = findViewById(R.id.ListViewDB);
         MyAdapter adapter = new MyAdapter(Deezer_activity3.this, arrayListDb);
+//        Resources res = getResources();
+//        Drawable drawable = res.getDrawable(R.drawable.circular);
+//
+//        final ProgressBar mProgress = (ProgressBar) findViewById(R.id.circularProgressbar);
+//        mProgress.setProgress(0);   // Main Progress
+//        mProgress.setSecondaryProgress(100); // Secondary Progress
+//        mProgress.setMax(100); // Maximum Progress
+//        mProgress.setProgressDrawable(drawable);
+
         boolean isTablet = findViewById(R.id.fragmentLocation) != null;
      //   DeezerSongModel songmodel = new DeezerSongModel();
 
+
+
         listViewDbFav.setOnItemClickListener((list, item, position, id) -> {
             //Create a bundle to pass data to the new fragment
+        //  mProgress.DeezerCustomProgressBarActivity.run();
             Bundle dataToPass = new Bundle();
             dataToPass.putString(TITLE, arrayListDb.get(position).getTitle());
             dataToPass.putString(ALBUM_NAME, arrayListDb.get(position).getAlbum_name());
@@ -109,6 +124,7 @@ public class Deezer_activity3 extends AppCompatActivity {
         loadDataFromDatabase();
         listViewDbFav.setAdapter(adapter);
     }
+
         private void loadDataFromDatabase (){
             //get a database connection:
          //   DeezerSongDBHelper dbOpener = new DeezerSongDBHelper(this);

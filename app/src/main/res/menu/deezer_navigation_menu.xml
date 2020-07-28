@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/dzIstructions"
-        android:title="Instructions for this app"
+        android:title="@string/instructions_for_this_app"
         android:icon="@drawable/ic_dz_instruc"/>
 
     <item android:id="@+id/dzAPI"
-        android:title="About the API"
+        android:title="@string/about_the_api"
         android:icon="@drawable/ic_dz_api"/>
     <item android:id="@+id/dzDonate"
-        android:title="Donate to project"
+        android:title="@string/donate_to_project"
         android:icon="@drawable/ic_dz_donate"/>
 
 </menu>

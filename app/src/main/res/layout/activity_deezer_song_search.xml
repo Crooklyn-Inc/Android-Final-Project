@@ -35,7 +35,6 @@
         android:id="@+id/EnterArtist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter  artist's name:"
         android:textSize="20dp" />
 
 
@@ -47,7 +46,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp"
-        android:hint="Enter artist"
+        android:hint="@string/enter_artist"
         />
     <Button
         android:id="@+id/Search"
@@ -75,7 +74,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            app:headerLayout="@layout/main_nav_drawer_header_layout"
+            app:headerLayout="@layout/deezer_header_layout"
             app:menu="@menu/deezer_navigation_menu"
             android:id="@+id/nav_view"/>
 

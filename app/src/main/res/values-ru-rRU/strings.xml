@@ -37,6 +37,17 @@
     <string name="deezerSearch">Поиск в Deezer</string>
     <string name="alertBuilderTitle2">Вы хотите удалить из избранного?</string>
     <string name="deezerFavor">Избранное</string>
+    <string name="instructions">Что бы получить список песен, пожайлуста напечатайте имя выбранного артиста и нажмите кнопку поиск </string>
+    <string name="genInstructions">Добро пожайловать в Deezer Song Search!</string>
+    <string name="donationTitle">Щедрость украшает и вам возздасться!</string>
+    <string name="donationMessage">Сколько не пожалеете в рублевом эквиваленте?</string>
+    <string name="cancel">ЗАВЕРШИТЬ</string>
+    <string name="thanks">СПАСИБО</string>
+    <string name="enter_artist">Введите имя вашего любимого артиста</string>
+    <string name="instructions_for_this_app">Инструкции к данному приложению </string>
+    <string name="about_the_api">Информация о API</string>
+    <string name="donate_to_project">Денежные вложения  </string>
+
 
 
 
