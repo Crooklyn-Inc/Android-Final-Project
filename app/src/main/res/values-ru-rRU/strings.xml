@@ -42,6 +42,9 @@
     <string name="hello_blank_fragment">" "</string>
     <string name="slsHeaderText">Введите \"Группу - Песню\" для поиска:</string>
     <string name="slsSearchInputHint">Группа - Песня</string>
+    <string name="slsGroupText">Группа:</string>
+    <string name="slsSongText">Песня:</string>
+    <string name="slsLyricsText">СЛОВА</string>
 
 
 </resources>

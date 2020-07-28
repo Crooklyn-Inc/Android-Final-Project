@@ -52,7 +52,7 @@
             android:text="@string/slsSearchBtnText" />
 
     <Button
-            android:id="@+id/deezFavourites"
+            android:id="@+id/slsFavouriteList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"

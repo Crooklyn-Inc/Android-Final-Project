@@ -43,6 +43,11 @@
     <string name="slsFavoriteListBtn">Favorite lyrics</string>
     <string name="slsHeaderText">Enter \"Band - Song\" for search:</string>
     <string name="slsSearchInputHint">Band - Song</string>
+    <string name="slsGroupText">"Band: "</string>
+    <string name="slsSongText">"Song: "</string>
+    <string name="slsLyricsText">LYRICS</string>
+    <string name="slsAddToFavoriteListBtn">Add to Favorites</string>
+    <string name="slsSearchGoogleBtn">Google search</string>
 
 
 </resources>
