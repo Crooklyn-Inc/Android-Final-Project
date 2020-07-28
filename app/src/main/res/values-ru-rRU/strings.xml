@@ -9,6 +9,26 @@
     <string name="addToFavouritesSMH">Добавить в избранное</string>
     <string name="removeSMH">Удалить</string>
     <string name="videoSMH">Видео</string>
+    <string name="infoSMH">Как пользоваться приложением</string>
+    <string name="explSMH">На главной странице вы модете увидеть разные футбольные матчи отсортированные по дате.
+    Вы модете кликнуть на матч что бы просмотреть более деатьную информацию.
+    Вы так-же можете добавить матч в избранное нажав соотведственную кнопку в интерфейсе.
+    Нажимая "Показать избранные" вы модете получить доступ к сохранненному списку, а так же просмотреть информацию и удалить выбюранные матчи. </string>
+
+    <string name="backSMH">Назад</string>
+    <string name="alertDialog1">Вы уверены что хотите удалить</string>
+    <string name="match">Матч</string>
+    <string name="alertDialog2"> from your match list?</string>
+    <string name="yes">ДА</string>
+    <string name="snackbarYes">Матч успешно удален!</string>
+    <string name="snackbarNo">Нет</string>
+    <string name="addedSMH">Mатч был успешно добавлен!</string>
+    <string name="version">Версия:</string>
+    <string name="author">Автор:</string>
+
+
+
+
 
 
 </resources>

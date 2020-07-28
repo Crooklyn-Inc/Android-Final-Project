@@ -85,7 +85,7 @@ public class ViewInfo extends AppCompatActivity {
         videoView = findViewById(R.id.videoURL);
 
         long x = intent.getLongExtra("id", 0);
-        Match m = getMatch((int)x);
+        Match m = getMatch((int) x);
 
 
         competitionTitle.setText(m.getCompetitionName());
@@ -102,7 +102,7 @@ public class ViewInfo extends AppCompatActivity {
 
 
             myOpener.insertData(m.getId(), m.getTitle(), m.getThumbnail(), m.getDate(), m.getCompetitionName(), m.getVideoUrl(), m.getTeam1(), m.getTeam2());
-            Toast.makeText(getApplicationContext(), "Match has been added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.addedSMH), Toast.LENGTH_SHORT).show();
 
         });
 
@@ -113,12 +113,12 @@ public class ViewInfo extends AppCompatActivity {
 
     }
 
-    public Match getMatch(int id){
+    public Match getMatch(int id) {
         Match m = null;
 
-        for (int i = 0; i<SoccerMatchHighlights.matchArrayList.size(); i++){
-            if (SoccerMatchHighlights.matchArrayList.get(i).getId() == SoccerMatchHighlights.matchArrayList.get((int)id).getId()){
-                m = SoccerMatchHighlights.matchArrayList.get((int)i);
+        for (int i = 0; i < SoccerMatchHighlights.matchArrayList.size(); i++) {
+            if (SoccerMatchHighlights.matchArrayList.get(i).getId() == SoccerMatchHighlights.matchArrayList.get((int) id).getId()) {
+                m = SoccerMatchHighlights.matchArrayList.get((int) i);
             }
         }
         return m;

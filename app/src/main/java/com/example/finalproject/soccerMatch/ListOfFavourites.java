@@ -85,17 +85,17 @@ public class ListOfFavourites extends AppCompatActivity {
             remove.setOnLongClickListener(click -> {
 
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ListOfFavourites.this);
-                alertBuilder.setTitle("Are you sure tou want to delete")
-                        .setMessage("Match " + matchArray.get(position).getTitle() + " from your match list?")
-                        .setPositiveButton("YES", (dialog, which) -> {
+                alertBuilder.setTitle(getResources().getString(R.string.alertDialog1))
+                        .setMessage(getResources().getString(R.string.match) + " " + matchArray.get(position).getTitle() + " " + getResources().getString(R.string.match))
+                        .setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
                             Match selected = matchArray.get(position);
                             myOpener.deleteMessage(selected);
                             matchArray.remove(position);
                             myAdapter.notifyDataSetChanged();
-                            Snackbar.make(remove, "Item Deleted Successfully!", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(remove,getResources().getString(R.string.snackbarYes) , Snackbar.LENGTH_SHORT).show();
 
                         })
-                        .setNegativeButton("NO", ((dialog, which) -> {
+                        .setNegativeButton(getResources().getString(R.string.snackbarNo), ((dialog, which) -> {
 
                         }))
                         .create().show();

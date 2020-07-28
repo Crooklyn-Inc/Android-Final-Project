@@ -89,12 +89,9 @@ public class SoccerMatchHighlights extends AppCompatActivity {
 
                 AlertDialog.Builder alertD = new AlertDialog.Builder(SoccerMatchHighlights.this);
 
-                alertD.setTitle("Information how this app works")
-                        .setMessage("In the main page you can see different soccer matches sorted by date." +
-                                "\nYou can click on the match to see more details about it (Teams, League, Date, Video)." +
-                                "\nYou can also save match that you like into the list of favourites by clicking the appropriate button." +
-                                "\n By clicking on \"Show Favourites\" button you can access your custom list with possibility see details and remove from the list.  ")
-                        .setNegativeButton("Back",((dialog, which) -> {
+                alertD.setTitle(getResources().getString(R.string.infoSMH))
+                        .setMessage(getResources().getString(R.string.explSMH))
+                        .setNegativeButton(getResources().getString(R.string.backSMH),((dialog, which) -> {
 
                         })).create().show();
                 break;

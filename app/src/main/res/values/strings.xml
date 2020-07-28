@@ -9,6 +9,21 @@
     <string name="addToFavouritesSMH">Add to Favourites</string>
     <string name="removeSMH">Remove</string>
     <string name="videoSMH">Video</string>
+    <string name="infoSMH">Information how this app works</string>
+    <string name="explSMH">In the main page you can see different soccer matches sorted by date.
+                                You can click on the match to see more details about it (Teams, League, Date, Video).
+                                You can also save match that you like into the list of favourites by clicking the appropriate button.
+                                By clicking on "Show Favourites" button you can access your custom list with possibility see details and remove from the list. </string>
 
+    <string name="backSMH">Back</string>
+    <string name="alertDialog1">Are you sure tou want to delete</string>
+    <string name="match">Match</string>
+    <string name="alertDialog2"> from your match list?</string>
+    <string name="yes">YES</string>
+    <string name="snackbarYes">Item Deleted Successfully!</string>
+    <string name="snackbarNo">NO</string>
+    <string name="addedSMH">Match has been added!</string>
+    <string name="version">Version:</string>
+    <string name="author">Author:</string>
 
 </resources>

@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/titleTextSMH"
         android:layout_centerHorizontal="true"
-        android:text="Version: "
+        android:text="@string/version"
         android:textColor="@color/blackSMH"
         android:textSize="30dp" />
 
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/versionTextSMH"
         android:layout_centerHorizontal="true"
-        android:text="Author:  "
+        android:text="@string/author"
         android:textColor="@color/blackSMH"
         android:textSize="30dp" />
 
@@ -65,7 +65,7 @@
         android:layout_below="@id/authorSMH"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="Yegor Shrtamchenko"
+        android:text="Yegor Shramchenko"
         android:textColor="@color/blackSMH"
         android:textSize="25dp" />
 
