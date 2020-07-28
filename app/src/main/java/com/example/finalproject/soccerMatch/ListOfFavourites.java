@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 public class ListOfFavourites extends AppCompatActivity {
     public ArrayList<Match> matchArray = new ArrayList<>();
+
     public MyOpener myOpener = ViewInfo.myOpener;
 
     public static Intent i;

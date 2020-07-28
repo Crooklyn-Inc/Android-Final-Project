@@ -84,9 +84,9 @@ public class ViewInfo extends AppCompatActivity {
         thumbnail = findViewById(R.id.thumbnail);
         videoView = findViewById(R.id.videoURL);
 
-
         long x = intent.getLongExtra("id", 0);
-        Match m = SoccerMatchHighlights.matchArrayList.get((int)x);
+        Match m = getMatch((int)x);
+
 
         competitionTitle.setText(m.getCompetitionName());
         team1.setText(m.getTeam1());
@@ -111,6 +111,17 @@ public class ViewInfo extends AppCompatActivity {
         reqInfo.execute(m.getThumbnail());
         fileName = m.getThumbnail().substring(30, m.getThumbnail().length());
 
+    }
+
+    public Match getMatch(int id){
+        Match m = null;
+
+        for (int i = 0; i<SoccerMatchHighlights.matchArrayList.size(); i++){
+            if (SoccerMatchHighlights.matchArrayList.get(i).getId() == SoccerMatchHighlights.matchArrayList.get((int)id).getId()){
+                m = SoccerMatchHighlights.matchArrayList.get((int)i);
+            }
+        }
+        return m;
     }
 
     public MyOpener getMyOpener() {

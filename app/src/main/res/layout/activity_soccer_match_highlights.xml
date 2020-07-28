@@ -5,14 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SoccerMatchHighlights"
+    tools:context=".SoccerMatchHighlights">
 
-    >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarSMH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
     <RelativeLayout
         android:id="@+id/listLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbarSMH">
 
         <ListView
             android:id="@+id/list_itemsSMH"
@@ -29,8 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/showFavourites"
             android:layout_centerHorizontal="true"
-            android:visibility="visible"
             android:background="@color/greySMH"
+            android:visibility="visible"
 
             />
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/infoSMH"
+        android:icon="@drawable/about_smh"
+        android:orderInCategory="5"
+        app:showAsAction="always"
+        android:title="Info About the Project" />
+
+    <item
+        android:id="@+id/aboutSMH"
+        android:icon="@drawable/app_smh"
+        app:showAsAction="always"
+        android:title="How to use"
+        android:orderInCategory="1"/>
+
+
+</menu>

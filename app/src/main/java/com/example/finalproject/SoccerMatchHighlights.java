@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 
 import android.content.Intent;
@@ -8,6 +10,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,6 +22,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.finalproject.soccerMatch.EmptyActivitySMH;
 import com.example.finalproject.soccerMatch.ListOfFavourites;
 import com.example.finalproject.soccerMatch.Match;
 import com.example.finalproject.soccerMatch.MyOpener;
@@ -31,6 +37,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.function.ToLongBiFunction;
 
 
 public class SoccerMatchHighlights extends AppCompatActivity {
@@ -46,6 +53,9 @@ public class SoccerMatchHighlights extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_soccer_match_highlights);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarSMH);
+        setSupportActionBar(myToolbar);
 
         listItems = findViewById(R.id.list_itemsSMH);
         progressBar = findViewById(R.id.progressBarSMH);
@@ -66,6 +76,40 @@ public class SoccerMatchHighlights extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.infoSMH:
+                Intent nextActivity = new Intent(SoccerMatchHighlights.this, EmptyActivitySMH.class);
+                startActivity(nextActivity);
+
+                break;
+
+            case R.id.aboutSMH:
+
+                AlertDialog.Builder alertD = new AlertDialog.Builder(SoccerMatchHighlights.this);
+
+                alertD.setTitle("Information how this app works")
+                        .setMessage("In the main page you can see different soccer matches sorted by date." +
+                                "\nYou can click on the match to see more details about it (Teams, League, Date, Video)." +
+                                "\nYou can also save match that you like into the list of favourites by clicking the appropriate button." +
+                                "\n By clicking on \"Show Favourites\" button you can access your custom list with possibility see details and remove from the list.  ")
+                        .setNegativeButton("Back",((dialog, which) -> {
+
+                        })).create().show();
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.smh_menu, menu);
+        return true;
+    }
 
     @Override
     protected void onDestroy() {

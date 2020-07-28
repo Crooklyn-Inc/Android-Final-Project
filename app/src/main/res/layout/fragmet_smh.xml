@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".SoccerMatchHighlights">
+
+    <TextView
+        android:id="@+id/titleSMH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Title: "
+        android:textColor="@color/blackSMH"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/titleTextSMH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleSMH"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="Soccer Match Highlights"
+        android:textColor="@color/blackSMH"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/versionSMH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleTextSMH"
+        android:layout_centerHorizontal="true"
+        android:text="Version: "
+        android:textColor="@color/blackSMH"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/versionTextSMH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/versionSMH"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="1.0"
+        android:textColor="@color/blackSMH"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/authorSMH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/versionTextSMH"
+        android:layout_centerHorizontal="true"
+        android:text="Author:  "
+        android:textColor="@color/blackSMH"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/authorTextSMH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authorSMH"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="Yegor Shrtamchenko"
+        android:textColor="@color/blackSMH"
+        android:textSize="25dp" />
+
+    <ImageView
+        android:id="@+id/photoSMH"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_below="@id/authorTextSMH"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/im" />
+
+</RelativeLayout>
