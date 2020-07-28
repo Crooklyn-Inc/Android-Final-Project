@@ -1,7 +1,9 @@
 package com.example.finalproject;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +18,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
+
 public class DeezerSongSearch extends AppCompatActivity {
     ProgressBar progressBar;
     SharedPreferences pref;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+
     public static String EXTRA_MESSAGE = "ARTIST_SONG_LIST";
 
     @Override
@@ -31,8 +38,19 @@ public class DeezerSongSearch extends AppCompatActivity {
         pref = getSharedPreferences("FileName", Context.MODE_PRIVATE);
         String savedString = pref.getString("ReserveName", "");
         artistName.setText(savedString);
+
         Toolbar myToolbar = (Toolbar)findViewById(R.id.deezerToolbar);
         setSupportActionBar(myToolbar);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawer, myToolbar, R.string.open, R.string.close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+
 
 
         String message = "";
@@ -63,12 +81,15 @@ public class DeezerSongSearch extends AppCompatActivity {
             //what to do when the menu item is selected:
             case R.id.geoMenuItem:
                 message = "You clicked item 1";
+                startActivity(new Intent(this, GeoDataSource.class));
                 break;
             case R.id.soccerMenuItem:
                 message = "You clicked item 2";
+                startActivity(new Intent(this, SoccerMatchHighlights.class));
                 break;
             case R.id.lyricsMenuItem:
                 message = "You clicked item 3";
+                startActivity(new Intent(this, SongLyricsSearch.class));
                 break;
             case R.id.aboutProject:
                 Toast.makeText(this,getResources().getString(R.string.deezToolAboutProject), Toast.LENGTH_LONG).show();
