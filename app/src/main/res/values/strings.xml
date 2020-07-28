@@ -4,4 +4,11 @@
     <string name="btnSoccer">Soccer Match Highlights</string>
     <string name="btnSongLyrics">Song Lyrics Search</string>
     <string name="btnDeezerSong">Deezer Song Search</string>
+    <string name="btnAddSMH">Add</string>
+    <string name="showFavouritesSMH">Show Favourites</string>
+    <string name="addToFavouritesSMH">Add to Favourites</string>
+    <string name="removeSMH">Remove</string>
+    <string name="videoSMH">Video</string>
+
+
 </resources>

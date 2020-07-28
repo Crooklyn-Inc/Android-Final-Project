@@ -4,4 +4,11 @@
     <string name="btnSoccer">Футбольные Данные</string>
     <string name="btnSongLyrics">Поиск Лирической Музыки</string>
     <string name="btnDeezerSong">Поиск Музыки в Deezer</string>
+    <string name="btnAddSMH">Добавить</string>
+    <string name="showFavouritesSMH">Показать избранные</string>
+    <string name="addToFavouritesSMH">Добавить в избранное</string>
+    <string name="removeSMH">Удалить</string>
+    <string name="videoSMH">Видео</string>
+
+
 </resources>
