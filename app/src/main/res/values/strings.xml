@@ -90,4 +90,14 @@
     <string name="instructions_for_this_app">Instructions for this app</string>
     <string name="about_the_api">About the API</string>
     <string name="donate_to_project">Donate to project</string>
+    <string name="slsSearchBtnText">Search Lyrics</string>
+    <string name="slsFavoriteListBtn">Favorite lyrics</string>
+    <string name="slsHeaderText">Enter \"Band - Song\" for search:</string>
+    <string name="slsSearchInputHint">Band - Song</string>
+    <string name="slsGroupText">"Band: "</string>
+    <string name="slsSongText">"Song: "</string>
+    <string name="slsLyricsText">LYRICS</string>
+    <string name="slsAddToFavoriteListBtn">Add to Favorites</string>
+    <string name="slsSearchGoogleBtn">Google search</string>
+    <string name="slsAlertDeleteTitle">Remove from Favorites?</string>
 </resources>
