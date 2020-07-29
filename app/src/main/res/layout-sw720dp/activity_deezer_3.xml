@@ -4,26 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
         android:id="@+id/ListViewDB"
         android:stackFromBottom="false"
         android:transcriptMode="alwaysScroll"
         android:dividerHeight="20dp"
         android:divider="@android:color/transparent"
         />
-    <ProgressBar
-        android:id="@+id/progressBarDeezerActivity3"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:visibility="invisible" />
+
 
     <FrameLayout
         android:id="@+id/fragmentLocation"

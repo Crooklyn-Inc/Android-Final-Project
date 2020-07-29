@@ -18,7 +18,7 @@
             android:indeterminate="false"
             android:max="100"
             android:progress="0"
-            android:progressDrawable="@drawable/custom_progress_bar"
+            android:progressDrawable="@drawable/circular"
             android:secondaryProgress="0" />
 
 

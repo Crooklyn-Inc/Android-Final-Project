@@ -10,7 +10,7 @@
         android:layout_margin="5dp"
         android:paddingStart="15dp"
         android:paddingEnd="5dp"
-        android:text="@string/collegeName"
+        android:text="@string/geoActivityName"
         android:textSize="18sp" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_margin="5dp"
         android:paddingStart="15dp"
         android:paddingEnd="5dp"
-        android:text="@string/courseCode"
+        android:text="@string/geoAuthor"
         android:textSize="16sp" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_margin="5dp"
         android:paddingStart="15dp"
         android:paddingEnd="5dp"
-        android:text="@string/projectName"
+        android:text="@string/geoVersionNumber"
         android:textSize="16sp" />
 
 </LinearLayout>

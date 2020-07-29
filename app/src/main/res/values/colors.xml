@@ -3,4 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorFragment">#b9c2d9</color>
+    <color name="colorGeoBackground">#D5F9FE</color>
+    <color name="colorGeoListDivider">#2BB2C5</color>
 </resources>

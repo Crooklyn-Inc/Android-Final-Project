@@ -1,20 +1,32 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-//import com.google.android.material.snackbar.Snackbar;
-
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.BufferedReader;
@@ -27,17 +39,26 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeoDataSource extends AppCompatActivity {
+public class GeoDataSource extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String FORMATTED_REQUEST = "https://api.geodatasource.com/cities?key=%S&format=json&lat=%S&lng=%S&zoom=14";
+    private static final String FORMATTED_REQUEST = "https://api.geodatasource.com/cities?key=%S&format=json&lat=%S&lng=%S";
     private static final String API_KEY = "YR5XMSKGHMHTIWDKTLRADSUYNYTJNYNK";
+    private static final String LINK_TO_GEODATASOURCE = "https://www.geodatasource.com/web-service";
+    private static final String PREF_FILE_NAME = "geo_preferences";
+    private static final String LATITUDE_RES_NAME = "latitude";
+    private static final String LONGITUDE_RES_NAME = "longitude";
+
     public static final List<GeoAttr> ATTR_MAP = new ArrayList<>(13);
     public static final String ACTIVITY_NAME = "GEO_DATA_SOURCE";
+    public static final int LAT_INDEX = 4;
+    public static final int LON_INDEX = 5;
+    public static final String JSON_INTENT_DATA = "JSON";
 
     private static final int MIN_PROGRESS = 0;
     private static final int MAX_PROGRESS = 100;
     static final int REQUEST_CITY_DISPLAY = 100;
 
+    private SharedPreferences prefs = null;
     private EditText geoEditTxtLat;
     private EditText geoEditTxtLon;
     private Button geoBtnSearchCities;
@@ -49,6 +70,19 @@ public class GeoDataSource extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geo_data_source);
 
+        Toolbar geoToolbar = (Toolbar)findViewById(R.id.geoToolbar);
+        setSupportActionBar(geoToolbar);
+
+        DrawerLayout mainDrawerLayout = findViewById(R.id.geoDrawerLayout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                mainDrawerLayout, geoToolbar, R.string.open, R.string.close);
+        mainDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.geoNavigationView);
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
+
         geoEditTxtLat = (EditText) findViewById(R.id.geoEditTxtLat);
         geoEditTxtLon = (EditText) findViewById(R.id.geoEditTxtLon);
         geoBtnSearchCities = (Button) findViewById(R.id.geoBtnSearchCities);
@@ -57,23 +91,27 @@ public class GeoDataSource extends AppCompatActivity {
         geoProgressBar.setVisibility(View.INVISIBLE);
         geoProgressBar.setMax(MAX_PROGRESS);
 
+        prefs = getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
+        geoEditTxtLat.setText(prefs.getString(LATITUDE_RES_NAME, ""));
+        geoEditTxtLon.setText(prefs.getString(LONGITUDE_RES_NAME, ""));
+
         if (ATTR_MAP.isEmpty()) {
-            ATTR_MAP.add(new GeoAttr("_id", false));
-            ATTR_MAP.add(new GeoAttr("city", false));
-            ATTR_MAP.add(new GeoAttr("country", false));
-            ATTR_MAP.add(new GeoAttr("region", false));
-            ATTR_MAP.add(new GeoAttr("latitude", true));
-            ATTR_MAP.add(new GeoAttr("longitude", true));
-            ATTR_MAP.add(new GeoAttr("currency_code", false));
-            ATTR_MAP.add(new GeoAttr("currency_name", false));
-            ATTR_MAP.add(new GeoAttr("currency_symbol", false));
-            ATTR_MAP.add(new GeoAttr("sunrise", false));
-            ATTR_MAP.add(new GeoAttr("sunset", false));
-            ATTR_MAP.add(new GeoAttr("time_zone", false));
-            ATTR_MAP.add(new GeoAttr("distance_km", true));
+            ATTR_MAP.add(new GeoAttr("_id", R.string.geoCityAttr_0, false, 4));                //  "Database Record ID"
+            ATTR_MAP.add(new GeoAttr("city", R.string.geoCityAttr_1, false, 24));               //  "City"
+            ATTR_MAP.add(new GeoAttr("country", R.string.geoCityAttr_2, false, 12));            //  "Country"
+            ATTR_MAP.add(new GeoAttr("region", R.string.geoCityAttr_3, false, 20));             //  "Region"
+            ATTR_MAP.add(new GeoAttr("latitude", R.string.geoCityAttr_4, true, 9));            //  "Latitude"
+            ATTR_MAP.add(new GeoAttr("longitude", R.string.geoCityAttr_5, true, 10));           //  "Longitude"
+            ATTR_MAP.add(new GeoAttr("currency_code", R.string.geoCityAttr_6, false, 13));      //  "Currency Code"
+            ATTR_MAP.add(new GeoAttr("currency_name", R.string.geoCityAttr_7, false, 22));      //  "Currency Name"
+            ATTR_MAP.add(new GeoAttr("currency_symbol", R.string.geoCityAttr_8, false, 15));    //  "Currency Symbol"
+            ATTR_MAP.add(new GeoAttr("sunrise", R.string.geoCityAttr_9, false, 7));            //  "Sunrise"
+            ATTR_MAP.add(new GeoAttr("sunset", R.string.geoCityAttr_10, false, 6));            //  "Sunset"
+            ATTR_MAP.add(new GeoAttr("time_zone", R.string.geoCityAttr_11, false, 9));         //  "Time Zone"
+            ATTR_MAP.add(new GeoAttr("distance_km", R.string.geoCityAttr_12, true, 11));        //  "Distance km"
         }
 
-        geoBtnSearchCities.setOnClickListener( e -> {
+        geoBtnSearchCities.setOnClickListener( v -> {
             String latStr = geoEditTxtLat.getText().toString().trim();
             String lonStr = geoEditTxtLon.getText().toString().trim();
 
@@ -101,6 +139,18 @@ public class GeoDataSource extends AppCompatActivity {
             geoProgressBar.setVisibility(View.VISIBLE);
             (new GeoDataRequest()).execute(request);
         });
+
+        geoBtnFavourites.setOnClickListener( v -> {
+            Intent cityListIntent = new Intent(GeoDataSource.this, GeoCityList.class);
+            startActivity(cityListIntent);
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveSharedPrefs(LATITUDE_RES_NAME, geoEditTxtLat.getText().toString().trim());
+        saveSharedPrefs(LONGITUDE_RES_NAME, geoEditTxtLon.getText().toString().trim());
     }
 
     @Override
@@ -116,6 +166,79 @@ public class GeoDataSource extends AppCompatActivity {
         super.onStart();
         geoProgressBar.setVisibility(View.INVISIBLE);
         Log.i(ACTIVITY_NAME, "In function: " + "onStart");
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() ==  R.id.appInstructionsMenuItem) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(R.string.geoInstructionsMenuItem)
+                    .setIcon(R.drawable.ic_geo_city)
+                    .setMessage(R.string.geoInstructionsMessage)
+                    .setPositiveButton(R.string.ok,(click, arg) -> {})
+                    .create()
+                    .show();
+        }
+        else if (item.getItemId() ==  R.id.aboutApiMenuItem) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK_TO_GEODATASOURCE)));
+        }
+        else if (item.getItemId() ==  R.id.donateToProjectMenuItem) {
+
+            LinearLayout container = new LinearLayout(this);
+            container.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(40, 0, 40, 0);
+            final EditText input = new EditText(this);
+            input.setLayoutParams(lp);
+            input.setInputType(InputType.TYPE_CLASS_NUMBER);
+            input.setLines(1);
+            input.setMaxLines(1);
+            input.setHint(R.string.geoThreeCurrencySigns);
+            container.addView(input, lp);
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(R.string.geoDonationTitle)
+                    .setIcon(R.drawable.ic_geo_city)
+                    .setMessage(R.string.geoDonationMessage)
+                    .setView(container)
+                    .setPositiveButton(getResources().getString(R.string.geoThankYou),(click, arg) -> {})
+                    .setNegativeButton(R.string.geoCancel, (click, arg) -> { })
+                    .setView( container )
+                    .create()
+                    .show();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.geo_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() ==  R.id.soccerMenuItem) {
+            Intent intent = new Intent(GeoDataSource.this, SoccerMatchHighlights.class);
+            startActivity(intent);
+        }
+        else if (item.getItemId() ==  R.id.lyricsMenuItem) {
+            Intent intent = new Intent(GeoDataSource.this, SongLyricsSearch.class);
+            startActivity(intent);
+        }
+        else if (item.getItemId() ==  R.id.deezerMenuItem) {
+            Intent intent = new Intent(GeoDataSource.this, DeezerSongSearch.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(GeoDataSource.this, R.string.geoMessageForAboutProjectMenuItem, Toast.LENGTH_LONG).show();
+        }
+
+        return true;
     }
 
     private class GeoDataRequest extends AsyncTask< String, Integer, String> {
@@ -142,9 +265,9 @@ public class GeoDataSource extends AppCompatActivity {
 
                 if (!(jsonString == null || jsonString.isEmpty())) {
                     int progress = 5;
-                    while (progress < 95) {
+                    while (progress < 90) {
                         publishProgress(progress += 5);
-                        Thread.sleep(50);
+                        Thread.sleep(20);
                     }
                 }
             } catch (MalformedURLException e) {
@@ -179,7 +302,7 @@ public class GeoDataSource extends AppCompatActivity {
             geoProgressBar.setProgress(MAX_PROGRESS);
 
             Intent cityListIntent = new Intent(GeoDataSource.this, GeoCityList.class);
-            cityListIntent.putExtra("json", result);
+            cityListIntent.putExtra(JSON_INTENT_DATA, result);
             startActivityForResult(cityListIntent, REQUEST_CITY_DISPLAY);
         }
     }
@@ -193,13 +316,23 @@ public class GeoDataSource extends AppCompatActivity {
         }
     }
 
+    private void saveSharedPrefs(String key, String stringToSave) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(key, stringToSave);
+        editor.commit();
+    }
+
     public class GeoAttr {
         String string = null;
+        int resID;
         Boolean isReal;
+        int logColumnWidth;
 
-        GeoAttr(String string, Boolean isReal) {
+        GeoAttr(String string, int resID, Boolean isReal, int logColumnWidth) {
             this.string = string;
+            this.resID = resID;
             this.isReal = isReal;
+            this.logColumnWidth = logColumnWidth;
         }
     }
 }
