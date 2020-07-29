@@ -16,11 +16,16 @@ import androidx.fragment.app.Fragment;
 
 import com.example.finalproject.R;
 
+/**
+ * This class is used to display a simple fragment that call when user
+ * press an info button to view information about the author of the project
+ */
 public class DetailFragment extends Fragment {
 
     private Bundle dataFromActivity;
     private int id;
     private AppCompatActivity parentActivity;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,8 +48,6 @@ public class DetailFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        //context will either be FragmentExample for a tablet, or EmptyActivity for phone
         parentActivity = (AppCompatActivity) context;
     }
 }

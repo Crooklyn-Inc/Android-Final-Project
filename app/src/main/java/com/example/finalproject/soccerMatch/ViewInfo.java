@@ -7,19 +7,16 @@ import com.example.finalproject.SoccerMatchHighlights;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.database.sqlite.SQLiteDatabase;
 
 
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,11 +24,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.example.finalproject.R;
 
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,13 +36,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.Locale;
 
 
+/**
+ * ViewInfo class is used to display a single match information on a separate layout.
+ */
 public class ViewInfo extends AppCompatActivity {
     public ImageView thumbnail;
     public String fileName;
@@ -92,18 +87,29 @@ public class ViewInfo extends AppCompatActivity {
         team1.setText(m.getTeam1());
         team2.setText(m.getTeam2());
         String dateF = m.getDate();
-        date.setText(m.getDate());
+        dateF = dateF.substring(0, dateF.length() - 5);
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd MM yyyy E HH:mm");
+
+            Date date1 = inputFormat.parse(dateF);
+
+            dateF = outputFormat.format(date1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        date.setText(dateF);
+
+//        date.setText(m.getDate());
+
         videoView.setOnClickListener(click -> {
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(m.getVideoUrl()));
             startActivity(i);
         });
 
         addToFavourites.setOnClickListener(click -> {
-
-
             myOpener.insertData(m.getId(), m.getTitle(), m.getThumbnail(), m.getDate(), m.getCompetitionName(), m.getVideoUrl(), m.getTeam1(), m.getTeam2());
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.addedSMH), Toast.LENGTH_SHORT).show();
-
         });
 
 
@@ -113,6 +119,12 @@ public class ViewInfo extends AppCompatActivity {
 
     }
 
+    /**
+     * Method to find a proper match that we want to display.
+     *
+     * @param id - int that is passed as a DB id number of a specific match.
+     * @return - a proper match from the array.
+     */
     public Match getMatch(int id) {
         Match m = null;
 
@@ -135,6 +147,7 @@ public class ViewInfo extends AppCompatActivity {
         File f = new File(dir, fileName);
         boolean delete = f.delete();
     }
+
 
     public class MatchQuery extends AsyncTask<String, Integer, String> {
 

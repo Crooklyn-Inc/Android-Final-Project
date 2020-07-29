@@ -2,6 +2,11 @@ package com.example.finalproject.soccerMatch;
 
 import java.net.URL;
 
+/**
+ * This is a constructor class to build a single Match Object.
+ * This class contains all necessary private instances as well
+ * as their getters and setters that are used later to display information on GUI.
+ */
 public class Match {
     private String title;
     private long id;

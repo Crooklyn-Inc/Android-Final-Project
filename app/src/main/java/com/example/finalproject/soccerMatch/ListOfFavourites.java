@@ -22,6 +22,9 @@ import android.widget.VideoView;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to read the database with user's favourite matches.
+ */
 public class ListOfFavourites extends AppCompatActivity {
     public ArrayList<Match> matchArray = new ArrayList<>();
 
@@ -114,7 +117,9 @@ public class ListOfFavourites extends AppCompatActivity {
 
     }
 
-
+    /**
+     * This method is used to convert information from existing DB into Match Objects and add display them via ListView
+     */
     private void showMatches() {
         myOpener.getWritableDatabase();
         Cursor c = myOpener.viewDataDb();

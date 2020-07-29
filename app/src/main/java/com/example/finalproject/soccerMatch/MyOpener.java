@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * This a DataBase Builder class.
+ */
 public class MyOpener extends SQLiteOpenHelper {
     public static final String ACTIVITY_NAME = "SMH";
 
@@ -56,6 +59,20 @@ public class MyOpener extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * This method is used to insert single Match object into the database.
+     *
+     *
+     * @param id - unique identifier of a single match object that is parsed from the web.
+     * @param title - unique title of a single match object that is parsed from the web.
+     * @param thumbnail - unique thumbnail picture link of a single match object that is parsed from the web.
+     * @param date- date of a single match object that is parsed from the web.
+     * @param competitionName - name of the league/competition that match belongs to.
+     * @param videoURL - link to see match highlights.
+     * @param team1 - team number 1 that participated in the competition.
+     * @param team2 - team number 2 that participated in the competition.
+     * @return
+     */
     public boolean insertData(long id, String title, String thumbnail,
                               String date, String competitionName,
                               String videoURL, String team1, String team2) {
@@ -78,11 +95,21 @@ public class MyOpener extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * This method is used to delete a single Match record from a database.
+     *
+     * @param m - match object that  we want to delete information about.
+     */
     protected void deleteMessage(Match m) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(MyOpener.DATABASE_TABLE, MyOpener.COL_ID + "= ?", new String[]{Long.toString(m.getId())});
     }
 
+    /**
+     * This method is used to view all records from the database that contains any information about a single match.
+     *
+     * @return - a Cursor object that contains executed query result.
+     */
     public Cursor viewDataDb() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Select * from " + DATABASE_TABLE;
