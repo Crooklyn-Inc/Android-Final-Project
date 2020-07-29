@@ -98,6 +98,7 @@
     <string name="slsGroupText">Группа:</string>
     <string name="slsSongText">Песня:</string>
     <string name="slsLyricsText">СЛОВА</string>
+    <string name="slsVersionNumber">1.0.0</string>
 
 
 </resources>

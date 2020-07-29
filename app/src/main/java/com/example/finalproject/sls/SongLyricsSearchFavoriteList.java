@@ -1,9 +1,5 @@
 package com.example.finalproject.sls;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.finalproject.MainActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.example.finalproject.DeezerFragmentDetails;
 import com.example.finalproject.R;
 import com.example.finalproject.sls.data.MessageDTO;
 import com.example.finalproject.sls.database.MessageDao;
@@ -25,13 +24,15 @@ import java.util.List;
 
 public class SongLyricsSearchFavoriteList extends AppCompatActivity {
 
-    private MessageListAdapter messageAdapter;
-    private MessageDao         messageDao;
+    private MessageListAdapter              messageAdapter;
+    private MessageDao                      messageDao;
+    private boolean                         isTablet;
+    private SongLyricsSearchFragmentDetails dFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_song_lyrics_search_favorite_list);
+        setContentView(R.layout.activity_sls_favorite_list);
 
         // create an instance of DAO
         messageDao = new MessageDao(this);
@@ -42,8 +43,10 @@ public class SongLyricsSearchFavoriteList extends AppCompatActivity {
         // bind loaded data to the UI
         messageAdapter = new MessageListAdapter(this, messageList);
 
-        ListView theList = (ListView) findViewById(R.id.list);
+        ListView theList = (ListView) findViewById(R.id.slsList);
         theList.setAdapter(messageAdapter);
+
+        isTablet = findViewById(R.id.slsFragmentLocation) != null;
 
         theList.setOnItemLongClickListener((list, item, position, id) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(SongLyricsSearchFavoriteList.this);
@@ -61,8 +64,26 @@ public class SongLyricsSearchFavoriteList extends AppCompatActivity {
         });
 
         theList.setOnItemClickListener((list, item, position, id) -> {
-            Intent intentSongLyrics = new Intent(SongLyricsSearchFavoriteList.this, SongLyricsSearchResult.class);
-            startActivity(intentSongLyrics);
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString(SongLyricsSearch.BAND, messageAdapter.getItem(position).getBand());
+            dataToPass.putString(SongLyricsSearch.SONG, messageAdapter.getItem(position).getSong());
+            dataToPass.putString(SongLyricsSearch.LYRICS, messageAdapter.getItem(position).getLyrics());
+
+            if (isTablet) {
+                dFragment = new SongLyricsSearchFragmentDetails(this, messageAdapter); //add a DetailFragment
+                dFragment.setArguments(dataToPass);
+                getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.slsFragmentLocation, dFragment) //Add the fragment in FrameLayout
+                    .commit(); //actually load the fragment.
+            } else {
+                Intent intentSongLyrics = new Intent(SongLyricsSearchFavoriteList.this, SongLyricsSearchResult.class);
+                intentSongLyrics.putExtra(SongLyricsSearch.BAND, messageAdapter.getItem(position).getBand());
+                intentSongLyrics.putExtra(SongLyricsSearch.SONG, messageAdapter.getItem(position).getSong());
+                intentSongLyrics.putExtra(SongLyricsSearch.LYRICS, messageAdapter.getItem(position).getLyrics());
+
+                startActivity(intentSongLyrics);
+            }
         });
     }
 
@@ -73,12 +94,17 @@ public class SongLyricsSearchFavoriteList extends AppCompatActivity {
         return sb.toString();
     }
 
-    private void deleteMessage(MessageDTO message) {
+    protected void deleteMessage(MessageDTO message) {
         messageDao.delete(message);
         messageAdapter.remove(message);
+        if (isTablet) {
+            getSupportFragmentManager().beginTransaction().remove(dFragment).commit();
+        } else {
+
+        }
     }
 
-    private static class MessageListAdapter extends ArrayAdapter<MessageDTO> {
+    static class MessageListAdapter extends ArrayAdapter<MessageDTO> {
         public MessageListAdapter(@NonNull Context context, @NonNull List<MessageDTO> objects) {
             super(context, -1, objects);
         }
@@ -102,7 +128,7 @@ public class SongLyricsSearchFavoriteList extends AppCompatActivity {
 
         private View createRowView(MessageDTO currentMessage, ViewGroup parent) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            return inflater.inflate(R.layout.activity_song_lyrics_search_favorite_record, parent, false);
+            return inflater.inflate(R.layout.activity_sls_favorite_record, parent, false);
         }
     }
 

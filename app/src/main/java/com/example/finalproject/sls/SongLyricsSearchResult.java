@@ -1,53 +1,100 @@
 package com.example.finalproject.sls;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.finalproject.R;
 import com.example.finalproject.sls.data.MessageDTO;
 import com.example.finalproject.sls.database.MessageDao;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class SongLyricsSearchResult extends AppCompatActivity {
 
     private MessageDao messageDao;
+    private Long       songId;
+    private boolean    isSongFavorite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_song_lyrics_search_result);
+        setContentView(R.layout.activity_sls_result);
 
         Intent searchData = getIntent();
+        String bandName   = searchData.getStringExtra(SongLyricsSearch.BAND);
+        String songText   = searchData.getStringExtra(SongLyricsSearch.SONG);
+        String lyricsText = searchData.getStringExtra(SongLyricsSearch.LYRICS);
 
         TextView band = findViewById(R.id.slsGroupName);
         TextView song = findViewById(R.id.slsSongName);
-        band.setText(searchData.getStringExtra(SongLyricsSearch.BAND));
-        song.setText(searchData.getStringExtra(SongLyricsSearch.SONG));
+        band.setText(bandName);
+        song.setText(songText);
+
+        isSongFavorite(bandName, songText);
 
         TextView lyrics = findViewById(R.id.slsLyricsName);
 
         lyrics.setMovementMethod(new ScrollingMovementMethod());
 
-        SongLyricsSearchNetwork searchNetwork = new SongLyricsSearchNetwork(findViewById(R.id.slsLyricsName).getRootView());
-        searchNetwork.execute(band.getText().toString(), song.getText().toString());
+        if (lyricsText == null || lyricsText.isEmpty()) {
+            SongLyricsSearchNetwork            searchNetwork = new SongLyricsSearchNetwork(findViewById(R.id.slsLyricsName).getRootView());
+            AsyncTask<String, Integer, String> asd           = searchNetwork.execute(band.getText().toString(), song.getText().toString());
+            try {
+                lyrics.setText(asd.get());
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            lyrics.setText(lyricsText);
+        }
 
-        //String   text   = "Baby, sometimes I feel like dying, \ndriving while I'm closing my eyes. \nMoving in and out of hiding, \ntrying to catch some truth in my life. \nWatching your stars and your moonlight, \ncome tumbling down from the sky. \n\nTake it now. \n\n\n\nI'm gonna run to you, I'm gonna come to you, \n\nI wanna find you in everything that I do. \n\nI'm gonna run to you, I'm gonna count on you, \n\nI'm gonna follow. Baby, what else can I do? \n\n\n\nSunday morning, my town is sleeping. \n\nLying all alone in my bed, \n\nthere's not a sound, I can't help but listening. \n\nWishing I was somewhere else instead. \n\nBut sometimes they're too hard to handle, \n\nthese voices inside my head. \n\nListen now. \n\n\n\nI'm gonna run to you, I'm gonna come to you, \n\nI wanna find you in everything that I do. \n\nI'm gonna run to you, I'm gonna count on you, \n\nI'm gonna follow. Baby, what else can I do? \n\n\n\nTake a walk inside my dream: \n\nA church, a lonely road. \n\nAll the people come and go and come and go. \n\n\n\nI'm gonna run to you, I'm gonna come to you. \n\nDo it now! \n\nI'm gonna run to you, I'm gonna count on you. \n\n\n\nI'm gonna run to you, I'm gonna come to you, \n\nI wanna find you in everything that I do. \n\nI'm gonna run to you, I'm gonna count on you, \n\nI'm gonna follow. Baby, what else can I do?";
-        //lyrics.setText(text);
-
-        Button addToFavBtn = findViewById(R.id.slsAddToFavoriteListBtn);
-        addToFavBtn.setOnClickListener(btn -> {
-            addToFavoriteList();
+        Button favBtn = findViewById(R.id.slsAddToFavoriteListBtn);
+        if (isSongFavorite) {
+            favBtn.setText("Remove Favorite");
+        }
+        favBtn.setOnClickListener(btn -> {
+            if (isSongFavorite) {
+                deleteFromFavorites(songId);
+            } else {
+                addToFavoriteList();
+            }
         });
+
+    }
+
+    private void deleteFromFavorites(Long songId) {
+        messageDao = new MessageDao(this);
+        messageDao.open();
+        messageDao.delete(messageDao.findById(songId));
+        Button favBtn = findViewById(R.id.slsAddToFavoriteListBtn);
+        favBtn.setText("Add to Favorite");
+        isSongFavorite = false;
+    }
+
+    private boolean isSongFavorite(String bandName, String songText) {
+        messageDao = new MessageDao(this);
+        messageDao.open();
+
+        List<MessageDTO> favList = messageDao.findAll();
+        for (MessageDTO record : favList) {
+            if (record.getBand().equalsIgnoreCase(bandName) && record.getSong().equalsIgnoreCase(songText)) {
+                songId         = record.getId();
+                isSongFavorite = true;
+                messageDao.close();
+                return true;
+            }
+        }
+        messageDao.close();
+        return false;
 
     }
 
@@ -63,5 +110,10 @@ public class SongLyricsSearchResult extends AppCompatActivity {
             new MessageDTO(b.getText().toString(),
                 s.getText().toString(),
                 l.getText().toString()));
+        messageDao.close();
+        Button favBtn = findViewById(R.id.slsAddToFavoriteListBtn);
+        favBtn.setText("Remove Favorite");
+        isSongFavorite = true;
+        songId = newMessage.getId();
     }
 }

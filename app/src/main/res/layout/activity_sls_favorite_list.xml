@@ -7,15 +7,9 @@
         tools:context=".sls.SongLyricsSearchFavoriteList">
 
     <ListView
-            android:id="@+id/list"
+            android:id="@+id/slsList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="10.0" />
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-    </LinearLayout>
 </LinearLayout>

@@ -16,11 +16,11 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-                android:id="@+id/slsToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:actionViewClass="androidx.appcompat.widget.SearchView" />
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/slsToolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:actionViewClass="androidx.appcompat.widget.SearchView" />-->
 
         <ProgressBar
                 android:id="@+id/slsProgressBar"

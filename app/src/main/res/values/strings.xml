@@ -100,4 +100,11 @@
     <string name="slsAddToFavoriteListBtn">Add to Favorites</string>
     <string name="slsSearchGoogleBtn">Google search</string>
     <string name="slsAlertDeleteTitle">Remove from Favorites?</string>
+    <string name="slsVersionNumber">1.0.0</string>
+    <string name="slsAuthor">Olga Zimina</string>
+    <string name="slsActivityName">Song Lyrics Finder - always get you the correct lyrics</string>
+    <string name="slsInstructionsMenuItem">Instructions</string>
+    <string name="slsAboutApiMenuItem">About Lyrics</string>
+    <string name="slsDonateMenuItem">Donate to Project</string>
+    <string name="slsToolAboutProject">Song Lyrics Finder by Olga Zimina</string>
 </resources>

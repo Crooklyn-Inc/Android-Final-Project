@@ -11,6 +11,6 @@ public class SongLyricsSearchFavoriteRecord extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_song_lyrics_search_favorite_record);
+        setContentView(R.layout.activity_sls_favorite_record);
     }
 }

@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 public class SongLyricsSearchNetwork extends AsyncTask<String, Integer, String> {
 
@@ -35,16 +36,16 @@ public class SongLyricsSearchNetwork extends AsyncTask<String, Integer, String> 
 
         try {
             getLyrics(strings[0], strings[1]);
+            TextView lyricsText = rootView.findViewById(R.id.slsLyricsName);
+            //lyricsText.setText(songLyrics);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-
-
-        return null;
+        return songLyrics;
     }
 
     private void getLyrics(String band, String song) throws IOException, JSONException {
-        String link = "https://api.lyrics.ovh/v1/" + band + "/" + song;
+        String link = "https://api.lyrics.ovh/v1/" + URLEncoder.encode(band, "utf8") + "/" + URLEncoder.encode(song, "utf8");
 
         HttpURLConnection openConnection = getOpenConnection(link);
         InputStream       stream         = openConnection.getInputStream();
