@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,15 +30,21 @@ import com.google.android.material.navigation.NavigationView;
 
 public class SongLyricsSearch extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String PREFERENCES = "prefs";
-    public static final String BAND        = "band";
-    public static final String SONG        = "song";
-    public static final String LYRICS      = "lyrics";
+    public static final String PREFERENCES   = "prefs";
+    public static final String BAND          = "band";
+    public static final String SONG          = "song";
+    public static final String LYRICS        = "lyrics";
+    public static final String SEARCH_STRING = "search_string";
+    private             String searchString   = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sls_search);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+        TextView ss = findViewById(R.id.slsSearchInput);
+        ss.setText(sharedPreferences.getString(SEARCH_STRING, ""));
 
         Toolbar myToolbar = findViewById(R.id.slsToolbar);
         setSupportActionBar(myToolbar);
@@ -54,15 +63,35 @@ public class SongLyricsSearch extends AppCompatActivity implements NavigationVie
             Intent intentSongLyrics = new Intent(SongLyricsSearch.this, SongLyricsSearchResult.class);
 
             TextView bs           = findViewById(R.id.slsSearchInput);
-            String   searchString = bs.getText().toString();
+            searchString = bs.getText().toString();
             int      firstBreak   = searchString.indexOf("-");
-            String   band         = searchString.substring(0, firstBreak).trim();
-            String   song         = searchString.substring(firstBreak + 1, searchString.length()).trim();
-
-            intentSongLyrics.putExtra(BAND, band);
-            intentSongLyrics.putExtra(SONG, song);
-
-            startActivity(intentSongLyrics);
+            if (firstBreak > 0) {
+                String band = searchString.substring(0, firstBreak).trim();
+                String song = searchString.substring(firstBreak + 1, searchString.length()).trim();
+                if ((band != null && !band.isEmpty()) && (song != null && !song.isEmpty())) {
+                    intentSongLyrics.putExtra(BAND, band);
+                    intentSongLyrics.putExtra(SONG, song);
+                    startActivity(intentSongLyrics);
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.slsWrongInput), Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setTitle(R.string.geoInstructionsMenuItem)
+                        .setIcon(R.drawable.ic_lyric_song)
+                        .setMessage(R.string.slsInstructionsMessage)
+                        .setPositiveButton(R.string.ok, (click, arg) -> {})
+                        .create()
+                        .show();
+                }
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.slsWrongInput), Toast.LENGTH_LONG).show();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(R.string.geoInstructionsMenuItem)
+                    .setIcon(R.drawable.ic_lyric_song)
+                    .setMessage(R.string.slsInstructionsMessage)
+                    .setPositiveButton(R.string.ok, (click, arg) -> {})
+                    .create()
+                    .show();
+            }
         });
 
         Button btnFavoriteList = findViewById(R.id.slsFavouriteList);
@@ -110,8 +139,8 @@ public class SongLyricsSearch extends AppCompatActivity implements NavigationVie
         if (item.getItemId() == R.id.appInstructionsMenuItem) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(R.string.geoInstructionsMenuItem)
-                .setIcon(R.drawable.ic_geo_city)
-                .setMessage(R.string.geoInstructionsMessage)
+                .setIcon(R.drawable.ic_lyric_song)
+                .setMessage(R.string.slsInstructionsMessage)
                 .setPositiveButton(R.string.ok, (click, arg) -> {})
                 .create()
                 .show();
@@ -144,6 +173,22 @@ public class SongLyricsSearch extends AppCompatActivity implements NavigationVie
         }
 
         return false;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // checking if the email has been entered
+        // (in this case it should be anything more than 0 characters)
+        if (this.searchString.length() > 0) {
+
+            // and saving email to SharedPreferences
+            SharedPreferences        sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor            = sharedPreferences.edit();
+            editor.putString(SEARCH_STRING, this.searchString);
+            editor.commit();
+        }
     }
 
 }

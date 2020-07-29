@@ -107,4 +107,10 @@
     <string name="slsAboutApiMenuItem">About Lyrics</string>
     <string name="slsDonateMenuItem">Donate to Project</string>
     <string name="slsToolAboutProject">Song Lyrics Finder by Olga Zimina</string>
+    <string name="slsFavorites">Favorite Songs</string>
+    <string name="slsLyricsNotFound">Lyrics Not Found</string>
+    <string name="slsLyrics">Lyrics</string>
+    <string name="slsInstructionsMessage">If you want to find lyrics for the son you like - then all you need to do is to enter BAND name and SONG name separated by dash. Like this one:\n\nRoxette-Run To You\n\nThat\'s it :)</string>
+    <string name="slsWrongInput">Oops...</string>
+    <string name="slsFavDeleted">Lyrics deleted</string>
 </resources>

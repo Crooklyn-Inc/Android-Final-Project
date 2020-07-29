@@ -1,6 +1,5 @@
 package com.example.finalproject.sls;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;

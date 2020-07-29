@@ -1,33 +1,35 @@
 package com.example.finalproject.sls;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.finalproject.DeezerFragmentDetails;
-import com.example.finalproject.Deezer_activity3;
 import com.example.finalproject.R;
 import com.example.finalproject.sls.data.MessageDTO;
 import com.example.finalproject.sls.database.MessageDao;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 public class SongLyricsSearchFragmentDetails extends Fragment {
-    private final SongLyricsSearchFavoriteList.MessageListAdapter messageAdapter;
-    private       Bundle                                          dataFromActivity;
-    private       AppCompatActivity                               parentActivity;
-    private       boolean                                         isSongFavorite = false;
-    private       Context                                         context;
-    private       MessageDao                                      messageDao;
-    private       Long                                            songId;
+    private SongLyricsSearchFavoriteList.MessageListAdapter messageAdapter;
+
+    private Bundle            dataFromActivity;
+    private AppCompatActivity parentActivity;
+    private boolean           isSongFavorite = false;
+    private Context           context;
+    private MessageDao        messageDao;
+    private Long              songId;
 
 
     public SongLyricsSearchFragmentDetails(Context context, SongLyricsSearchFavoriteList.MessageListAdapter messageAdapter) {
@@ -64,6 +66,16 @@ public class SongLyricsSearchFragmentDetails extends Fragment {
             }
         });
 
+
+        Button gglBtn = result.findViewById(R.id.slsSearchGoogleBtn);
+        gglBtn.setOnClickListener(btn -> {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(dataFromActivity.getString(SongLyricsSearch.BAND), "utf8") + "+" + URLEncoder.encode(dataFromActivity.getString(SongLyricsSearch.SONG), "utf8"))));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        });
+
         return result;
     }
 
@@ -77,6 +89,8 @@ public class SongLyricsSearchFragmentDetails extends Fragment {
         messageDao.open();
         messageDao.delete(messageDao.findById(songId));
         parentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+
+        messageAdapter.remove(messageDao.findById(songId));
 
         Button favBtn = result.findViewById(R.id.slsAddToFavoriteListBtn);
         favBtn.setText("Add to Favorite");
