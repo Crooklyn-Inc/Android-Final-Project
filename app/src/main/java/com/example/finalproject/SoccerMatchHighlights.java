@@ -17,11 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.finalproject.soccerMatch.DetailFragment;
 import com.example.finalproject.soccerMatch.EmptyActivitySMH;
 import com.example.finalproject.soccerMatch.ListOfFavourites;
 import com.example.finalproject.soccerMatch.Match;
@@ -47,6 +49,8 @@ public class SoccerMatchHighlights extends AppCompatActivity {
     private ProgressBar progressBar;
     public ImageView thumbnail;
     public Button showFavourites;
+    FrameLayout frameLayout;
+    boolean tablet;
 
 
     @Override
@@ -73,16 +77,35 @@ public class SoccerMatchHighlights extends AppCompatActivity {
         MatchQuery reqInfo = new MatchQuery();
         reqInfo.execute("https://www.scorebat.com/video-api/v1/");
 
+        tablet = findViewById(R.id.frameLayout) != null;
+
+        frameLayout = findViewById(R.id.frameLayout);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.infoSMH:
-                Intent nextActivity = new Intent(SoccerMatchHighlights.this, EmptyActivitySMH.class);
-                startActivity(nextActivity);
+                Bundle dataToPass = new Bundle();
+                dataToPass.putString("Title", getResources().getString(R.string.titleSMH));
+                dataToPass.putString("TitleText", getResources().getString(R.string.titleTextSMH));
+                dataToPass.putString("Version", getResources().getString(R.string.version));
+                dataToPass.putString("VersionText", getResources().getString(R.string.versionTextSMH));
+                dataToPass.putString("Author", getResources().getString(R.string.author));
+                dataToPass.putString("AuthorText", getResources().getString(R.string.myNameSMH));
 
+                if (tablet) {
+                    DetailFragment dFragment = new DetailFragment();
+                    dFragment.setArguments(dataToPass);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frameLayout, dFragment)
+                            .commit();
+                } else {
+                    Intent nextActivity = new Intent(SoccerMatchHighlights.this, EmptyActivitySMH.class);
+                    startActivity(nextActivity);
+                }
                 break;
 
             case R.id.aboutSMH:
@@ -91,7 +114,7 @@ public class SoccerMatchHighlights extends AppCompatActivity {
 
                 alertD.setTitle(getResources().getString(R.string.infoSMH))
                         .setMessage(getResources().getString(R.string.explSMH))
-                        .setNegativeButton(getResources().getString(R.string.backSMH),((dialog, which) -> {
+                        .setNegativeButton(getResources().getString(R.string.backSMH), ((dialog, which) -> {
 
                         })).create().show();
                 break;
@@ -113,6 +136,7 @@ public class SoccerMatchHighlights extends AppCompatActivity {
         super.onDestroy();
         matchArrayList.clear();
     }
+
 
     public class MyListAdapter extends BaseAdapter {
 
@@ -138,12 +162,16 @@ public class SoccerMatchHighlights extends AppCompatActivity {
 
 
             newView = inflater.inflate(R.layout.activity_soccer_match_highlights_single_item, parent, false);
+
+
             Button b = (Button) newView.findViewById(R.id.title);
             b.setOnClickListener(click -> {
+
                 Intent intent = new Intent(SoccerMatchHighlights.this, ViewInfo.class);
 
                 intent.putExtra("id", m.getId());
                 startActivity(intent);
+
             });
 
 

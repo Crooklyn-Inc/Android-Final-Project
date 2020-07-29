@@ -25,6 +25,12 @@
     <string name="addedSMH">Mатч был успешно добавлен!</string>
     <string name="version">Версия:</string>
     <string name="author">Автор:</string>
+    <string name="titleSMH">Название:</string>
+    <string name="titleTextSMH">Soccer Match Highlights</string>
+    <string name="versionTextSMH">1.0</string>
+    <string name="myNameSMH">Егор Шрамченко</string>
+
+
 
 
 

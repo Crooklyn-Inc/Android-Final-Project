@@ -23,7 +23,13 @@
     <string name="snackbarYes">Item Deleted Successfully!</string>
     <string name="snackbarNo">NO</string>
     <string name="addedSMH">Match has been added!</string>
+
+
+    <string name="titleTextSMH">Soccer Match Highlights</string>
+    <string name="titleSMH">Title:</string>
     <string name="version">Version:</string>
     <string name="author">Author:</string>
+    <string name="versionTextSMH">1.0</string>
+    <string name="myNameSMH">Yegor Shramchenko</string>
 
 </resources>

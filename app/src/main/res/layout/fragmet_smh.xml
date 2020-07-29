@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Title: "
+        android:text="@string/titleSMH"
         android:textColor="@color/blackSMH"
         android:textSize="30dp" />
 
@@ -23,7 +23,7 @@
         android:layout_below="@id/titleSMH"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="Soccer Match Highlights"
+        android:text="@string/titleTextSMH"
         android:textColor="@color/blackSMH"
         android:textSize="25dp" />
 
@@ -44,7 +44,7 @@
         android:layout_below="@id/versionSMH"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="1.0"
+        android:text="@string/versionTextSMH"
         android:textColor="@color/blackSMH"
         android:textSize="25dp" />
 
@@ -65,7 +65,7 @@
         android:layout_below="@id/authorSMH"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="Yegor Shramchenko"
+        android:text="@string/myNameSMH"
         android:textColor="@color/blackSMH"
         android:textSize="25dp" />
 
