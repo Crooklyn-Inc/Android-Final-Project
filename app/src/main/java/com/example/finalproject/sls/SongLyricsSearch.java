@@ -24,10 +24,7 @@ public class SongLyricsSearch extends AppCompatActivity {
         setContentView(R.layout.activity_song_lyrics_search);
 
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
-
-//        EditText emailField = (EditText) findViewById(R.id.emailField);
-//        emailField.setText(sharedPreferences.getString("email", this.email));
-
+        
         Button btnSongLyrics = findViewById(R.id.slsSearchLyricsBtn);
         btnSongLyrics.setOnClickListener(v -> {
             Intent intentSongLyrics = new Intent(SongLyricsSearch.this, SongLyricsSearchResult.class);
