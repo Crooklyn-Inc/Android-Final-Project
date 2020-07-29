@@ -25,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.sls.SongLyricsSearch;
 import com.google.android.material.navigation.NavigationView;
 
 public class DeezerSongSearch extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
