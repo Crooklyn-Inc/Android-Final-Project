@@ -35,8 +35,10 @@ import org.xmlpull.v1.XmlPullParser;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,6 +68,16 @@ public class Deezer_activity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deezer_activity1);
         DeezerSongDBHelper dbOpener = new DeezerSongDBHelper(this);
+/**
+ * Url encoder for the user to be able to pass any names with any characters included
+ *
+ */
+//
+//       try {
+//            api_url = URLEncoder.encode ("Ace of Base","UTF-8");
+//        } catch (UnsupportedEncodingException e) {
+//           e.printStackTrace();
+//     }
 
         dbOpener = new DeezerSongDBHelper(this);
         db = dbOpener.getWritableDatabase();
@@ -151,9 +163,9 @@ public class Deezer_activity1 extends AppCompatActivity {
 
                         //now call the insert function:
                         db.insert(DeezerSongDBHelper.DB_TABLE, null, updatedValues);
-                        Toast.makeText(getApplicationContext(), "Song is successfully added to your favorites ", Toast.LENGTH_SHORT).show();}
+                        Toast.makeText(getApplicationContext(), R.string.dzdToast1, Toast.LENGTH_SHORT).show();}
                         else {
-                            Toast.makeText(getApplicationContext(), "Song is already exist in your favorites ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.dzdToast2, Toast.LENGTH_SHORT).show();
                                 }
                         //Toast.makeText(getApplicationContext(), "Song is already exist in your favorites ", Toast.LENGTH_SHORT).show();}
                     })

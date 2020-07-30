@@ -90,4 +90,8 @@
     <string name="instructions_for_this_app">Instructions for this app</string>
     <string name="about_the_api">About the API</string>
     <string name="donate_to_project">Donate to project</string>
+    <string name="dzdToast1">Song is successfully added to your favorites</string>
+    <string name="dzdToast2">Song is already exist in your favorites</string>
+
+    "Song is successfully added to your favorites
 </resources>

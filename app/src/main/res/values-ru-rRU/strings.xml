@@ -90,4 +90,6 @@
     <string name="instructions_for_this_app">Инструкции к данному приложению </string>
     <string name="about_the_api">Информация о API</string>
     <string name="donate_to_project">Денежные вложения  </string>
+    <string name="dzdToast1">Выбранная вами песня успешно добавлена в избранное</string>
+    <string name="dzdToast2">Выбранная вами песня уже была добавлена в избранное</string>
 </resources>
