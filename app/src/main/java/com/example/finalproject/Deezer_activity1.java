@@ -140,9 +140,9 @@ public class Deezer_activity1 extends AppCompatActivity {
 
                         //now call the insert function:
                         db.insert(DeezerSongDBHelper.DB_TABLE, null, updatedValues);
-                        Toast.makeText(getApplicationContext(), "Song is successfully added to your favorites ", Toast.LENGTH_SHORT).show();}
+                        Toast.makeText(getApplicationContext(), R.string.dzdToast1, Toast.LENGTH_SHORT).show();}
                         else {
-                            Toast.makeText(getApplicationContext(), "Song is already exist in your favorites ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.dzdToast2, Toast.LENGTH_SHORT).show();
                                 }
                         //Toast.makeText(getApplicationContext(), "Song is already exist in your favorites ", Toast.LENGTH_SHORT).show();}
                     })
