@@ -4,14 +4,7 @@
     <string name="btnSoccer">Soccer Match Highlights</string>
     <string name="btnSongLyrics">Song Lyrics Search</string>
     <string name="btnDeezerSong">Deezer Song Search</string>
-    <string name="albumTitle">Album Title</string>
-    <string name="title">Title</string>
-    <string name="songDuration">Duration</string>
-    <string name="alertBuilderTitle">Add to favourites?</string>
-    <string name="alertBuilderMsg1">The selected row is:  </string>
-    <string name="alertBuilderMsg2">The database id is:  </string>
-    <string name="yes">Yes  </string>
-    <string name="no">No </string>
+
     <string name="geoTxtViewFindCities">Find Nearby Cities</string>
     <string name="geoEditTxtLat">Enter latitude in decimal degrees here</string>
     <string name="geoEditTxtLon">Enter longitude in decimal degrees here</string>
@@ -24,11 +17,6 @@
     <string name="geoMessageNoCitiesFound">No cities were found nearby specified geographic location</string>
     <string name="geoMessageNoCitiesInJson">No cities were found in the received JSON data</string>
     <string name="geoMessageNumberOfFoundCities">cities were found and displayed</string>
-    <string name="collegeName">Algonquin College</string>
-    <string name="courseCode">CST2335 Graphical Interface Programming</string>
-    <string name="projectName">Final Project</string>
-    <string name="open">Open</string>
-    <string name="close">Close</string>
     <string name="geoAboutProjectMenuItem">About This Project</string>
     <string name="geoCityDetailsTitle">City Information</string>
     <string name="geoBtnGoToGoogleMaps">Map</string>
@@ -72,6 +60,13 @@
     <string name="geoActivityName">Activity: Geo Data Source – Find nearby cities based on latitude and longitude</string>
     <string name="geoAuthor">Author: Pavel Samarin</string>
     <string name="geoVersionNumber">Version: 1.1.1</string>
+
+    <string name="albumTitle">Album Title</string>
+    <string name="title">Title</string>
+    <string name="songDuration">Duration</string>
+    <string name="alertBuilderTitle">Add to favourites?</string>
+    <string name="alertBuilderMsg1">The selected row is:  </string>
+    <string name="alertBuilderMsg2">The database id is:  </string>
     <string name="projectInfo">About this project</string>
     <string name="deezerNavigTitle">Deezer Song Search</string>
     <string name="deezerNavAuthor">Author Yulia Tsvetkova</string>
@@ -84,14 +79,72 @@
     <string name="genInstructions">Welcome to the Deezer Song Search!</string>
     <string name="donationTitle">Please give generou$ly</string>
     <string name="donationMessage">How much money do you want to donate?</string>
+    <string name="dzdToastTB">You clicked item 1</string>
+    <string name="dzdToastTB2">You clicked item 2</string>
+    <string name="dzdToastTB3">You clicked item 3</string>
+    <string name="dzdToastRequest">Your request is processed</string>
     <string name="cancel">CANCEL</string>
     <string name="thanks">THANK YOU</string>
     <string name="enter_artist">Enter name of your favorite artist</string>
     <string name="instructions_for_this_app">Instructions for this app</string>
     <string name="about_the_api">About the API</string>
     <string name="donate_to_project">Donate to project</string>
+
+    <string name="slsSearchBtnText">Search Lyrics</string>
+    <string name="slsFavoriteListBtn">Favorite lyrics</string>
+    <string name="slsHeaderText">Enter \"Band - Song\" for search:</string>
+    <string name="slsSearchInputHint">Band - Song</string>
+    <string name="slsGroupText">"Band: "</string>
+    <string name="slsSongText">"Song: "</string>
+    <string name="slsLyricsText">LYRICS</string>
+    <string name="slsAddToFavoriteListBtn">Add to Favorites</string>
+    <string name="slsSearchGoogleBtn">Google search</string>
+    <string name="slsAlertDeleteTitle">Remove from Favorites?</string>
+    <string name="slsVersionNumber">1.0.0</string>
+    <string name="slsAuthor">Olga Zimina</string>
+    <string name="slsActivityName">Song Lyrics Finder - always get you the correct lyrics</string>
+    <string name="slsInstructionsMenuItem">Instructions</string>
+    <string name="slsAboutApiMenuItem">About Lyrics</string>
+    <string name="slsDonateMenuItem">Donate to Project</string>
+    <string name="slsToolAboutProject">Song Lyrics Finder by Olga Zimina</string>
+    <string name="slsFavorites">Favorite Songs</string>
+    <string name="slsLyricsNotFound">Lyrics Not Found</string>
+    <string name="slsLyrics">Lyrics</string>
+    <string name="slsInstructionsMessage">If you want to find lyrics for the son you like - then all you need to do is to enter BAND name and SONG name separated by dash. Like this one:\n\nRoxette-Run To You\n\nThat\'s it :)</string>
+    <string name="slsWrongInput">Oops...</string>
+    <string name="slsFavDeleted">Lyrics deleted</string>
+
+    <string name="btnAddSMH">Add</string>
+    <string name="showFavouritesSMH">Show Favourites</string>
+    <string name="addToFavouritesSMH">Add to Favourites</string>
+    <string name="removeSMH">Remove</string>
+    <string name="videoSMH">Video</string>
+    <string name="infoSMH">Information how this app works</string>
+    <string name="explSMH">In the main page you can see different soccer matches sorted by date.
+                                You can click on the match to see more details about it (Teams, League, Date, Video).
+                                You can also save match that you like into the list of favourites by clicking the appropriate button.
+                                By clicking on "Show Favourites" button you can access your custom list with possibility see details and remove from the list. </string>
+    <string name="backSMH">Back</string>
+    <string name="alertDialog1">Are you sure tou want to delete</string>
+    <string name="match">Match</string>
+    <string name="alertDialog2"> from your match list?</string>
+    <string name="snackbarYes">Item Deleted Successfully!</string>
+    <string name="snackbarNo">NO</string>
+    <string name="addedSMH">Match has been added!</string>
+    <string name="titleTextSMH">Soccer Match Highlights</string>
+    <string name="titleSMH">Title:</string>
+    <string name="version">Version:</string>
+    <string name="author">Author:</string>
+    <string name="versionTextSMH">1.0</string>
+    <string name="myNameSMH">Yegor Shramchenko</string>
     <string name="dzdToast1">Song is successfully added to your favorites</string>
     <string name="dzdToast2">Song is already exist in your favorites</string>
-
+    <string name="collegeName">Algonquin College</string>
+    <string name="courseCode">CST2335 Graphical Interface Programming</string>
+    <string name="projectName">Final Project</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="yes">Yes  </string>
+    <string name="no">No </string>
 
 </resources>
