@@ -15,7 +15,7 @@
 
     <RelativeLayout
         android:id="@+id/listLayout"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbarSMH">
 
@@ -47,5 +47,10 @@
             android:text="@string/showFavouritesSMH" />
     </RelativeLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frameLayout"
+        android:layout_toRightOf="@id/listLayout"/>
 
 </RelativeLayout>
