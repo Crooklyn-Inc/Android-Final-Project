@@ -220,7 +220,7 @@ public class SongLyricsSearchResult extends AppCompatActivity implements Navigat
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(R.string.geoDonationTitle)
-                .setIcon(R.drawable.ic_geo_city)
+                .setIcon(R.drawable.ic_geo_donate)
                 .setMessage(R.string.geoDonationMessage)
                 .setView(container)
                 .setPositiveButton(getResources().getString(R.string.geoThankYou), (click, arg) -> {})
