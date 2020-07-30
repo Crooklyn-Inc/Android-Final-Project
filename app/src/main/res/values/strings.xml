@@ -4,6 +4,118 @@
     <string name="btnSoccer">Soccer Match Highlights</string>
     <string name="btnSongLyrics">Song Lyrics Search</string>
     <string name="btnDeezerSong">Deezer Song Search</string>
+    <string name="collegeName">Algonquin College</string>
+    <string name="courseCode">CST2335 Graphical Interface Programming</string>
+    <string name="projectName">Final Project</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="geoTxtViewFindCities">Find Nearby Cities</string>
+    <string name="geoEditTxtLat">Enter latitude in decimal degrees here</string>
+    <string name="geoEditTxtLon">Enter longitude in decimal degrees here</string>
+    <string name="geoBtnSearchCities">Find and Display</string>
+    <string name="geoBtnFavourites">Favourite Cities</string>
+    <string name="geoMessageLatitudeEmpty">Enter Latitude please</string>
+    <string name="geoMessageLongitudeEmpty">Enter Longitude please</string>
+    <string name="geoMessageInvalidLatitude">Latitude must be a decimal numeric value within [-90, 90] range. Please re-enter</string>
+    <string name="geoMessageInvalidLongitude">Longitude must be a decimal numeric value within [-180, 180] range. Please re-enter</string>
+    <string name="geoMessageNoCitiesFound">No cities were found nearby specified geographic location</string>
+    <string name="geoMessageNoCitiesInJson">No cities were found in the received JSON data</string>
+    <string name="geoMessageNumberOfFoundCities">cities were found and displayed</string>
+    <string name="geoAboutProjectMenuItem">About This Project</string>
+    <string name="geoCityDetailsTitle">City Information</string>
+    <string name="geoBtnGoToGoogleMaps">Map</string>
+    <string name="geoBtnAddToFavourites">Add To Favourites</string>
+    <string name="geoBtnRemoveFromFavourites">Remove From Favourites</string>
+    <string name="geoNotApplicable">N/A</string>
+    <string name="geoCityAttr_0">DB Record ID</string>
+    <string name="geoCityAttr_1">Name</string>
+    <string name="geoCityAttr_2">Country</string>
+    <string name="geoCityAttr_3">Region</string>
+    <string name="geoCityAttr_4">Latitude</string>
+    <string name="geoCityAttr_5">Longitude</string>
+    <string name="geoCityAttr_6">Currency Code</string>
+    <string name="geoCityAttr_7">Currency Name</string>
+    <string name="geoCityAttr_8">Currency Symbol</string>
+    <string name="geoCityAttr_9">Sunrise</string>
+    <string name="geoCityAttr_10">Sunset</string>
+    <string name="geoCityAttr_11">Time Zone</string>
+    <string name="geoCityAttr_12">Distance</string>
+    <string name="geoMessageCityAddedToFavourites">has been added to Favourites</string>
+    <string name="geoMessageCityRemovedFromFavourites">has been removed from Favourites</string>
+    <string name="geoMessageUserPressedBackButton">User pressed Back button</string>
+    <string name="geoMessageUserDidNotChangeCityStatus">User did not change City status</string>
+    <string name="geoMessageUserSavedCityToFavourites">User saved City to Favourites</string>
+    <string name="geoMessageUserRemovedCityFromFavourites">User removed City from Favourites</string>
+    <string name="geoMessageWrongCityListedPosition">Returned City listed position is wrong</string>
+    <string name="geoMessageNumberOfFavouriteCities">favourite cities in the Database</string>
+    <string name="geoLoginMenuItem">Login</string>
+    <string name="geoLogoutMenuItem">Logout</string>
+    <string name="geoInstructionsMenuItem">Instructions</string>
+    <string name="geoAboutApiMenuItem">About API</string>
+    <string name="geoDonateMenuItem">Donate to Project</string>
+    <string name="geoMessageForAboutProjectMenuItem">This is the Geo Data Source activity, written by Pavel Samarin</string>
+    <string name="geoInstructionsMessage">Enter latitude and longitude coordinates and press ‘Find and Display’ to get the list of nearest cities.\n\nOtherwise press ‘Favourite Cities’ to get the list of favourite cities stored in the application database.\n\nSelect a city in the list to view detailed info, to add or remove the city from Favourites as well as to view the city in Google Maps.</string>
+    <string name="ok">Ok</string>
+    <string name="geoDonationTitle">Please give generou$ly</string>
+    <string name="geoDonationMessage">How much money do you want to donate?</string>
+    <string name="geoThankYou">Thank you</string>
+    <string name="geoCancel">Cancel</string>
+    <string name="geoThreeCurrencySigns">$$$</string>
+    <string name="geoActivityName">Activity: Geo Data Source – Find nearby cities based on latitude and longitude</string>
+    <string name="geoAuthor">Author: Pavel Samarin</string>
+    <string name="geoVersionNumber">Version: 1.1.1</string>
+
+    <string name="albumTitle">Album Title</string>
+    <string name="title">Title</string>
+    <string name="songDuration">Duration</string>
+    <string name="alertBuilderTitle">Add to favourites?</string>
+    <string name="alertBuilderMsg1">The selected row is:  </string>
+    <string name="alertBuilderMsg2">The database id is:  </string>
+    <string name="yes">Yes  </string>
+    <string name="no">No </string>
+    <string name="projectInfo">About this project</string>
+    <string name="deezerNavigTitle">Deezer Song Search</string>
+    <string name="deezerNavAuthor">Author Yulia Tsvetkova</string>
+    <string name="versionN">Version 1</string>
+    <string name="deezToolAboutProject">This is the Deezer activity, written by Yulia Tsvetkova</string>
+    <string name="deezerSearch">Deezer Song Search</string>
+    <string name="deezerFavor">Favourites</string>
+    <string name="alertBuilderTitle2">Do you want to delete this song from your favourites?</string>
+    <string name="instructions">To search list of songs from the website please type a name of your favorite artist and press Search</string>
+    <string name="genInstructions">Welcome to the Deezer Song Search!</string>
+    <string name="donationTitle">Please give generou$ly</string>
+    <string name="donationMessage">How much money do you want to donate?</string>
+    <string name="cancel">CANCEL</string>
+    <string name="thanks">THANK YOU</string>
+    <string name="enter_artist">Enter name of your favorite artist</string>
+    <string name="instructions_for_this_app">Instructions for this app</string>
+    <string name="about_the_api">About the API</string>
+    <string name="donate_to_project">Donate to project</string>
+    <string name="slsSearchBtnText">Search Lyrics</string>
+    <string name="slsFavoriteListBtn">Favorite lyrics</string>
+    <string name="slsHeaderText">Enter \"Band - Song\" for search:</string>
+    <string name="slsSearchInputHint">Band - Song</string>
+    <string name="slsGroupText">"Band: "</string>
+    <string name="slsSongText">"Song: "</string>
+    <string name="slsLyricsText">LYRICS</string>
+    <string name="slsAddToFavoriteListBtn">Add to Favorites</string>
+    <string name="slsSearchGoogleBtn">Google search</string>
+    <string name="slsAlertDeleteTitle">Remove from Favorites?</string>
+    <string name="slsVersionNumber">1.0.0</string>
+    <string name="slsAuthor">Olga Zimina</string>
+    <string name="slsActivityName">Song Lyrics Finder - always get you the correct lyrics</string>
+    <string name="slsInstructionsMenuItem">Instructions</string>
+    <string name="slsAboutApiMenuItem">About Lyrics</string>
+    <string name="slsDonateMenuItem">Donate to Project</string>
+    <string name="slsToolAboutProject">Song Lyrics Finder by Olga Zimina</string>
+    <string name="slsFavorites">Favorite Songs</string>
+    <string name="slsLyricsNotFound">Lyrics Not Found</string>
+    <string name="slsLyrics">Lyrics</string>
+    <string name="slsInstructionsMessage">If you want to find lyrics for the son you like - then all you need to do is to enter BAND name and SONG name separated by dash. Like this one:\n\nRoxette-Run To You\n\nThat\'s it :)</string>
+    <string name="slsWrongInput">Oops...</string>
+    <string name="slsFavDeleted">Lyrics deleted</string>
+
     <string name="btnAddSMH">Add</string>
     <string name="showFavouritesSMH">Show Favourites</string>
     <string name="addToFavouritesSMH">Add to Favourites</string>
@@ -14,7 +126,6 @@
                                 You can click on the match to see more details about it (Teams, League, Date, Video).
                                 You can also save match that you like into the list of favourites by clicking the appropriate button.
                                 By clicking on "Show Favourites" button you can access your custom list with possibility see details and remove from the list. </string>
-
     <string name="backSMH">Back</string>
     <string name="alertDialog1">Are you sure tou want to delete</string>
     <string name="match">Match</string>
@@ -23,13 +134,10 @@
     <string name="snackbarYes">Item Deleted Successfully!</string>
     <string name="snackbarNo">NO</string>
     <string name="addedSMH">Match has been added!</string>
-
-
     <string name="titleTextSMH">Soccer Match Highlights</string>
     <string name="titleSMH">Title:</string>
     <string name="version">Version:</string>
     <string name="author">Author:</string>
     <string name="versionTextSMH">1.0</string>
     <string name="myNameSMH">Yegor Shramchenko</string>
-
 </resources>

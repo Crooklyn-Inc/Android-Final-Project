@@ -1,9 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GeoDataSource">
+    tools:context=".GeoDataSource"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/geoToolbar"/>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/geoDrawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+
+        <!-- THIS IS WHAT IS VISIBLE ON SCREEN:-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".GeoDataSource"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/geoTxtViewFindCities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="@string/geoTxtViewFindCities"
+                android:textSize="22sp" />
+
+            <EditText
+                android:id="@+id/geoEditTxtLat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/geoEditTxtLat"
+                android:importantForAutofill="no"
+                android:inputType="numberSigned|numberDecimal"
+                android:paddingVertical="15dp"
+                android:textSize="18sp"
+                android:text="45.4215" />
+
+            <EditText
+                android:id="@+id/geoEditTxtLon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/geoEditTxtLon"
+                android:importantForAutofill="no"
+                android:inputType="numberSigned|numberDecimal"
+                android:paddingVertical="15dp"
+                android:textSize="18sp"
+                android:text="-75.6972" />
+
+            <ProgressBar
+                android:id="@+id/geoProgressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:visibility="invisible"
+                style="?android:attr/progressBarStyleHorizontal"/>
+
+            <Button
+                android:id="@+id/geoBtnSearchCities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="15dp"
+                android:text="@string/geoBtnSearchCities"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/geoBtnFavourites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="15dp"
+                android:text="@string/geoBtnFavourites"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/geo_nav_drawer_header_layout"
+            app:menu="@menu/geo_nav_drawer_menu"
+            android:id="@+id/geoNavigationView"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>
