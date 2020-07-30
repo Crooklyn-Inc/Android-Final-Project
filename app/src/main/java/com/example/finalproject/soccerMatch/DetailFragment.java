@@ -40,25 +40,6 @@ public class DetailFragment extends Fragment {
 
         View result = inflater.inflate(R.layout.fragmet_smh, container, false);
 
-        TextView titleSMH = result.findViewById(R.id.titleSMH);
-        titleSMH.setText(dataFromActivity.getString("Title"));
-
-        TextView titleTextSMH = result.findViewById(R.id.titleTextSMH);
-        titleTextSMH.setText(dataFromActivity.getString("TitleText"));
-
-        TextView versionSMH = result.findViewById(R.id.versionSMH);
-        versionSMH.setText(dataFromActivity.getString("Version"));
-
-        TextView versionTextSMH = result.findViewById(R.id.versionTextSMH);
-        versionTextSMH.setText(dataFromActivity.getString("VersionText"));
-
-        TextView authorSMH = result.findViewById(R.id.authorSMH);
-        authorSMH.setText(dataFromActivity.getString("Author"));
-
-        TextView authorTextSMH = result.findViewById(R.id.authorTextSMH);
-        authorTextSMH.setText(dataFromActivity.getString("AuthorText"));
-
-
         return result;
     }
 

@@ -47,7 +47,7 @@ public class GeoDataSource extends AppCompatActivity implements NavigationView.O
 
     private static final String FORMATTED_REQUEST = "https://api.geodatasource.com/cities?key=%S&format=json&lat=%S&lng=%S";
     private static final String API_KEY = "YR5XMSKGHMHTIWDKTLRADSUYNYTJNYNK";
-    private static final String LINK_TO_GEODATASOURCE = "https://www.geodatasource.com/web-service";
+    static final String LINK_TO_GEODATASOURCE = "https://www.geodatasource.com/web-service";
     private static final String PREF_FILE_NAME = "geo_preferences";
     private static final String LATITUDE_RES_NAME = "latitude";
     private static final String LONGITUDE_RES_NAME = "longitude";
@@ -240,6 +240,13 @@ public class GeoDataSource extends AppCompatActivity implements NavigationView.O
         }
         else {
             Toast.makeText(GeoDataSource.this, R.string.geoMessageForAboutProjectMenuItem, Toast.LENGTH_LONG).show();
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(R.string.geoAboutProjectMenuItem)
+                    .setIcon(R.drawable.ic_geo_city)
+                    .setMessage(R.string.geoMessageForAboutProjectMenuItem)
+                    .setPositiveButton(R.string.ok,(click, arg) -> {})
+                    .create()
+                    .show();
         }
 
         return true;

@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/geoFrameLayout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp" />
+    tools:context=".geo.GeoCityInfo"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/geoToolbar"/>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/geoDrawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+
+        <!-- THIS IS WHAT IS VISIBLE ON SCREEN:-->
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/geoFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp" />
+
+        <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/geo_nav_drawer_header_layout"
+            app:menu="@menu/geo_nav_drawer_menu"
+            android:id="@+id/geoNavigationView"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>
