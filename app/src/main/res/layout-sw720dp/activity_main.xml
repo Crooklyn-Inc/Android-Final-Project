@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainToolbar"/>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/mainDrawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+        <!-- THIS IS WHAT IS VISIBLE ON SCREEN:-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <Button
+                android:id="@+id/btnGeoData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:padding="20dp"
+                android:text="@string/btnGeoData"
+                android:textSize="22sp" />
+
+            <Button
+                android:id="@+id/btnSoccer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:padding="20dp"
+                android:text="@string/btnSoccer"
+                android:textSize="22sp" />
+
+            <Button
+                android:id="@+id/btnSongLyrics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:padding="20dp"
+                android:text="@string/btnSongLyrics"
+                android:textSize="22sp" />
+
+            <Button
+                android:id="@+id/btnDeezerSong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:padding="20dp"
+                android:text="@string/btnDeezerSong"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/main_nav_drawer_header_layout"
+            app:menu="@menu/main_menu"
+            android:id="@+id/mainNavigationView"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>
