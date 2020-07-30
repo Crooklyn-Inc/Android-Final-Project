@@ -92,5 +92,12 @@
     <string name="donate_to_project">Денежные вложения  </string>
     <string name="dzdToast1">Выбранная вами песня успешно добавлена в избранное</string>
     <string name="dzdToast2">Выбранная вами песня уже была добавлена в избранное</string>
+    <string name="dzdToastTB">Вы выбрали проект номер 1</string>
+    <string name="dzdToastTB2">Вы выбрали проект номер 2</string>
+    <string name="dzdToastTB3">Вы выбрали проект номер 3</string>
+    <string name="dzdToastRequest">Ждите, ваш запрос выполняется</string>
+
+
+
 
 </resources>

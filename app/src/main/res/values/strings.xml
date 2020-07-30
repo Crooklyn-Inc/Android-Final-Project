@@ -92,4 +92,9 @@
     <string name="donate_to_project">Donate to project</string>
     <string name="dzdToast1">Song is successfully added to your favorites</string>
     <string name="dzdToast2">Song is already exist in your favorites</string>
+    <string name="dzdToastTB">You clicked item 1</string>
+    <string name="dzdToastTB2">You clicked item 2</string>
+    <string name="dzdToastTB3">You clicked item 3</string>
+    <string name="dzdToastRequest">Your request is processed</string>
+
 </resources>
