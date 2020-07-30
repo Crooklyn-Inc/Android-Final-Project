@@ -86,6 +86,12 @@
     <string name="genInstructions">Добро пожайловать в Deezer Song Search!</string>
     <string name="donationTitle">Щедрость украшает и вам возздасться!</string>
     <string name="donationMessage">Сколько не пожалеете в рублевом эквиваленте?</string>
+    <string name="dzdToast1">Выбранная вами песня успешно добавлена в избранное</string>
+    <string name="dzdToast2">Выбранная вами песня уже была добавлена в избранное</string>
+    <string name="dzdToastTB">Вы выбрали проект номер 1</string>
+    <string name="dzdToastTB2">Вы выбрали проект номер 2</string>
+    <string name="dzdToastTB3">Вы выбрали проект номер 3</string>
+    <string name="dzdToastRequest">Ждите, ваш запрос выполняется</string>
     <string name="cancel">ЗАВЕРШИТЬ</string>
     <string name="thanks">СПАСИБО</string>
     <string name="enter_artist">Введите имя вашего любимого артиста</string>

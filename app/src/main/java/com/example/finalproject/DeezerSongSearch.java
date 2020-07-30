@@ -88,15 +88,15 @@ public class DeezerSongSearch extends AppCompatActivity implements NavigationVie
         {
             //what to do when the menu item is selected:
             case R.id.geoMenuItem:
-                message = "You clicked item 1";
+                message= getResources().getString(R.string.dzdToastTB);
                 startActivity(new Intent(this, GeoDataSource.class));
                 break;
             case R.id.soccerMenuItem:
-                message = "You clicked item 2";
+                message = getResources().getString(R.string.dzdToastTB2);
                 startActivity(new Intent(this, SoccerMatchHighlights.class));
                 break;
             case R.id.lyricsMenuItem:
-                message = "You clicked item 3";
+                message = getResources().getString(R.string.dzdToastTB3);
                 startActivity(new Intent(this, SongLyricsSearch.class));
                 break;
             case R.id.aboutProject:
@@ -112,7 +112,7 @@ public class DeezerSongSearch extends AppCompatActivity implements NavigationVie
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("ReserveName", savedString);
         editor.commit();
-        Toast.makeText(this, "Your request is proceed " , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.dzdToastRequest) , Toast.LENGTH_SHORT).show();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
