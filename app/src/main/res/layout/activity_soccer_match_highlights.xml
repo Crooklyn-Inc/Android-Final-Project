@@ -7,45 +7,63 @@
     android:orientation="vertical"
     tools:context=".soccerMatch.SoccerMatchHighlights">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarSMH"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-    <RelativeLayout
-        android:id="@+id/listLayout"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/smh_drawer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        tools:openDrawer="start"
         android:layout_below="@id/toolbarSMH">
 
-        <ListView
-            android:id="@+id/list_itemsSMH"
+        <RelativeLayout
+            android:id="@+id/listLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/progressBarSMH"
-            android:layout_alignParentTop="true"
-            android:scrollbars="vertical" />
+            android:layout_below="@id/toolbarSMH">
 
-        <ProgressBar
-            android:id="@+id/progressBarSMH"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/showFavourites"
-            android:layout_centerHorizontal="true"
-            android:background="@color/greySMH"
-            android:visibility="visible"
+            <ListView
+                android:id="@+id/list_itemsSMH"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/progressBarSMH"
+                android:layout_alignParentTop="true"
+                android:scrollbars="vertical" />
 
-            />
+            <ProgressBar
+                android:id="@+id/progressBarSMH"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/showFavourites"
+                android:layout_centerHorizontal="true"
+                android:background="@color/greySMH"
+                android:visibility="visible"
 
-        <Button
-            android:id="@+id/showFavourites"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="@string/showFavouritesSMH" />
-    </RelativeLayout>
+                />
+
+            <Button
+                android:id="@+id/showFavourites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="@string/showFavouritesSMH" />
+        </RelativeLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/smh_nav_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/smh_nav_drawer_header_layout"
+            app:menu="@menu/smh_nav_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 
 </RelativeLayout>
