@@ -5,17 +5,19 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application
-            android:allowBackup="true"
-            android:fullBackupContent="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+    <uses-permission android:name="android.permission.INTERNET" />
 
-        <!--    main activities   -->
-        <activity android:name=".SoccerMatchHighlights" />
+    <application
+
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!--    main activity   -->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,9 +47,29 @@
         <activity android:name=".Deezer_activity1" />
         <activity android:name=".Deezer_activity2" />
 
+        <!--    olga's activities-->
         <activity android:name=".sls.SongLyricsSearch" />
         <activity android:name=".sls.SongLyricsSearchFavoriteRecord" />
         <activity android:name=".sls.SongLyricsSearchFavoriteList" />
         <activity android:name=".sls.SongLyricsSearchResult" />
+        
+        <!--    yegor's activities-->
+        <activity android:name=".SoccerMatchHighlights" />
+        <activity android:name=".soccerMatch.EmptyActivitySMH" />
+        <activity android:name=".soccerMatch.ListOfFavourites" />
+        <activity android:name=".soccerMatch.ViewInfo">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.example.com"
+                    android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>
