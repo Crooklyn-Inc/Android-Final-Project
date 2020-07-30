@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.deezer;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,10 +7,6 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import androidx.annotation.Nullable;
-
-import static com.example.finalproject.GeoDBOpener.TABLE_NAME;
 
 public class DeezerSongDBHelper extends SQLiteOpenHelper {
 

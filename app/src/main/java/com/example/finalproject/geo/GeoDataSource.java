@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.geo;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +26,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.finalproject.deezer.DeezerSongSearch;
+import com.example.finalproject.R;
+import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
 import com.example.finalproject.sls.SongLyricsSearch;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;

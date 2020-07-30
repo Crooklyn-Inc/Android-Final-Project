@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.deezer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.finalproject.R;
 
 public class DeezerCustomProgressBarActivity extends AppCompatActivity {
 

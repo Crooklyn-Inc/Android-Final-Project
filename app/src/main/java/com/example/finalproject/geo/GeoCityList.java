@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.geo;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;

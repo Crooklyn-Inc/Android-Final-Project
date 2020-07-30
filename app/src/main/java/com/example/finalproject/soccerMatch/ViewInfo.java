@@ -3,8 +3,6 @@ package com.example.finalproject.soccerMatch;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.finalproject.SoccerMatchHighlights;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;

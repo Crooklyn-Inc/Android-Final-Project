@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.deezer;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.finalproject.R;
 
 import java.io.InputStream;
 

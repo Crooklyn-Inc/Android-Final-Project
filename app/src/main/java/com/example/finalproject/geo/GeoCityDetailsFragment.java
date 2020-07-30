@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.geo;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.finalproject.R;
 
 /**
  * A simple {@link Fragment} subclass.

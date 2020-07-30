@@ -28,24 +28,24 @@
 
         <!--    pavel's activities  -->
         <activity
-                android:name=".GeoDataSource"
+                android:name=".geo.GeoDataSource"
                 android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-                android:name=".GeoCityList"
+                android:name=".geo.GeoCityList"
                 android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-                android:name=".GeoCityInfo"
+                android:name=".geo.GeoCityInfo"
                 android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <!--    yulia's activities-->
-        <activity android:name=".DeezerSongSearch" />
-        <activity android:name=".DeezerCustomProgressBarActivity" />
+        <activity android:name=".deezer.DeezerSongSearch" />
+        <activity android:name=".deezer.DeezerCustomProgressBarActivity" />
         <activity
-                android:name=".DeezerEmptyActivity"
+                android:name=".deezer.DeezerEmptyActivity"
                 tools:ignore="Instantiatable" />
-        <activity android:name=".Deezer_activity3" />
-        <activity android:name=".Deezer_activity1" />
-        <activity android:name=".Deezer_activity2" />
+        <activity android:name=".deezer.Deezer_activity3" />
+        <activity android:name=".deezer.Deezer_activity1" />
+        <activity android:name=".deezer.Deezer_activity2" />
 
         <!--    olga's activities-->
         <activity android:name=".sls.SongLyricsSearch" />
@@ -54,7 +54,7 @@
         <activity android:name=".sls.SongLyricsSearchResult" />
         
         <!--    yegor's activities-->
-        <activity android:name=".SoccerMatchHighlights" />
+        <activity android:name=".soccerMatch.SoccerMatchHighlights" />
         <activity android:name=".soccerMatch.EmptyActivitySMH" />
         <activity android:name=".soccerMatch.ListOfFavourites" />
         <activity android:name=".soccerMatch.ViewInfo">

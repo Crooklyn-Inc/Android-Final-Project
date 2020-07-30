@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.geo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.example.finalproject.R;
 
 public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFragment.OnCityStatusChangeListener {
 
