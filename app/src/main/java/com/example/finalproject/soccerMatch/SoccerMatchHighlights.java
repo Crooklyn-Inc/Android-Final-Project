@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.soccerMatch;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +23,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.finalproject.soccerMatch.DetailFragment;
-import com.example.finalproject.soccerMatch.EmptyActivitySMH;
-import com.example.finalproject.soccerMatch.ListOfFavourites;
-import com.example.finalproject.soccerMatch.Match;
-import com.example.finalproject.soccerMatch.MyOpener;
-import com.example.finalproject.soccerMatch.ViewInfo;
+import com.example.finalproject.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,7 +34,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.function.ToLongBiFunction;
 
 
 public class SoccerMatchHighlights extends AppCompatActivity {

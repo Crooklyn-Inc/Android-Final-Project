@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.deezer;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.ListView;
+
+import com.example.finalproject.R;
 
 import org.json.JSONArray;
 

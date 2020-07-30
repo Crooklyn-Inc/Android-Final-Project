@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.deezer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.finalproject.DeezerSongModel;
 import com.example.finalproject.R;
+import com.example.finalproject.deezer.DeezerSongModel;
 
 import java.util.ArrayList;
 

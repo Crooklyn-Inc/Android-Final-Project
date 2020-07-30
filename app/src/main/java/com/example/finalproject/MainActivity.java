@@ -14,7 +14,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.example.finalproject.deezer.DeezerSongSearch;
+import com.example.finalproject.geo.GeoDataSource;
 import com.example.finalproject.sls.SongLyricsSearch;
+import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

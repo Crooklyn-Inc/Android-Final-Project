@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.deezer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -25,6 +25,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.R;
+import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
+import com.example.finalproject.geo.GeoDataSource;
 import com.example.finalproject.sls.SongLyricsSearch;
 import com.google.android.material.navigation.NavigationView;
 

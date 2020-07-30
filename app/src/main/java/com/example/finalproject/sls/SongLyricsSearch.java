@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,10 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.finalproject.DeezerSongSearch;
-import com.example.finalproject.GeoDataSource;
+import com.example.finalproject.deezer.DeezerSongSearch;
+import com.example.finalproject.geo.GeoDataSource;
 import com.example.finalproject.R;
-import com.example.finalproject.SoccerMatchHighlights;
+import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
 import com.google.android.material.navigation.NavigationView;
 
 public class SongLyricsSearch extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -162,7 +161,7 @@ public class SongLyricsSearch extends AppCompatActivity implements NavigationVie
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(R.string.geoDonationTitle)
-                .setIcon(R.drawable.ic_geo_city)
+                .setIcon(R.drawable.ic_geo_donate)
                 .setMessage(R.string.geoDonationMessage)
                 .setView(container)
                 .setPositiveButton(getResources().getString(R.string.geoThankYou), (click, arg) -> {})

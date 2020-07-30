@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.geo;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

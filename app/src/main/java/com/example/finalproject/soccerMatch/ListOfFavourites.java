@@ -1,10 +1,8 @@
 package com.example.finalproject.soccerMatch;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.example.finalproject.R;
-import com.example.finalproject.SoccerMatchHighlights;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.app.AlertDialog;
@@ -18,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import java.util.ArrayList;
 

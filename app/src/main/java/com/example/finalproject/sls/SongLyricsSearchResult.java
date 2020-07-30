@@ -22,10 +22,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.finalproject.DeezerSongSearch;
-import com.example.finalproject.GeoDataSource;
+import com.example.finalproject.deezer.DeezerSongSearch;
+import com.example.finalproject.geo.GeoDataSource;
 import com.example.finalproject.R;
-import com.example.finalproject.SoccerMatchHighlights;
+import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
 import com.example.finalproject.sls.data.MessageDTO;
 import com.example.finalproject.sls.database.MessageDao;
 import com.google.android.material.navigation.NavigationView;

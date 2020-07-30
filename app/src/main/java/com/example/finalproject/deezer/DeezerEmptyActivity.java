@@ -1,8 +1,10 @@
-package com.example.finalproject;
+package com.example.finalproject.deezer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.finalproject.R;
 
 public class DeezerEmptyActivity extends AppCompatActivity {
 
