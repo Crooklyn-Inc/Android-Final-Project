@@ -5,27 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Xml;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.MyAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,8 +29,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Deezer_activity1 extends AppCompatActivity {
     private String artist = "";
@@ -181,7 +170,8 @@ public class Deezer_activity1 extends AppCompatActivity {
 
             songLinks.clear();
             try {
-                URL url = new URL(params[0]);
+                String artistencode = params[0].replace(" ", "%20");
+                URL url = new URL(artistencode);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
@@ -331,6 +321,11 @@ public class Deezer_activity1 extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             MyAdapter adapter = new MyAdapter(Deezer_activity1.this, songLinks);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
