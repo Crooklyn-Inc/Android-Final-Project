@@ -1,10 +1,8 @@
 package com.example.finalproject.soccerMatch;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.example.finalproject.R;
-import com.example.finalproject.SoccerMatchHighlights;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.app.AlertDialog;
@@ -18,7 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.VideoView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -40,6 +38,7 @@ public class ListOfFavourites extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_favourites);
+        myOpener = new MyOpener(this);
 
 
         listOfFavourites = findViewById(R.id.listOfFavourites);
@@ -131,6 +130,9 @@ public class ListOfFavourites extends AppCompatActivity {
                 listOfFavourites.setAdapter(myAdapter);
                 myAdapter.notifyDataSetChanged();
             }
+        } else {
+            Toast.makeText(getApplicationContext(),"Your List is empty",Toast.LENGTH_SHORT).show();
+
         }
     }
 }

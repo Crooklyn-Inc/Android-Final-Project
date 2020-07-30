@@ -24,7 +24,7 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="10dp"
-                tools:context=".GeoDataSource">
+                tools:context=".geo.GeoDataSource">
 
             <ProgressBar
                     android:id="@+id/slsProgressBar"

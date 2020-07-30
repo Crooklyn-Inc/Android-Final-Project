@@ -22,7 +22,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".geo.GeoDataSource"
+            tools:context=".GeoDataSource"
             android:paddingVertical="10dp"
             android:paddingHorizontal="15dp"
             android:orientation="vertical">
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
                 android:text="@string/geoTxtViewFindCities"
-                android:textSize="22sp" />
+                android:textSize="26sp" />
 
             <EditText
                 android:id="@+id/geoEditTxtLat"
@@ -43,7 +43,7 @@
                 android:importantForAutofill="no"
                 android:inputType="numberSigned|numberDecimal"
                 android:paddingVertical="15dp"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:text="45.4215" />
 
             <EditText
@@ -54,7 +54,7 @@
                 android:importantForAutofill="no"
                 android:inputType="numberSigned|numberDecimal"
                 android:paddingVertical="15dp"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:text="-75.6972" />
 
             <ProgressBar
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="15dp"
                 android:text="@string/geoBtnSearchCities"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
 
             <Button
                 android:id="@+id/geoBtnFavourites"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="15dp"
                 android:text="@string/geoBtnFavourites"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 

@@ -23,7 +23,7 @@
             android:id="@+id/geoFrameLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp" />
+            android:padding="10dp" />
 
         <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
         <com.google.android.material.navigation.NavigationView

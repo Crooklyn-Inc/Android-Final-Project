@@ -4,11 +4,6 @@
     <string name="btnSoccer">Soccer Match Highlights</string>
     <string name="btnSongLyrics">Song Lyrics Search</string>
     <string name="btnDeezerSong">Deezer Song Search</string>
-    <string name="collegeName">Algonquin College</string>
-    <string name="courseCode">CST2335 Graphical Interface Programming</string>
-    <string name="projectName">Final Project</string>
-    <string name="open">Open</string>
-    <string name="close">Close</string>
 
     <string name="geoTxtViewFindCities">Find Nearby Cities</string>
     <string name="geoEditTxtLat">Enter latitude in decimal degrees here</string>
@@ -72,8 +67,6 @@
     <string name="alertBuilderTitle">Add to favourites?</string>
     <string name="alertBuilderMsg1">The selected row is:  </string>
     <string name="alertBuilderMsg2">The database id is:  </string>
-    <string name="yes">Yes  </string>
-    <string name="no">No </string>
     <string name="projectInfo">About this project</string>
     <string name="deezerNavigTitle">Deezer Song Search</string>
     <string name="deezerNavAuthor">Author Yulia Tsvetkova</string>
@@ -86,8 +79,6 @@
     <string name="genInstructions">Welcome to the Deezer Song Search!</string>
     <string name="donationTitle">Please give generou$ly</string>
     <string name="donationMessage">How much money do you want to donate?</string>
-    <string name="dzdToast1">Song is successfully added to your favorites</string>
-    <string name="dzdToast2">Song is already exist in your favorites</string>
     <string name="dzdToastTB">You clicked item 1</string>
     <string name="dzdToastTB2">You clicked item 2</string>
     <string name="dzdToastTB3">You clicked item 3</string>
@@ -146,4 +137,14 @@
     <string name="author">Author:</string>
     <string name="versionTextSMH">1.0</string>
     <string name="myNameSMH">Yegor Shramchenko</string>
+    <string name="dzdToast1">Song is successfully added to your favorites</string>
+    <string name="dzdToast2">Song is already exist in your favorites</string>
+    <string name="collegeName">Algonquin College</string>
+    <string name="courseCode">CST2335 Graphical Interface Programming</string>
+    <string name="projectName">Final Project</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="yes">Yes  </string>
+    <string name="no">No </string>
+
 </resources>

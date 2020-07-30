@@ -1,24 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp"
-    tools:context=".GeoCityList">
+    tools:context=".geo.GeoCityList"
+    android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/geoListViewCities"
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/geoToolbar"/>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/geoDrawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:paddingStart="0dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="0dp"
-        android:paddingBottom="5dp"
-        android:stackFromBottom="false"
-        android:textSize="18sp"
-        android:transcriptMode="alwaysScroll"/>
+        tools:openDrawer="start">
+
+        <!-- THIS IS WHAT IS VISIBLE ON SCREEN:-->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp"
+            tools:context=".geo.GeoCityList">
+
+            <ListView
+                android:id="@+id/geoListViewCities"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp"
+                android:paddingStart="0dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="5dp"
+                android:stackFromBottom="false"
+                android:textSize="18sp"
+                android:transcriptMode="alwaysScroll"/>
+
+        </LinearLayout>
+
+        <!-- THIS IS WHAT IS WHAT POPS OUT FROM THE SIDE:-->
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/geo_nav_drawer_header_layout"
+            app:menu="@menu/geo_nav_drawer_menu"
+            android:id="@+id/geoNavigationView"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </LinearLayout>

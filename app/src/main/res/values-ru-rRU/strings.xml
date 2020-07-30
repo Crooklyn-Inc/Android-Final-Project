@@ -65,7 +65,7 @@
     <string name="geoActivityName">Источник Гео Данных - Поиск Ближайших Городов по Широте и Долготе</string>
     <string name="geoAuthor">Автор: Павел Самарин</string>
     <string name="geoVersionNumber">Версия: 1.1.1</string>
-  
+
     <string name="albumTitle">Название Альбома</string>
     <string name="title">Название песни</string>
     <string name="songDuration">Продолжительность</string>
