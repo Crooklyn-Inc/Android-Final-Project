@@ -5,27 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Xml;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.MyAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,8 +29,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Deezer_activity1 extends AppCompatActivity {
     private String artist = "";
@@ -113,11 +102,17 @@ public class Deezer_activity1 extends AppCompatActivity {
             String songTitle2 = null;
             String songDuration2 = null;
             String songAlbum2 = null;
+            String songAlbumImage2 = null;
             try {
                 jsonObjectSongsTemp = dataArraySongs.getJSONObject((int)position);
                 songTitle2 = jsonObjectSongsTemp.getString("title");
                 songDuration2 = jsonObjectSongsTemp.getString("duration");
                 songAlbum2 = jsonObjectSongsTemp.getJSONObject("album").getString("title");
+
+                JSONArray jimageContributors = jsonObjectSongsTemp.getJSONArray("contributors");
+                String s1 = jimageContributors.get(0).toString();
+                JSONObject j2 = new JSONObject(s1);
+                songAlbumImage2 = j2.getString("picture_small");
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -126,13 +121,14 @@ public class Deezer_activity1 extends AppCompatActivity {
             String finalSongTitle = songTitle2;
             String finalSongDuration = songDuration2;
             String finalSongAlbum = songAlbum2;
+            String finalSongAlbumImage = songAlbumImage2;
 
             DeezerSongDBHelper dbOpener1 = new DeezerSongDBHelper(this);
             Boolean recordExist = dbOpener1.checkIfRecordExist(finalSongTitle, finalSongDuration);
 
          //   if(!recordExist) {
                 alert.setTitle(getResources().getString(R.string.alertBuilderTitle))
-                    .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + position)
+                    .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + (position+1))
                     .setPositiveButton(R.string.yes, (click, b) -> {
                         if(!recordExist) {
                         ContentValues updatedValues = new ContentValues();
@@ -140,12 +136,13 @@ public class Deezer_activity1 extends AppCompatActivity {
                         updatedValues.put(DeezerSongDBHelper.COL_TITLE, finalSongTitle);
                         updatedValues.put(DeezerSongDBHelper.COL_DURATION, finalSongDuration);
                         updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, finalSongAlbum);
+                        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_IMAGE, finalSongAlbumImage);
 
                         //now call the insert function:
                         db.insert(DeezerSongDBHelper.DB_TABLE, null, updatedValues);
-                        Toast.makeText(getApplicationContext(), "Song is successfully added to your favorites ", Toast.LENGTH_SHORT).show();}
+                        Toast.makeText(getApplicationContext(), R.string.dzdToast1, Toast.LENGTH_SHORT).show();}
                         else {
-                            Toast.makeText(getApplicationContext(), "Song is already exist in your favorites ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.dzdToast2, Toast.LENGTH_SHORT).show();
                                 }
                         //Toast.makeText(getApplicationContext(), "Song is already exist in your favorites ", Toast.LENGTH_SHORT).show();}
                     })
@@ -163,7 +160,7 @@ public class Deezer_activity1 extends AppCompatActivity {
     }
 
 
-    private class UserQuery extends AsyncTask<String, Integer, String> {
+    public  class UserQuery extends AsyncTask<String, Integer, String> {
         String title, duration, album_name, album_cover;
 
 
@@ -173,7 +170,8 @@ public class Deezer_activity1 extends AppCompatActivity {
 
             songLinks.clear();
             try {
-                URL url = new URL(params[0]);
+                String artistencode = params[0].replace(" ", "%20");
+                URL url = new URL(artistencode);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
@@ -191,7 +189,7 @@ public class Deezer_activity1 extends AppCompatActivity {
                 boolean insideItem = false;
                 boolean gotName = false;
 
-
+                publishProgress(10);
                 int eventType = parser.getEventType(); //The parser is currently at START_DOCUMENT
                  publishProgress(25);
                 while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -323,6 +321,11 @@ public class Deezer_activity1 extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             MyAdapter adapter = new MyAdapter(Deezer_activity1.this, songLinks);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();

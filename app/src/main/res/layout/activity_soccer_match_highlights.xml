@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".SoccerMatchHighlights">
 
-    <Button
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarSMH"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/listLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbarSMH">
+
+        <ListView
+            android:id="@+id/list_itemsSMH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/progressBarSMH"
+            android:layout_alignParentTop="true"
+            android:scrollbars="vertical" />
+
+        <ProgressBar
+            android:id="@+id/progressBarSMH"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/showFavourites"
+            android:layout_centerHorizontal="true"
+            android:background="@color/greySMH"
+            android:visibility="visible"
+
+            />
+
+        <Button
+            android:id="@+id/showFavourites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/showFavouritesSMH" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

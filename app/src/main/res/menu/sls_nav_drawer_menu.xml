@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/geoMenuItem"
+            android:title="@string/btnGeoData"
+            android:icon="@drawable/ic_geo_city"
+            android:orderInCategory="100"
+            app:showAsAction="always"/>
+
+    <item android:id="@+id/soccerMenuItem"
+            android:title="@string/btnSoccer"
+            android:icon="@drawable/ic_scorebat"
+            android:orderInCategory="200"
+            app:showAsAction="always"/>
+
+    <item android:id="@+id/deezerMenuItem"
+            android:title="@string/btnDeezerSong"
+            android:icon="@drawable/ic_deezer"
+            android:orderInCategory="400"
+            app:showAsAction="always"/>
+
+    <item android:id="@+id/aboutProject"
+            android:title="@string/projectInfo"
+            android:orderInCategory="400"
+            app:showAsAction="never"/>
+
+
+</menu>

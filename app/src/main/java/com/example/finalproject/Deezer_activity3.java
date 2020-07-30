@@ -7,14 +7,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.example.MyAdapter;
-
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -26,6 +21,7 @@ public class Deezer_activity3 extends AppCompatActivity {
     public static String TITLE = "TITLE";
     public static String ALBUM_NAME = "ALBUM_NAME";
     public static String DURATION = "DURATION";
+    public static String ALBUM_IMAGE = "ALBUM_IMAGE";
 
 
     DeezerSongDBHelper dbOpener = new DeezerSongDBHelper(this);
@@ -37,15 +33,28 @@ public class Deezer_activity3 extends AppCompatActivity {
         setContentView(R.layout.activity_deezer_3);
         ListView listViewDbFav = findViewById(R.id.ListViewDB);
         MyAdapter adapter = new MyAdapter(Deezer_activity3.this, arrayListDb);
+//        Resources res = getResources();
+//        Drawable drawable = res.getDrawable(R.drawable.circular);
+//
+//        final ProgressBar mProgress = (ProgressBar) findViewById(R.id.circularProgressbar);
+//        mProgress.setProgress(0);   // Main Progress
+//        mProgress.setSecondaryProgress(100); // Secondary Progress
+//        mProgress.setMax(100); // Maximum Progress
+//        mProgress.setProgressDrawable(drawable);
+
         boolean isTablet = findViewById(R.id.fragmentLocation) != null;
      //   DeezerSongModel songmodel = new DeezerSongModel();
 
+
+
         listViewDbFav.setOnItemClickListener((list, item, position, id) -> {
             //Create a bundle to pass data to the new fragment
+        //  mProgress.DeezerCustomProgressBarActivity.run();
             Bundle dataToPass = new Bundle();
             dataToPass.putString(TITLE, arrayListDb.get(position).getTitle());
             dataToPass.putString(ALBUM_NAME, arrayListDb.get(position).getAlbum_name());
             dataToPass.putString(DURATION, arrayListDb.get(position).getDuration());
+            dataToPass.putString(ALBUM_IMAGE, arrayListDb.get(position).getAlbum_Image());
 
 
             if (isTablet) {
@@ -107,6 +116,7 @@ public class Deezer_activity3 extends AppCompatActivity {
         loadDataFromDatabase();
         listViewDbFav.setAdapter(adapter);
     }
+
         private void loadDataFromDatabase (){
             //get a database connection:
          //   DeezerSongDBHelper dbOpener = new DeezerSongDBHelper(this);
@@ -114,7 +124,7 @@ public class Deezer_activity3 extends AppCompatActivity {
 
 
             // We want to get all of the columns. Look at MyOpener.java for the definitions:
-            String[] columns = {dbOpener.COL_SONG_ID,dbOpener.COL_TITLE, dbOpener.COL_DURATION, dbOpener.COL_ALBUM_NAME};
+            String[] columns = {dbOpener.COL_SONG_ID,dbOpener.COL_TITLE, dbOpener.COL_ALBUM_NAME, dbOpener.COL_DURATION, dbOpener.COL_ALBUM_IMAGE};
             //query all the results from the database:
             Cursor results = db.query(false, dbOpener.DB_TABLE, columns, null, null, null, null, null, null);
 
@@ -124,6 +134,7 @@ public class Deezer_activity3 extends AppCompatActivity {
             int albumNameColIndex = results.getColumnIndex(dbOpener.COL_ALBUM_NAME);
             int durationColIndex = results.getColumnIndex(dbOpener.COL_DURATION);
             int idIndex = results.getColumnIndex(dbOpener.COL_SONG_ID);
+            int albumImageColIndex = results.getColumnIndex(dbOpener.COL_ALBUM_IMAGE);
 
             //iterate over the results, return true if there is a next item:
             while (results.moveToNext()) {
@@ -131,10 +142,11 @@ public class Deezer_activity3 extends AppCompatActivity {
                 String albumNameDB = results.getString(albumNameColIndex);
                 long id = results.getLong(idIndex);
                 String durationDB = results.getString(durationColIndex);
+                String albumImageDB = results.getString(albumImageColIndex);
 
 
-                //add the new Contact to the array list:
-                arrayListDb.add(new DeezerSongModel(titleDB, albumNameDB, durationDB, id));
+                //add the new song to the array list:
+                arrayListDb.add(new DeezerSongModel(titleDB, durationDB, albumNameDB, id, albumImageDB));
             }
 
 

@@ -4,14 +4,12 @@
     <string name="btnSoccer">Футбольные Данные</string>
     <string name="btnSongLyrics">Поиск Лирической Музыки</string>
     <string name="btnDeezerSong">Поиск Музыки в Deezer</string>
-    <string name="albumTitle">Название Альбома</string>
-    <string name="title">Название песни</string>
-    <string name="songDuration">Продолжительность</string>
-    <string name="alertBuilderTitle">Добавить в избранное?</string>
-    <string name="alertBuilderMsg1">Выбранный ряд: </string>
-    <string name="alertBuilderMsg2">ID базы данных:  </string>
-    <string name="yes">Да  </string>
-    <string name="no">Нет </string>
+    <string name="collegeName">Алгонкин Колледж</string>
+    <string name="courseCode">CST2335 Программирование Графического Интерфейса</string>
+    <string name="projectName">Финальный Проект</string>
+    <string name="open">Открыть</string>
+    <string name="close">Закрыть</string>
+
     <string name="geoTxtViewFindCities">Поиск ближайших городов</string>
     <string name="geoEditTxtLat">Введите широту в десятичных грдусах</string>
     <string name="geoEditTxtLon">Введите долготу в десятичных грдусах</string>
@@ -24,11 +22,6 @@
     <string name="geoMessageNoCitiesFound">Ни один город не был найден в окресностях указанных координат</string>
     <string name="geoMessageNoCitiesInJson">В полученном пакете JSON не найдено ни одного города</string>
     <string name="geoMessageNumberOfFoundCities">городов найдено и отображено</string>
-    <string name="collegeName">Алгонкин Колледж</string>
-    <string name="courseCode">CST2335 Программирование Графического Интерфейса</string>
-    <string name="projectName">Финальный Проект</string>
-    <string name="open">Открыть</string>
-    <string name="close">Закрыть</string>
     <string name="geoAboutProjectMenuItem">О Данном Проекте</string>
     <string name="geoCityDetailsTitle">Информация о Городе</string>
     <string name="geoBtnGoToGoogleMaps">Карта</string>
@@ -72,6 +65,15 @@
     <string name="geoActivityName">Источник Гео Данных - Поиск Ближайших Городов по Широте и Долготе</string>
     <string name="geoAuthor">Автор: Павел Самарин</string>
     <string name="geoVersionNumber">Версия: 1.1.1</string>
+  
+    <string name="albumTitle">Название Альбома</string>
+    <string name="title">Название песни</string>
+    <string name="songDuration">Продолжительность</string>
+    <string name="alertBuilderTitle">Добавить в избранное?</string>
+    <string name="alertBuilderMsg1">Выбранный ряд: </string>
+    <string name="alertBuilderMsg2">ID базы данных:  </string>
+    <string name="yes">Да  </string>
+    <string name="no">Нет </string>
     <string name="projectInfo">О проекте</string>
     <string name="deezerNavigTitle">Поиск песен в Deezer</string>
     <string name="deezerNavAuthor">Автор проекта Юлия Цветкова</string>
@@ -80,4 +82,53 @@
     <string name="deezerSearch">Поиск в Deezer</string>
     <string name="alertBuilderTitle2">Вы хотите удалить из избранного?</string>
     <string name="deezerFavor">Избранное</string>
+    <string name="instructions">Что бы получить список песен, пожайлуста напечатайте имя выбранного артиста и нажмите кнопку поиск </string>
+    <string name="genInstructions">Добро пожайловать в Deezer Song Search!</string>
+    <string name="donationTitle">Щедрость украшает и вам возздасться!</string>
+    <string name="donationMessage">Сколько не пожалеете в рублевом эквиваленте?</string>
+    <string name="dzdToast1">Выбранная вами песня успешно добавлена в избранное</string>
+    <string name="dzdToast2">Выбранная вами песня уже была добавлена в избранное</string>
+    <string name="dzdToastTB">Вы выбрали проект номер 1</string>
+    <string name="dzdToastTB2">Вы выбрали проект номер 2</string>
+    <string name="dzdToastTB3">Вы выбрали проект номер 3</string>
+    <string name="dzdToastRequest">Ждите, ваш запрос выполняется</string>
+    <string name="cancel">ЗАВЕРШИТЬ</string>
+    <string name="thanks">СПАСИБО</string>
+    <string name="enter_artist">Введите имя вашего любимого артиста</string>
+    <string name="instructions_for_this_app">Инструкции к данному приложению </string>
+    <string name="about_the_api">Информация о API</string>
+    <string name="donate_to_project">Денежные вложения  </string>
+    <string name="slsSearchBtnText">Искать тест песни</string>
+    <string name="slsFavoriteListBtn">Сохраненные тексты</string>
+    <string name="hello_blank_fragment">" "</string>
+    <string name="slsHeaderText">Введите \"Группу - Песню\" для поиска:</string>
+    <string name="slsSearchInputHint">Группа - Песня</string>
+    <string name="slsGroupText">Группа:</string>
+    <string name="slsSongText">Песня:</string>
+    <string name="slsLyricsText">СЛОВА</string>
+    <string name="slsVersionNumber">1.0.0</string>
+
+    <string name="btnAddSMH">Добавить</string>
+    <string name="showFavouritesSMH">Показать избранные</string>
+    <string name="addToFavouritesSMH">Добавить в избранное</string>
+    <string name="removeSMH">Удалить</string>
+    <string name="videoSMH">Видео</string>
+    <string name="infoSMH">Как пользоваться приложением</string>
+    <string name="explSMH">На главной странице вы можете увидеть разные футбольные матчи отсортированные по дате.
+    Вы можете кликнуть на матч что бы просмотреть более деатьную информацию.
+    Вы так-же можете добавить матч в избранное нажав соотведственную кнопку в интерфейсе.
+    Нажимая "Показать избранные" вы можете получить доступ к сохранненному списку, а так же просмотреть информацию и удалить выбюранные матчи.</string>
+    <string name="backSMH">Назад</string>
+    <string name="alertDialog1">Вы уверены что хотите удалить</string>
+    <string name="match">Матч</string>
+    <string name="alertDialog2"> from your match list?</string>
+    <string name="snackbarYes">Матч успешно удален!</string>
+    <string name="snackbarNo">Нет</string>
+    <string name="addedSMH">Mатч был успешно добавлен!</string>
+    <string name="version">Версия:</string>
+    <string name="author">Автор:</string>
+    <string name="titleSMH">Название:</string>
+    <string name="titleTextSMH">Soccer Match Highlights</string>
+    <string name="versionTextSMH">1.0</string>
+    <string name="myNameSMH">Егор Шрамченко</string>
 </resources>
