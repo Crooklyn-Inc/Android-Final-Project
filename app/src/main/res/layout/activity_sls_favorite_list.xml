@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".sls.SongLyricsSearchFavoriteList">
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/slsToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/slsFavorites"
+            android:textAlignment="center"
+            android:textSize="22dp" />
+
+    <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/slsDrawerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:openDrawer="start">
+
+        <ListView
+                android:id="@+id/slsList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10.0" />
+
+        <com.google.android.material.navigation.NavigationView
+                android:id="@+id/slsNavView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:fitsSystemWindows="true"
+                app:headerLayout="@layout/sls_nav_header"
+                app:menu="@menu/geo_nav_drawer_menu" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+</LinearLayout>
