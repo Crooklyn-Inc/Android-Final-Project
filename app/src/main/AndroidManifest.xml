@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.finalproject">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.example.finalproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,8 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GeoCityInfo"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".DeezerEmptyActivity"
+            tools:ignore="Instantiatable" />
+        <activity android:name=".Deezer_activity3" />
         <activity
             android:name=".GeoCityList"
             android:configChanges="keyboardHidden|orientation|screenSize" />

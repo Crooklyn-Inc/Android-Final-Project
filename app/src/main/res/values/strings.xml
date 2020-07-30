@@ -72,4 +72,12 @@
     <string name="geoActivityName">Activity: Geo Data Source – Find nearby cities based on latitude and longitude</string>
     <string name="geoAuthor">Author: Pavel Samarin</string>
     <string name="geoVersionNumber">Version: 1.1.1</string>
+    <string name="projectInfo">About this project</string>
+    <string name="deezerNavigTitle">Deezer Song Search</string>
+    <string name="deezerNavAuthor">Author Yulia Tsvetkova</string>
+    <string name="versionN">Version 1</string>
+    <string name="deezToolAboutProject">This is the Deezer activity, written by Yulia Tsvetkova</string>
+    <string name="deezerSearch">Deezer Song Search</string>
+    <string name="deezerFavor">Favourites</string>
+    <string name="alertBuilderTitle2">Do you want to delete this song from your favourites?</string>
 </resources>
