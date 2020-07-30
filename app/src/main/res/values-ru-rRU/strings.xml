@@ -116,7 +116,6 @@
     <string name="alertDialog1">Вы уверены что хотите удалить</string>
     <string name="match">Матч</string>
     <string name="alertDialog2"> from your match list?</string>
-    <string name="yes">ДА</string>
     <string name="snackbarYes">Матч успешно удален!</string>
     <string name="snackbarNo">Нет</string>
     <string name="addedSMH">Mатч был успешно добавлен!</string>

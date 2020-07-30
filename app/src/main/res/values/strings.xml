@@ -130,7 +130,6 @@
     <string name="alertDialog1">Are you sure tou want to delete</string>
     <string name="match">Match</string>
     <string name="alertDialog2"> from your match list?</string>
-    <string name="yes">YES</string>
     <string name="snackbarYes">Item Deleted Successfully!</string>
     <string name="snackbarNo">NO</string>
     <string name="addedSMH">Match has been added!</string>
