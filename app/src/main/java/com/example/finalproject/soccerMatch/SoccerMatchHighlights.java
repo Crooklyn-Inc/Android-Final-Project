@@ -1,14 +1,23 @@
 package com.example.finalproject.soccerMatch;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,13 +26,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.finalproject.R;
+import com.example.finalproject.deezer.DeezerSongSearch;
+import com.example.finalproject.geo.GeoDataSource;
+import com.example.finalproject.sls.SongLyricsSearch;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,7 +51,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class SoccerMatchHighlights extends AppCompatActivity {
+public class SoccerMatchHighlights extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public ListView listItems;
     public static ArrayList<Match> matchArrayList = new ArrayList<>();
     private MyListAdapter myAdapter;
@@ -54,6 +69,17 @@ public class SoccerMatchHighlights extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarSMH);
         setSupportActionBar(myToolbar);
+
+        NavigationView navigationView = findViewById(R.id.smh_nav_menu);
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        DrawerLayout smhDrawer = findViewById(R.id.smh_drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                smhDrawer, myToolbar, R.string.open, R.string.close);
+        smhDrawer.addDrawerListener(toggle);
+        toggle.syncState();
+
 
         listItems = findViewById(R.id.list_itemsSMH);
         progressBar = findViewById(R.id.progressBarSMH);
@@ -103,14 +129,27 @@ public class SoccerMatchHighlights extends AppCompatActivity {
                 break;
 
             case R.id.aboutSMH:
-
                 AlertDialog.Builder alertD = new AlertDialog.Builder(SoccerMatchHighlights.this);
-
                 alertD.setTitle(getResources().getString(R.string.infoSMH))
                         .setMessage(getResources().getString(R.string.explSMH))
                         .setNegativeButton(getResources().getString(R.string.backSMH), ((dialog, which) -> {
 
                         })).create().show();
+                break;
+
+            case R.id.geoMenuItem:
+                Intent geo = new Intent(SoccerMatchHighlights.this, GeoDataSource.class);
+                startActivity(geo);
+                break;
+
+            case R.id.lyricsMenuItem:
+                Intent lyrics = new Intent(SoccerMatchHighlights.this, SongLyricsSearch.class);
+                startActivity(lyrics);
+                break;
+
+            case R.id.deezerMenuItem:
+                Intent deezer = new Intent(SoccerMatchHighlights.this, DeezerSongSearch.class);
+                startActivity(deezer);
                 break;
         }
 
@@ -129,6 +168,49 @@ public class SoccerMatchHighlights extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         matchArrayList.clear();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        if (item.getItemId() == R.id.smhInstructions) {
+
+            AlertDialog.Builder alertD = new AlertDialog.Builder(SoccerMatchHighlights.this);
+            alertD.setTitle(getResources().getString(R.string.infoSMH))
+                    .setMessage(getResources().getString(R.string.explSMH))
+                    .setNegativeButton(getResources().getString(R.string.backSMH), ((dialog, which) -> {
+
+                    })).create().show();
+
+        } else if (item.getItemId() == R.id.smhAPI) {
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.scorebat.com/video-api/"));
+            startActivity(intent);
+
+        } else if (item.getItemId() == R.id.smhDonate) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle(R.string.donationTitle);
+            alert.setMessage(R.string.donationMessage);
+            final EditText input = new EditText(this);
+            input.setHint("$$$");
+            input.setInputType(InputType.TYPE_CLASS_NUMBER);
+            input.setRawInputType(Configuration.KEYBOARD_12KEY);
+            alert.setView(input);
+            alert.setPositiveButton((R.string.thanks), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    Toast.makeText(getApplicationContext(), "Thank you for your donation!", Toast.LENGTH_LONG).show();
+                }
+            });
+            alert.setNegativeButton((R.string.cancel), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    //Put actions for CANCEL button here, or leave in blank
+                }
+            });
+            alert.show();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.smh_drawer);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 
