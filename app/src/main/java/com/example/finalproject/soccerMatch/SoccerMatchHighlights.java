@@ -9,8 +9,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -59,7 +61,7 @@ public class SoccerMatchHighlights extends AppCompatActivity implements Navigati
     public ImageView thumbnail;
     public Button showFavourites;
     FrameLayout frameLayout;
-    boolean tablet;
+    boolean isTablet;
 
 
     @Override
@@ -97,9 +99,58 @@ public class SoccerMatchHighlights extends AppCompatActivity implements Navigati
         MatchQuery reqInfo = new MatchQuery();
         reqInfo.execute("https://www.scorebat.com/video-api/v1/");
 
-        tablet = findViewById(R.id.frameLayout) != null;
+        isTablet = findViewById(R.id.frameLayout) != null;
 
         frameLayout = findViewById(R.id.frameLayout);
+
+
+        SharedPreferences prefs = getSharedPreferences("Name", Context.MODE_PRIVATE);
+
+        if (prefs.getString("name", "") == "") {
+
+            EditText userName = new EditText(this);
+            userName.setHint("Your Name");
+
+            final AlertDialog alertDialog = new AlertDialog.Builder(this)
+                    .setTitle("Please Authorise")
+                    .setPositiveButton("Save", null)
+                    .setView(userName)
+                    .create();
+
+            alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+                @Override
+                public void onShow(DialogInterface dialog) {
+
+                    Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                    button.setOnClickListener(new View.OnClickListener() {
+
+
+                        @Override
+                        public void onClick(View view) {
+                            String user = userName.getText().toString();
+
+                            if (user.equals("")) {
+                                Toast.makeText(getApplicationContext(), "Authorise first!", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Welcome " + userName.getText(), Toast.LENGTH_SHORT).show();
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putString("name", userName.getText().toString());
+                                editor.apply();
+                                editor.commit();
+                                alertDialog.dismiss();
+                            }
+                        }
+                    });
+                }
+            });
+            alertDialog.show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Welcome Back " + prefs.getString("name", ""), Toast.LENGTH_SHORT).show();
+
+        }
+
 
     }
 
@@ -115,7 +166,7 @@ public class SoccerMatchHighlights extends AppCompatActivity implements Navigati
                 dataToPass.putString("Author", getResources().getString(R.string.author));
                 dataToPass.putString("AuthorText", getResources().getString(R.string.myNameSMH));
 
-                if (tablet) {
+                if (isTablet) {
                     DetailFragment dFragment = new DetailFragment();
                     dFragment.setArguments(dataToPass);
                     getSupportFragmentManager()
