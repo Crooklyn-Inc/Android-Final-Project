@@ -38,9 +38,7 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dataFromActivity = getArguments();
 
-        View result = inflater.inflate(R.layout.fragmet_smh, container, false);
-
-        return result;
+        return inflater.inflate(R.layout.fragmet_smh, container, false);
     }
 
     @Override
