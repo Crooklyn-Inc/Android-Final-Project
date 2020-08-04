@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * helper class implementing creation, upgrading and downgrading of SQLLite database.
+ */
 public class GeoDBOpener extends SQLiteOpenHelper {
 
     protected static final String DATABASE_NAME = "GeoDataSourceDB";
@@ -11,6 +14,10 @@ public class GeoDBOpener extends SQLiteOpenHelper {
     static final String TABLE_NAME = "CITIES";
     static final String COL_ID = GeoDataSource.ATTR_MAP.get(0).string;
 
+    /**
+     * Constructor.
+     * @param ctx
+     */
     public GeoDBOpener(Context ctx)
     {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
