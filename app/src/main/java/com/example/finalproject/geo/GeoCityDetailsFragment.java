@@ -20,13 +20,17 @@ import android.widget.TextView;
 import com.example.finalproject.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link GeoCityDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Class implementing the fragment for visualisation of the selected city attributes as well as Map and Add/Remove from Favourites buttons.
  */
 public class GeoCityDetailsFragment extends Fragment {
-
+    /**
+     * callback interface inside the fragment implemented by the host activity. The host activity can therefore receive and process mouse click done in the fragment.
+     */
     public interface OnCityStatusChangeListener {
+        /**
+         * callback method to process the city status (favourable/unfavourable) change and adding/removing from the database respectively.
+         * @param index
+         */
         public void onCityStatusChange(Long index);
     }
 
@@ -37,46 +41,12 @@ public class GeoCityDetailsFragment extends Fragment {
     private long incomingCityId;
     private static final String GOOGLE_MAP_REQUEST = "https://www.google.com/maps/@?api=1&map_action=map&center=%S,%S&zoom=15";
 
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
+    /**
+     * Required empty public no-arg constructor.
+     */
     public GeoCityDetailsFragment() {
         // Required empty public constructor
     }
-
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-//     * @return A new instance of fragment GeoCityDetailsFragment.
-//     */
-//    // TODO: Rename and change types and number of parameters
-//    public static GeoCityDetailsFragment newInstance(String param1, String param2) {
-//        GeoCityDetailsFragment fragment = new GeoCityDetailsFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -125,6 +95,9 @@ public class GeoCityDetailsFragment extends Fragment {
         return inflatedView;
     }
 
+    /**
+     * inner class implementing adapter for the list displaying selected city attributes.
+     */
     class GeoListViewCityAttrAdapter extends BaseAdapter {
 
         @Override

@@ -28,6 +28,9 @@ import com.example.finalproject.sls.SongLyricsSearch;
 import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * Class implementing activity for visualisation on the phone of the selected city details as well as adding and removing of that city from the database.
+ */
 public class GeoCityInfo extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GeoCityDetailsFragment.OnCityStatusChangeListener {
 
     static final int UNCHANGED = 100;
@@ -156,6 +159,10 @@ public class GeoCityInfo extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
+    /**
+     * callback method listening for a click from 'Add to Favourites' and 'Remove from Favourites' buttons.
+     * @param index index of the city item currently displayed in the activity.
+     */
     @Override
     public void onCityStatusChange(Long index) {
         GeoCityDetailsFragment gcdFragment = new GeoCityDetailsFragment();
@@ -184,6 +191,11 @@ public class GeoCityInfo extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
+    /**
+     * method implementing insertion of the currently selected city into the database of favourite cities.
+     * @param bundle city attributes to be stored in the database.
+     * @return database ID of the inserted city record.
+     */
     long addCityToFavourites(Bundle bundle) {
         ContentValues contentValues = new ContentValues();
         for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
@@ -199,12 +211,19 @@ public class GeoCityInfo extends AppCompatActivity implements NavigationView.OnN
         return newRecordId;
     }
 
+    /**
+     * method implementing removal of the currently selected city from the database of favourite cities.
+     * @param id database ID of the record to be removed from the database.
+     */
     void removeCityFromFavourites(Long id) {
         if (sqlLiteDb == null) return;
         sqlLiteDb.delete(GeoDBOpener.TABLE_NAME, GeoDBOpener.COL_ID + " = ?", new String[] {id.toString()});
         printCursor();
     }
 
+    /**
+     * method printing the database content into the console.
+     */
     private void printCursor() {
         if (sqlLiteDb == null) return;
 
