@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/smhInstructions"
+        android:icon="@drawable/app_smh"
+        android:title="@string/instructions_for_this_app" />
+    <item
+        android:id="@+id/smhAPI"
+        android:icon="@drawable/about_smh"
+        android:title="@string/about_the_api" />
+    <item
+        android:id="@+id/smhDonate"
+        android:icon="@drawable/donate_smh"
+        android:title="@string/donate_to_project" />
+</menu>

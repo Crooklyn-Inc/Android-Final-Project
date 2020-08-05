@@ -5,15 +5,35 @@
         android:id="@+id/infoSMH"
         android:icon="@drawable/about_smh"
         android:orderInCategory="5"
-        app:showAsAction="always"
-        android:title="Info About the Project" />
+        android:title="Info About the Project"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/aboutSMH"
         android:icon="@drawable/app_smh"
-        app:showAsAction="always"
+        android:orderInCategory="1"
         android:title="How to use"
-        android:orderInCategory="1"/>
+        app:showAsAction="never" />
 
+    <item
+        android:id="@+id/geoMenuItem"
+        android:icon="@drawable/ic_geo_city"
+        android:orderInCategory="100"
+        android:title="@string/btnGeoData"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/lyricsMenuItem"
+        android:icon="@drawable/ic_lyric_song"
+        android:orderInCategory="300"
+        android:title="@string/btnSongLyrics"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/deezerMenuItem"
+        android:icon="@drawable/ic_deezer"
+        android:orderInCategory="400"
+        android:title="@string/btnDeezerSong"
+        app:showAsAction="always" />
 
 </menu>

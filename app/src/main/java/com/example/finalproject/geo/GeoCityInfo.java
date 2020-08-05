@@ -1,17 +1,37 @@
 package com.example.finalproject.geo;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.finalproject.R;
+import com.example.finalproject.deezer.DeezerSongSearch;
+import com.example.finalproject.sls.SongLyricsSearch;
+import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
+import com.google.android.material.navigation.NavigationView;
 
-public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFragment.OnCityStatusChangeListener {
+/**
+ * Class implementing activity for visualisation on the phone of the selected city details as well as adding and removing of that city from the database.
+ */
+public class GeoCityInfo extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GeoCityDetailsFragment.OnCityStatusChangeListener {
 
     static final int UNCHANGED = 100;
     static final int FAVOURABLE = 200;
@@ -24,6 +44,19 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geo_city_info);
+
+        Toolbar geoToolbar = (Toolbar)findViewById(R.id.geoToolbar);
+        setSupportActionBar(geoToolbar);
+
+        DrawerLayout mainDrawerLayout = findViewById(R.id.geoDrawerLayout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                mainDrawerLayout, geoToolbar, R.string.open, R.string.close);
+        mainDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.geoNavigationView);
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
 
         Intent intent = getIntent();
         incomingBundle = intent.getExtras();
@@ -46,6 +79,90 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
         if (sqlLiteDb != null) sqlLiteDb.close();
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() ==  R.id.appInstructionsMenuItem) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(R.string.geoInstructionsMenuItem)
+                    .setIcon(R.drawable.ic_geo_city)
+                    .setMessage(R.string.geoInstructionsMessage)
+                    .setPositiveButton(R.string.ok,(click, arg) -> {})
+                    .create()
+                    .show();
+        }
+        else if (item.getItemId() ==  R.id.aboutApiMenuItem) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GeoDataSource.LINK_TO_GEODATASOURCE)));
+        }
+        else if (item.getItemId() ==  R.id.donateToProjectMenuItem) {
+
+            LinearLayout container = new LinearLayout(this);
+            container.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(40, 0, 40, 0);
+            final EditText input = new EditText(this);
+            input.setLayoutParams(lp);
+            input.setInputType(InputType.TYPE_CLASS_NUMBER);
+            input.setLines(1);
+            input.setMaxLines(1);
+            input.setHint(R.string.geoThreeCurrencySigns);
+            container.addView(input, lp);
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(R.string.geoDonationTitle)
+                    .setIcon(R.drawable.ic_geo_donate)
+                    .setMessage(R.string.geoDonationMessage)
+                    .setView(container)
+                    .setPositiveButton(getResources().getString(R.string.geoThankYou),(click, arg) -> {})
+                    .setNegativeButton(R.string.geoCancel, (click, arg) -> { })
+                    .setView( container )
+                    .create()
+                    .show();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.geo_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() ==  R.id.soccerMenuItem) {
+            Intent intent = new Intent(GeoCityInfo.this, SoccerMatchHighlights.class);
+            startActivity(intent);
+        }
+        else if (item.getItemId() ==  R.id.lyricsMenuItem) {
+            Intent intent = new Intent(GeoCityInfo.this, SongLyricsSearch.class);
+            startActivity(intent);
+        }
+        else if (item.getItemId() ==  R.id.deezerMenuItem) {
+            Intent intent = new Intent(GeoCityInfo.this, DeezerSongSearch.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(GeoCityInfo.this, R.string.geoMessageForAboutProjectMenuItem, Toast.LENGTH_LONG).show();
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(R.string.geoAboutProjectMenuItem)
+                    .setIcon(R.drawable.ic_geo_city)
+                    .setMessage(R.string.geoMessageForAboutProjectMenuItem)
+                    .setPositiveButton(R.string.ok,(click, arg) -> {})
+                    .create()
+                    .show();
+        }
+
+        return true;
+    }
+
+    /**
+     * callback method listening for a click from 'Add to Favourites' and 'Remove from Favourites' buttons.
+     * @param index index of the city item currently displayed in the activity.
+     */
     @Override
     public void onCityStatusChange(Long index) {
         GeoCityDetailsFragment gcdFragment = new GeoCityDetailsFragment();
@@ -74,6 +191,11 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
         }
     }
 
+    /**
+     * method implementing insertion of the currently selected city into the database of favourite cities.
+     * @param bundle city attributes to be stored in the database.
+     * @return database ID of the inserted city record.
+     */
     long addCityToFavourites(Bundle bundle) {
         ContentValues contentValues = new ContentValues();
         for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
@@ -89,12 +211,19 @@ public class GeoCityInfo extends AppCompatActivity implements GeoCityDetailsFrag
         return newRecordId;
     }
 
+    /**
+     * method implementing removal of the currently selected city from the database of favourite cities.
+     * @param id database ID of the record to be removed from the database.
+     */
     void removeCityFromFavourites(Long id) {
         if (sqlLiteDb == null) return;
         sqlLiteDb.delete(GeoDBOpener.TABLE_NAME, GeoDBOpener.COL_ID + " = ?", new String[] {id.toString()});
         printCursor();
     }
 
+    /**
+     * method printing the database content into the console.
+     */
     private void printCursor() {
         if (sqlLiteDb == null) return;
 

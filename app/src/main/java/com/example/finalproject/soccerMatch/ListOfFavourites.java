@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -37,6 +38,7 @@ public class ListOfFavourites extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_favourites);
+        myOpener = new MyOpener(this);
 
 
         listOfFavourites = findViewById(R.id.listOfFavourites);
@@ -128,6 +130,9 @@ public class ListOfFavourites extends AppCompatActivity {
                 listOfFavourites.setAdapter(myAdapter);
                 myAdapter.notifyDataSetChanged();
             }
+        } else {
+            Toast.makeText(getApplicationContext(),"Your List is empty",Toast.LENGTH_SHORT).show();
+
         }
     }
 }
