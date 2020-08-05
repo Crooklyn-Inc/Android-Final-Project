@@ -1,4 +1,9 @@
 package com.example.finalproject.deezer;
+/*
+ * @author Yulia Tsvetkova
+ * @version 1
+ * @ August 4, 2020
+ */
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +38,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+/**
+ * *  This activity takes user input for artist's favorite name and output a album cover image with song's details
+ *    (song title, song duration, album name ) . The user can choose to save the image into a favorites list, which will store the query details in the SQLite
+ *  * database and the user can further  .
+ */
 
 public class Deezer_activity1 extends AppCompatActivity {
     private String artist = "";
@@ -59,16 +69,7 @@ public class Deezer_activity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deezer_activity1);
         DeezerSongDBHelper dbOpener = new DeezerSongDBHelper(this);
-/**
- * Url encoder for the user to be able to pass any names with any characters included
- *
- */
-//
-//       try {
-//            api_url = URLEncoder.encode ("Ace of Base","UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//           e.printStackTrace();
-//     }
+
 
         dbOpener = new DeezerSongDBHelper(this);
         db = dbOpener.getWritableDatabase();
@@ -92,7 +93,7 @@ public class Deezer_activity1 extends AppCompatActivity {
         userQuery.execute(api_url_artist);
 
 
-
+// click on listview row change activity from current to DeezerActivity2
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Intent deezerAct2 = new Intent(Deezer_activity1.this, Deezer_activity2.class);
@@ -108,7 +109,7 @@ public class Deezer_activity1 extends AppCompatActivity {
             startActivity(deezerAct2);
         });
 
-
+// long click on listview row promts user to add song to the favorite , put DeezerSongModel object to the database
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
@@ -140,17 +141,17 @@ public class Deezer_activity1 extends AppCompatActivity {
             DeezerSongDBHelper dbOpener1 = new DeezerSongDBHelper(this);
             Boolean recordExist = dbOpener1.checkIfRecordExist(finalSongTitle, finalSongDuration);
 
-         //   if(!recordExist) {
-                alert.setTitle(getResources().getString(R.string.alertBuilderTitle))
-                    .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + (position+1))
-                    .setPositiveButton(R.string.yes, (click, b) -> {
-                        if(!recordExist) {
-                        ContentValues updatedValues = new ContentValues();
 
-                        updatedValues.put(DeezerSongDBHelper.COL_TITLE, finalSongTitle);
-                        updatedValues.put(DeezerSongDBHelper.COL_DURATION, finalSongDuration);
-                        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, finalSongAlbum);
-                        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_IMAGE, finalSongAlbumImage);
+            alert.setTitle(getResources().getString(R.string.alertBuilderTitle))
+           .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + (position+1))
+           .setPositiveButton(R.string.yes, (click, b) -> {
+            if(!recordExist) {
+            ContentValues updatedValues = new ContentValues();
+
+            updatedValues.put(DeezerSongDBHelper.COL_TITLE, finalSongTitle);
+            updatedValues.put(DeezerSongDBHelper.COL_DURATION, finalSongDuration);
+            updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, finalSongAlbum);
+            updatedValues.put(DeezerSongDBHelper.COL_ALBUM_IMAGE, finalSongAlbumImage);
 
                         //now call the insert function:
                         db.insert(DeezerSongDBHelper.DB_TABLE, null, updatedValues);
@@ -173,7 +174,11 @@ public class Deezer_activity1 extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Async tasks parses http to xml ,creates a json object
+     * loads data to listview, shows the list of songs to the user and song's details (song title, duration,
+     * album name, album cover)
+     */
     public  class UserQuery extends AsyncTask<String, Integer, String> {
         String title, duration, album_name, album_cover;
 
@@ -185,14 +190,16 @@ public class Deezer_activity1 extends AppCompatActivity {
             songLinks.clear();
             try {
                 String artistencode = params[0].replace(" ", "%20");
+                //create a URL object of what server to contact:
                 URL url = new URL(artistencode);
+                //open the connection
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
                 conn.setRequestMethod("GET");
                 conn.setDoInput(true);
                 conn.connect();
-
+                //wait for data:
                 InputStream stream = conn.getInputStream();
                 XmlPullParser parser = Xml.newPullParser();
                 parser.setInput(stream, null);
@@ -248,19 +255,7 @@ public class Deezer_activity1 extends AppCompatActivity {
                                         sb.append(line + "\n");
                                     }
                                     result = sb.toString();
-//                                    JSONObject jObject = new JSONObject(result);
-//                                    JSONArray dataArray = jObject.getJSONArray("data");
-//
-//                                    for (int i = 0; i < dataArray.length(); i++) {
-//                                        // create a JSONObject for fetching single user data
-//                                        JSONObject dataDetail = dataArray.getJSONObject(i);
-//                                        // fetch email and name and store it in arraylist
-//                                        String songTitle = dataDetail.getString("title");
-//                                        String songDuration = dataDetail.getString("duration");
-//                                        songLinks.add(songTitle);
-//
-//                                        Log.e("song list", );
-//                                    }
+
 
                                 }
 
@@ -351,49 +346,6 @@ public class Deezer_activity1 extends AppCompatActivity {
     }
 
 
-//    class MyAdapter extends BaseAdapter {
-//        Context context;
-//        ArrayList<DeezerSongModel> arrayList;
-//
-//        public MyAdapter(Context context, ArrayList<DeezerSongModel> arrayList) {
-//            this.context = context;
-//            this.arrayList = arrayList;
-//        }
-//
-//
-//        @Override
-//        public int getCount() {
-//            return arrayList.size();
-//        }
-//
-//        @Override
-//        public DeezerSongModel getItem(int position) {
-//            return arrayList.get(position);
-//        }
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return getItem(position).getId();
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//    //        layout for this position
-//
-//            if (convertView ==  null) {
-//                convertView = LayoutInflater.from(context).inflate(R.layout.list_songs_row, parent, false);
-//            }
-//            TextView title, duration, album_name;
-//            title = (TextView) convertView.findViewById(R.id.songtitle);
-//           // duration = (TextView) convertView.findViewById(R.id.duration);
-//          //  album_name = (TextView) convertView.findViewById(R.id.album_name);
-//            title.setText(arrayList.get(position).getTitle());
-//           // duration.setText(arrayList.get(position).getDuration());
-//            //album_name.setText(arrayList.get(position).getAlbum_name());
-//
-//            return convertView;
-//        }
-//
-//    }
+
 }
 

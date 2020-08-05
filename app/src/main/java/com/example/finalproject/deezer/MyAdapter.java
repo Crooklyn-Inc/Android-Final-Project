@@ -11,7 +11,14 @@ import com.example.finalproject.R;
 import com.example.finalproject.deezer.DeezerSongModel;
 
 import java.util.ArrayList;
-
+/*
+ * @author Yulia Tsvetkova
+ * @version 1
+ * @ August 4, 2020
+ */
+/**
+ * Class extends BaseAdapter and provides methods for retrieving count, item, id, or the view for the ListView.
+ */
 public   class MyAdapter extends BaseAdapter {
         Context context;
         ArrayList<DeezerSongModel> arrayList;
@@ -36,6 +43,14 @@ public   class MyAdapter extends BaseAdapter {
         public long getItemId(int position) {
             return getItem(position).getId();
         }
+
+    /**
+     * Method to create a new row in the ListView and set the appropriate value.
+     * @param position int index value for retrieving EarthyImage from elements ArrayList
+     * @param convertView View object, will take old view and add a new row
+     * @param parent ViewGroup parent for the view
+     * @return View with new ListView values
+     */
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {

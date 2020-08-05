@@ -14,6 +14,11 @@ import com.example.finalproject.R;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+/*
+ * @author Yulia Tsvetkova
+ * @version 1
+ * @ August 4, 2020
+ */
 
 public class Deezer_activity3 extends AppCompatActivity {
     ArrayList<DeezerSongModel> arrayListDb = new ArrayList();
@@ -34,24 +39,16 @@ public class Deezer_activity3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deezer_3);
         ListView listViewDbFav = findViewById(R.id.ListViewDB);
+
         MyAdapter adapter = new MyAdapter(Deezer_activity3.this, arrayListDb);
-//        Resources res = getResources();
-//        Drawable drawable = res.getDrawable(R.drawable.circular);
-//
-//        final ProgressBar mProgress = (ProgressBar) findViewById(R.id.circularProgressbar);
-//        mProgress.setProgress(0);   // Main Progress
-//        mProgress.setSecondaryProgress(100); // Secondary Progress
-//        mProgress.setMax(100); // Maximum Progress
-//        mProgress.setProgressDrawable(drawable);
 
         boolean isTablet = findViewById(R.id.fragmentLocation) != null;
-     //   DeezerSongModel songmodel = new DeezerSongModel();
-
-
+        /**
+         Getting data (song information) from DeezerActivity2 Class
+          * */
 
         listViewDbFav.setOnItemClickListener((list, item, position, id) -> {
-            //Create a bundle to pass data to the new fragment
-        //  mProgress.DeezerCustomProgressBarActivity.run();
+
             Bundle dataToPass = new Bundle();
             dataToPass.putString(TITLE, arrayListDb.get(position).getTitle());
             dataToPass.putString(ALBUM_NAME, arrayListDb.get(position).getAlbum_name());
@@ -73,65 +70,48 @@ public class Deezer_activity3 extends AppCompatActivity {
                 startActivity(nextActivity); //make the transition
             }
         });
+        /**
+         * Long click on the row of the listview of the favorites songs prompts user to choose if song should be deleted from the list or not.
+         * Load data from database to the listview by calling loadDataFromDatabase() method and adapter.
+         */
 
         listViewDbFav.setOnItemLongClickListener((parent, view, position, id) -> {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle(getResources().getString(R.string.alertBuilderTitle2))
-                    .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + position +1  + "\n" + getResources().getString(R.string.alertBuilderMsg2) + " " + id)
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(getResources().getString(R.string.alertBuilderTitle2))
+       .setMessage(getResources().getString(R.string.alertBuilderMsg1) + " " + position +1  + "\n" + getResources().getString(R.string.alertBuilderMsg2) + " " + id)
 
-                    .setPositiveButton(getResources().getString(R.string.yes), (click, arg) -> {
-                      DeezerSongModel selectedMessage = arrayListDb.get(position);
-                        dbOpener.deleteSong(selectedMessage);
-                        //dbOpener.deleteMessage(position);
-                        arrayListDb.remove(position);
-                        adapter.notifyDataSetChanged();
-                    })
-                    .setNegativeButton(getResources().getString(R.string.no), (click, arg) -> {
-                    });
-//            if (arrayListDb.get(position).) {
-//                alert.setView(getLayoutInflater().inflate(R.layout.list_songs_row, null));
-//
-  //          }
+       .setPositiveButton(getResources().getString(R.string.yes), (click, arg) -> {
+        DeezerSongModel selectedMessage = arrayListDb.get(position);
+        dbOpener.deleteSong(selectedMessage);
+        //dbOpener.deleteMessage(position);
+        arrayListDb.remove(position);
+        adapter.notifyDataSetChanged();
+    })
+     .setNegativeButton(getResources().getString(R.string.no), (click, arg) -> {
+    });
 
-
+        //Show the dialog
             alert.create().show();
 
             return true;
         });
 
 
-//        listViewDbFav.setOnItemClickListener((parent, view, position, id) -> {
-//            Intent deezerAct3 = new Intent(Deezer_activity3.this, Deezer_activity2.class);
-//            JSONObject jsonObjectSongsTemp = null;
-//
-//            try {
-//                jsonObjectSongsTemp = dataArraySongs.getJSONObject((int)position);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//
-//            deezerAct3.putExtra(ARTIST_DETAILS, jsonObjectSongsTemp.toString());
-//            startActivity(deezerAct3);
-//        });
-
-//        DeezerSongDBHelper dbOpener = new DeezerSongDBHelper(this);
         loadDataFromDatabase();
         listViewDbFav.setAdapter(adapter);
     }
-
-        private void loadDataFromDatabase (){
+    /**
+     * Method to retrieve all rows from the SQLite database. Each row represents DeezerModel object and all will be added to the ArrayList.
+     */
+            private void loadDataFromDatabase (){
             //get a database connection:
-         //   DeezerSongDBHelper dbOpener = new DeezerSongDBHelper(this);
-            db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+            db = dbOpener.getWritableDatabase();
 
-
-            // We want to get all of the columns. Look at MyOpener.java for the definitions:
             String[] columns = {dbOpener.COL_SONG_ID,dbOpener.COL_TITLE, dbOpener.COL_ALBUM_NAME, dbOpener.COL_DURATION, dbOpener.COL_ALBUM_IMAGE};
             //query all the results from the database:
             Cursor results = db.query(false, dbOpener.DB_TABLE, columns, null, null, null, null, null, null);
 
-            //Now the results object has rows of results that match the query.
-            //find the column indices:
+
             int titleColumnIndex = results.getColumnIndex(dbOpener.COL_TITLE);
             int albumNameColIndex = results.getColumnIndex(dbOpener.COL_ALBUM_NAME);
             int durationColIndex = results.getColumnIndex(dbOpener.COL_DURATION);

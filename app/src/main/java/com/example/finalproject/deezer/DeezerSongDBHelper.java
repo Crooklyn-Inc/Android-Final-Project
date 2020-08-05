@@ -7,6 +7,11 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+/*
+ * @author Yulia Tsvetkova
+ * @version 1
+ * @ August 4, 2020
+ *  Class extends SQLiteOpenHelper creates or updates SQLite database */
 
 public class DeezerSongDBHelper extends SQLiteOpenHelper {
 
@@ -71,20 +76,7 @@ public class DeezerSongDBHelper extends SQLiteOpenHelper {
         return false;
     }
 
-//    public void  updateDB(DeezerSongModel d)
-//    {
-//        //Create a ContentValues object to represent a database row:
-//        ContentValues updatedValues = new ContentValues();
-//        updatedValues.put(DeezerSongDBHelper.COL_TITLE, d.getTitle());
-//        updatedValues.put(DeezerSongDBHelper.COL_DURATION, d.getDuration());
-//        updatedValues.put(DeezerSongDBHelper.COL_ALBUM_NAME, d.getDuration());
-//
-//        //now call the update function:
-//        db.update(DeezerSongDBHelper.DB_TABLE, updatedValues, DeezerSongDBHelper.COL_SONG_ID + "= ?", new String[] {Long.toString(d.getId())});
-//    }
 
-
-    //insert data
     public boolean insertData(String title, String duration, String album_name, String album_url) {
 
 
