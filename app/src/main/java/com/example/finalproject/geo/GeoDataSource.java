@@ -1,3 +1,8 @@
+/**
+ * @author Pavel Samarin (040 966 422)
+ * @created August 5, 2020
+ * @version 1.1.1
+ */
 package com.example.finalproject.geo;
 
 import android.content.Context;
@@ -44,7 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is the starting class of the GoeDataSource activity
+ * Class implementing the starting activity of the GoeDataSource project part
  */
 public class GeoDataSource extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -259,7 +264,7 @@ public class GeoDataSource extends AppCompatActivity implements NavigationView.O
     }
 
     /**
-     * inner class implementing AsyncTask to query data from the internet
+     * Inner class implementing AsyncTask to query data from the internet
      */
     private class GeoDataRequest extends AsyncTask< String, Integer, String> {
 
