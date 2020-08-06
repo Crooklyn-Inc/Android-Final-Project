@@ -395,7 +395,7 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
     /**
      * Inner class implementing adapter for the ListView of cities.
      */
-    class GeoListViewAdapter extends BaseAdapter {
+    private class GeoListViewAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {

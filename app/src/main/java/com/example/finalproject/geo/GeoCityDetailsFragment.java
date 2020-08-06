@@ -40,8 +40,8 @@ public class GeoCityDetailsFragment extends Fragment {
     }
 
     private OnCityStatusChangeListener onCityStatusChangeListener;
-    ListView geoListViewCityAttributes;
-    Button geoBtnAddRemoveFavourites;
+    private ListView geoListViewCityAttributes;
+    private Button geoBtnAddRemoveFavourites;
     private Bundle incomingBundle;
     private long incomingCityId;
     private static final String GOOGLE_MAP_REQUEST = "https://www.google.com/maps/@?api=1&map_action=map&center=%S,%S&zoom=15";
@@ -103,7 +103,7 @@ public class GeoCityDetailsFragment extends Fragment {
     /**
      * Inner class implementing adapter for the list displaying selected city attributes.
      */
-    class GeoListViewCityAttrAdapter extends BaseAdapter {
+    private class GeoListViewCityAttrAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
