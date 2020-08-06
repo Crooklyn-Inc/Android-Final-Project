@@ -131,4 +131,21 @@
     <string name="titleTextSMH">Soccer Match Highlights</string>
     <string name="versionTextSMH">1.0</string>
     <string name="myNameSMH">Егор Шрамченко</string>
+    <string name="slsAddToFavoriteListBtn">Добавить в избранное</string>
+    <string name="slsSearchGoogleBtn">Поиск в Гугле</string>
+    <string name="slsAlertDeleteTitle">Удалить из избранного?</string>
+    <string name="slsAuthor">Ольга Зимина</string>
+    <string name="slsActivityName">Поиск текстов песен - всегда найдем правильные</string>
+    <string name="slsInstructionsMenuItem">Инструкция</string>
+    <string name="slsAboutApiMenuItem">О программе</string>
+    <string name="slsDonateMenuItem">Спонсировать</string>
+    <string name="slsToolAboutProject">Поиск текстов песен - Ольга Зимина</string>
+    <string name="slsFavorites">Избранные</string>
+    <string name="slsLyricsNotFound">Текст песни не найден</string>
+    <string name="slsLyrics">Текст</string>
+    <string name="slsInstructionsMessage">"Если вы хотите найти "</string>
+    <string name="slsWrongInput">Упс...</string>
+    <string name="slsFavDeleted">Песня удалена</string>
+    <string name="slsAddFavorite">Добавить</string>
+    <string name="slsRemoveFavorite">Удалить</string>
 </resources>

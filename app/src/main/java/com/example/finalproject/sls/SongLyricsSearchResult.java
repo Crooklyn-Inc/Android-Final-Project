@@ -1,3 +1,12 @@
+/**
+ * This is the copyrighted content for course
+ * of mobile programming at Algonquin College
+ *
+ * @author Olga Zimina
+ * @version 1.0.0
+ * @created Jul 25, 2020
+ */
+
 package com.example.finalproject.sls;
 
 import android.content.Intent;
@@ -22,12 +31,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.finalproject.R;
 import com.example.finalproject.deezer.DeezerSongSearch;
 import com.example.finalproject.geo.GeoDataSource;
-import com.example.finalproject.R;
-import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
 import com.example.finalproject.sls.data.MessageDTO;
 import com.example.finalproject.sls.database.MessageDao;
+import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.UnsupportedEncodingException;
@@ -35,6 +44,11 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * This class handles the request and initiates search for lyrics in
+ * network. It also handles the result of the search and checks -
+ * whether lyrics is already in Favorite list or not
+ */
 public class SongLyricsSearchResult extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private MessageDao messageDao;
@@ -73,6 +87,8 @@ public class SongLyricsSearchResult extends AppCompatActivity implements Navigat
         TextView lyrics = findViewById(R.id.slsLyricsName);
 
         lyrics.setMovementMethod(new ScrollingMovementMethod());
+        Button favBtn = findViewById(R.id.slsAddToFavoriteListBtn);
+        Button gglBtn = findViewById(R.id.slsSearchGoogleBtn);
 
         if (lyricsText == null || lyricsText.isEmpty()) {
             SongLyricsSearchNetwork            searchNetwork = new SongLyricsSearchNetwork(findViewById(R.id.slsLyricsName).getRootView());
@@ -83,45 +99,62 @@ public class SongLyricsSearchResult extends AppCompatActivity implements Navigat
                     lyrics.setText(lyricsText);
                     TextView nf = findViewById(R.id.slsLyricsNameNotFound);
                     nf.setText("");
+
+                    lyrics.setText(lyricsText);
+
+                    if (isSongFavorite) {
+                        favBtn.setText(R.string.slsRemoveFavorite);
+                    }
+                    favBtn.setOnClickListener(btn -> {
+                        if (isSongFavorite) {
+                            deleteFromFavorites(songId);
+                        } else {
+                            addToFavoriteList();
+                        }
+                    });
+
+                    gglBtn.setOnClickListener(btn -> {
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(bandName, "utf8") + "/" + URLEncoder.encode(songText, "utf8"))));
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 } else {
+                    favBtn.setEnabled(false);
+                    gglBtn.setEnabled(false);
                 }
             } catch (ExecutionException | InterruptedException e) {e.printStackTrace(); }
         } else {
-            lyrics.setText(lyricsText);
         }
-
-        Button favBtn = findViewById(R.id.slsAddToFavoriteListBtn);
-        if (isSongFavorite) {
-            favBtn.setText("Remove Favorite");
-        }
-        favBtn.setOnClickListener(btn -> {
-            if (isSongFavorite) {
-                deleteFromFavorites(songId);
-            } else {
-                addToFavoriteList();
-            }
-        });
-
-        Button gglBtn = findViewById(R.id.slsSearchGoogleBtn);
-        gglBtn.setOnClickListener(btn->{
-            try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + URLEncoder.encode(bandName, "utf8") + "/" + URLEncoder.encode(songText, "utf8"))));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        });
 
     }
 
+    /**
+     * Remove message from Favorite list.
+     *
+     * @param songId ID of the song to use in DB transaction
+     */
     private void deleteFromFavorites(Long songId) {
         messageDao = new MessageDao(this);
         messageDao.open();
         messageDao.delete(messageDao.findById(songId));
         Button favBtn = findViewById(R.id.slsAddToFavoriteListBtn);
-        favBtn.setText("Add to Favorite");
+        favBtn.setText(R.string.slsAddFavorite);
         isSongFavorite = false;
     }
 
+    /**
+     * This method is neede to determine whether band-song pair is already added
+     * to the favorite list and saved in database or not.
+     * It is necessary to define buttons at the bottom and change them dynamically -
+     * Remove from Favorites/Add to favorites
+     *
+     * @param bandName name of the Band
+     * @param songText name of the Song
+     *
+     * @return true if that song is already saved in Favorites, false otherwise
+     */
     private boolean isSongFavorite(String bandName, String songText) {
         messageDao = new MessageDao(this);
         messageDao.open();
@@ -140,6 +173,10 @@ public class SongLyricsSearchResult extends AppCompatActivity implements Navigat
 
     }
 
+    /**
+     * Actual method which adds song to the Favorite list and change the button below from
+     * ADD TO FAVORITES to REMOVE FROM FAVORITES
+     */
     private void addToFavoriteList() {
         messageDao = new MessageDao(this);
         messageDao.open();
@@ -154,7 +191,7 @@ public class SongLyricsSearchResult extends AppCompatActivity implements Navigat
                 l.getText().toString()));
         messageDao.close();
         Button favBtn = findViewById(R.id.slsAddToFavoriteListBtn);
-        favBtn.setText("Remove Favorite");
+        favBtn.setText(R.string.slsRemoveFavorite);
         isSongFavorite = true;
         songId         = newMessage.getId();
     }

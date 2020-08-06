@@ -1,3 +1,12 @@
+/**
+ * This is the copyrighted content for course
+ * of mobile programming at Algonquin College
+ *
+ * @author Olga Zimina
+ * @version 1.0.0
+ * @created Jul 25, 2020
+ */
+
 package com.example.finalproject.sls;
 
 import android.os.AsyncTask;
@@ -18,16 +27,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+/**
+ * Class responsible for network communication and data retrieving.
+ */
 public class SongLyricsSearchNetwork extends AsyncTask<String, Integer, String> {
 
-    private View rootView;
+    private View        rootView;
+    private ProgressBar progressBar;
+    private String      songLyrics;
 
+    /**
+     * Parameterized constructor to provide access to the parent view
+     *
+     * @param rootView parent view
+     */
     public SongLyricsSearchNetwork(View rootView) {
         this.rootView = rootView;
     }
-
-    private ProgressBar progressBar;
-    private String      songLyrics;
 
     @Override
     protected String doInBackground(String... strings) {
@@ -43,6 +59,16 @@ public class SongLyricsSearchNetwork extends AsyncTask<String, Integer, String> 
         return songLyrics;
     }
 
+    /**
+     * This method open URL connection to the <a>https://api.lyrics.ovh/v1/</a>
+     * and retrieves from there lyrics about entered band and song
+     *
+     * @param band band to search for
+     * @param song song name to search
+     *
+     * @throws IOException
+     * @throws JSONException
+     */
     private void getLyrics(String band, String song) throws IOException, JSONException {
         String link = "https://api.lyrics.ovh/v1/" + URLEncoder.encode(band, "utf8") + "/" + URLEncoder.encode(song, "utf8");
 
@@ -53,6 +79,15 @@ public class SongLyricsSearchNetwork extends AsyncTask<String, Integer, String> 
         publishProgress(100);
     }
 
+    /**
+     * Initiates the connection to the server.
+     *
+     * @param link URL where to connect to
+     *
+     * @return new HttpURLConnection
+     *
+     * @throws IOException
+     */
     private HttpURLConnection getOpenConnection(String link) throws IOException {
         URL url = new URL(link);
 
@@ -66,6 +101,13 @@ public class SongLyricsSearchNetwork extends AsyncTask<String, Integer, String> 
         return connection;
     }
 
+    /**
+     * Stream to String converter
+     *
+     * @param is Input Stream to read from
+     *
+     * @return String converted to from Input Stream
+     */
     private String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder  sb     = new StringBuilder();

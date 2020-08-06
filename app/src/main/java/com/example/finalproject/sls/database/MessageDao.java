@@ -1,3 +1,12 @@
+/**
+ * This is the copyrighted content for course
+ * of mobile programming at Algonquin College
+ *
+ * @author Olga Zimina
+ * @version 1.0.0
+ * @created Jul 25, 2020
+ */
+
 package com.example.finalproject.sls.database;
 
 import android.content.ContentValues;
@@ -13,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Dao Layer
+ */
 public class MessageDao {
     private SQLiteDatabase        database;
     private MessageDatabaseHelper dbHelper;
@@ -25,18 +37,36 @@ public class MessageDao {
 
     private static final String TAG = MessageDao.class.getSimpleName();
 
+    /**
+     * Constructor to create current DAO instance
+     *
+     * @param context current context
+     */
     public MessageDao(Context context) {
         dbHelper = new MessageDatabaseHelper(context);
     }
 
+    /**
+     * Database connection initializer
+     *
+     * @throws SQLException
+     */
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
     }
 
+    /**
+     * Database connection destructor
+     */
     public void close() {
         dbHelper.close();
     }
 
+    /**
+     * Method allowing to search all records in database
+     *
+     * @return List of messages of type MessageDTO
+     */
     public List<MessageDTO> findAll() {
         List<MessageDTO> messageList = new ArrayList<>();
 
@@ -56,6 +86,13 @@ public class MessageDao {
         return messageList;
     }
 
+    /**
+     * Return one record from Database based on record ID
+     *
+     * @param id ID of the record
+     *
+     * @return MessageDTO one message
+     */
     public MessageDTO findById(long id) {
         Cursor cursor = database.query(MessageTable.TABLE_NAME,
             allColumns, MessageTable.ID + " = " + id, null,
@@ -73,6 +110,13 @@ public class MessageDao {
         return message;
     }
 
+    /**
+     * This method creates a database record and saves it
+     *
+     * @param messageDTO message to be saved in database
+     *
+     * @return saved message as MessageDTO
+     */
     public MessageDTO create(MessageDTO messageDTO) {
         ContentValues values = new ContentValues();
         values.put(MessageTable.BAND, messageDTO.getBand());
@@ -85,12 +129,23 @@ public class MessageDao {
         return messageDTO;
     }
 
+    /**
+     * This method deletes a record from database, searched by message ID
+     *
+     * @param messageDTO message to be deleted
+     */
     public void delete(MessageDTO messageDTO) {
         long id = messageDTO.getId();
         database.delete(MessageTable.TABLE_NAME, MessageTable.ID + " = " + id, null);
     }
 
-
+    /**
+     * Converts Cursor message into MessageDTO message to be saved in database
+     *
+     * @param cursor data to be converted in type of MessageDTO
+     *
+     * @return message as MessageDTO
+     */
     private MessageDTO convertToMessage(Cursor cursor) {
         MessageDTO messageDTO = new MessageDTO();
         messageDTO.setId(cursor.getLong(0));
@@ -100,6 +155,11 @@ public class MessageDao {
         return messageDTO;
     }
 
+    /**
+     * Print message to log, using logger and message from Cursor
+     *
+     * @param cursor data to be logged
+     */
     private void printCursor(Cursor cursor) {
 
         StringBuilder logMsg = new StringBuilder();

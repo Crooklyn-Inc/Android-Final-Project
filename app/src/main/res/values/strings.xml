@@ -146,5 +146,7 @@
     <string name="close">Close</string>
     <string name="yes">Yes  </string>
     <string name="no">No </string>
+    <string name="slsAddFavorite">Add To Favorite</string>
+    <string name="slsRemoveFavorite">Remove Favorite</string>
 
 </resources>

@@ -1,3 +1,12 @@
+/**
+ * This is the copyrighted content for course
+ * of mobile programming at Algonquin College
+ *
+ * @author Olga Zimina
+ * @version 1.0.0
+ * @created Jul 25, 2020
+ */
+
 package com.example.finalproject.sls;
 
 import android.content.Context;
@@ -21,6 +30,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
+/**
+ * This class describes functionality of Fragment, shown in tablet mode of the device
+ */
 public class SongLyricsSearchFragmentDetails extends Fragment {
     private SongLyricsSearchFavoriteList.MessageListAdapter messageAdapter;
 
@@ -32,6 +44,12 @@ public class SongLyricsSearchFragmentDetails extends Fragment {
     private Long              songId;
 
 
+    /**
+     * Parameterized constructor to obtain access to the database and message adapter
+     *
+     * @param context        context of the parent page to use inside fragment
+     * @param messageAdapter adapter to be used withing this Fragment to show rows of messages (lyrics)
+     */
     public SongLyricsSearchFragmentDetails(Context context, SongLyricsSearchFavoriteList.MessageListAdapter messageAdapter) {
         this.messageAdapter = messageAdapter;
         this.context        = context;
@@ -56,7 +74,7 @@ public class SongLyricsSearchFragmentDetails extends Fragment {
 
         Button favBtn = result.findViewById(R.id.slsAddToFavoriteListBtn);
         if (isSongFavorite) {
-            favBtn.setText("Remove Favorite");
+            favBtn.setText(R.string.slsRemoveFavorite);
         }
         favBtn.setOnClickListener(btn -> {
             if (isSongFavorite) {
@@ -79,11 +97,18 @@ public class SongLyricsSearchFragmentDetails extends Fragment {
         return result;
     }
 
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         parentActivity = (AppCompatActivity) context;
     }
 
+    /**
+     * Remove message from Favorite list.
+     *
+     * @param result View to get access to parent elements
+     * @param songId ID of the song to use in DB transaction
+     */
     private void deleteFromFavorites(View result, Long songId) {
         messageDao = new MessageDao(context);
         messageDao.open();
@@ -93,10 +118,21 @@ public class SongLyricsSearchFragmentDetails extends Fragment {
         messageAdapter.remove(messageDao.findById(songId));
 
         Button favBtn = result.findViewById(R.id.slsAddToFavoriteListBtn);
-        favBtn.setText("Add to Favorite");
+        favBtn.setText(R.string.slsAddFavorite);
         isSongFavorite = false;
     }
 
+    /**
+     * This method is neede to determine whether band-song pair is already added
+     * to the favorite list and saved in database or not.
+     * It is necessary to define buttons at the bottom and change them dynamically -
+     * Remove from Favorites/Add to favorites
+     *
+     * @param bandName name of the Band
+     * @param songText name of the Song
+     *
+     * @return true if that song is already saved in Favorites, false otherwise
+     */
     private boolean isSongFavorite(String bandName, String songText) {
         messageDao = new MessageDao(context);
         messageDao.open();
@@ -115,6 +151,12 @@ public class SongLyricsSearchFragmentDetails extends Fragment {
 
     }
 
+    /**
+     * Actual method which adds song to the Favorite list and change the button below from
+     * ADD TO FAVORITES to REMOVE FROM FAVORITES
+     *
+     * @param result parent view to be modified and show new song
+     */
     private void addToFavoriteList(View result) {
         messageDao = new MessageDao(context);
         messageDao.open();
@@ -129,7 +171,7 @@ public class SongLyricsSearchFragmentDetails extends Fragment {
                 l.getText().toString()));
         messageDao.close();
         Button favBtn = result.findViewById(R.id.slsAddToFavoriteListBtn);
-        favBtn.setText("Remove Favorite");
+        favBtn.setText(R.string.slsRemoveFavorite);
         isSongFavorite = true;
         songId         = newMessage.getId();
     }

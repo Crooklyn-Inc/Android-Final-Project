@@ -1,3 +1,12 @@
+/**
+ * This is the copyrighted content for course
+ * of mobile programming at Algonquin College
+ *
+ * @author Olga Zimina
+ * @version 1.0.0
+ * @created Jul 25, 2020
+ */
+
 package com.example.finalproject.sls;
 
 import android.content.Context;
@@ -24,16 +33,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.finalproject.R;
 import com.example.finalproject.deezer.DeezerSongSearch;
 import com.example.finalproject.geo.GeoDataSource;
-import com.example.finalproject.R;
-import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
 import com.example.finalproject.sls.data.MessageDTO;
 import com.example.finalproject.sls.database.MessageDao;
+import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
+/**
+ * This class is responsible for displaying and maintaining of
+ * FeatureList screen on both types of devices: tablets and phones.
+ */
 public class SongLyricsSearchFavoriteList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private MessageListAdapter              messageAdapter;
@@ -111,6 +124,15 @@ public class SongLyricsSearchFavoriteList extends AppCompatActivity implements N
         });
     }
 
+    /**
+     * Building Alert dialog for displaying message
+     * record position and from database on click
+     *
+     * @param position current position in list
+     * @param id       ID of the row in database
+     *
+     * @return full nice formatted string
+     */
     private String buildAlertMessage(int position, long id) {
         StringBuilder sb = new StringBuilder();
         sb.append(getResources().getString(R.string.alertBuilderMsg1)).append(position).append("\n");
@@ -118,6 +140,12 @@ public class SongLyricsSearchFavoriteList extends AppCompatActivity implements N
         return sb.toString();
     }
 
+    /**
+     * Remove message from Favorite list and from the screen in tablet mode.
+     * Second thing - draw a toast message with information about message deleted.
+     *
+     * @param message message to delete
+     */
     protected void deleteMessage(MessageDTO message) {
         messageDao.delete(message);
         messageAdapter.remove(message);
@@ -204,6 +232,9 @@ public class SongLyricsSearchFavoriteList extends AppCompatActivity implements N
         return false;
     }
 
+    /**
+     * Implement functionality of adapter to be used together with List of messages
+     */
     static class MessageListAdapter extends ArrayAdapter<MessageDTO> {
         public MessageListAdapter(@NonNull Context context, @NonNull List<MessageDTO> objects) {
             super(context, -1, objects);
@@ -222,10 +253,25 @@ public class SongLyricsSearchFavoriteList extends AppCompatActivity implements N
             return rowView;
         }
 
+        /**
+         * Getter for retrieve currently selected message ID on click
+         *
+         * @param position number of message in the list
+         *
+         * @return item ID to be used in database
+         */
         public long getItemId(int position) {
             return getItem(position).getId();
         }
 
+        /**
+         * This method creates the List of rows (one row) based on message and given layout
+         *
+         * @param currentMessage MessageDTO with message
+         * @param parent         Parent View
+         *
+         * @return updated View
+         */
         private View createRowView(MessageDTO currentMessage, ViewGroup parent) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             return inflater.inflate(R.layout.activity_sls_favorite_record, parent, false);

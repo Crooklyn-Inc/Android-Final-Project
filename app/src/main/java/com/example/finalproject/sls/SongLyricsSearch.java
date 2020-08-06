@@ -1,11 +1,13 @@
-package com.example.finalproject.sls;
+/**
+ * This is the copyrighted content for course
+ * of mobile programming at Algonquin College
+ *
+ * @author Olga Zimina
+ * @version 1.0.0
+ * @created Jul 25, 2020
+ */
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
+package com.example.finalproject.sls;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,12 +23,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.finalproject.R;
 import com.example.finalproject.deezer.DeezerSongSearch;
 import com.example.finalproject.geo.GeoDataSource;
-import com.example.finalproject.R;
 import com.example.finalproject.soccerMatch.SoccerMatchHighlights;
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * Initial screen of the Song Lyrics Search application. Shows the search input line and
+ * two buttons - search lyrics and list of favorites lyrics
+ */
 public class SongLyricsSearch extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String PREFERENCES   = "prefs";
@@ -34,7 +47,7 @@ public class SongLyricsSearch extends AppCompatActivity implements NavigationVie
     public static final String SONG          = "song";
     public static final String LYRICS        = "lyrics";
     public static final String SEARCH_STRING = "search_string";
-    private             String searchString   = "";
+    private             String searchString  = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +55,7 @@ public class SongLyricsSearch extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_sls_search);
 
         SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
-        TextView ss = findViewById(R.id.slsSearchInput);
+        TextView          ss                = findViewById(R.id.slsSearchInput);
         ss.setText(sharedPreferences.getString(SEARCH_STRING, ""));
 
         Toolbar myToolbar = findViewById(R.id.slsToolbar);
@@ -61,9 +74,9 @@ public class SongLyricsSearch extends AppCompatActivity implements NavigationVie
         btnSongLyrics.setOnClickListener(v -> {
             Intent intentSongLyrics = new Intent(SongLyricsSearch.this, SongLyricsSearchResult.class);
 
-            TextView bs           = findViewById(R.id.slsSearchInput);
+            TextView bs = findViewById(R.id.slsSearchInput);
             searchString = bs.getText().toString();
-            int      firstBreak   = searchString.indexOf("-");
+            int firstBreak = searchString.indexOf("-");
             if (firstBreak > 0) {
                 String band = searchString.substring(0, firstBreak).trim();
                 String song = searchString.substring(firstBreak + 1, searchString.length()).trim();
