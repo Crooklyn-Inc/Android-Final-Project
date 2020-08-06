@@ -1,3 +1,8 @@
+/**
+ * @author Pavel Samarin (040 966 422)
+ * @created August 5, 2020
+ * @version 1.1.1
+ */
 package com.example.finalproject.geo;
 
 import androidx.annotation.NonNull;
@@ -160,7 +165,7 @@ public class GeoCityInfo extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * callback method listening for a click from 'Add to Favourites' and 'Remove from Favourites' buttons.
+     * Callback method listening for a click from 'Add to Favourites' and 'Remove from Favourites' buttons.
      * @param index index of the city item currently displayed in the activity.
      */
     @Override
@@ -192,7 +197,7 @@ public class GeoCityInfo extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * method implementing insertion of the currently selected city into the database of favourite cities.
+     * Method implementing insertion of the currently selected city into the database of favourite cities.
      * @param bundle city attributes to be stored in the database.
      * @return database ID of the inserted city record.
      */
@@ -212,7 +217,7 @@ public class GeoCityInfo extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * method implementing removal of the currently selected city from the database of favourite cities.
+     * Method implementing removal of the currently selected city from the database of favourite cities.
      * @param id database ID of the record to be removed from the database.
      */
     void removeCityFromFavourites(Long id) {
@@ -222,7 +227,7 @@ public class GeoCityInfo extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * method printing the database content into the console.
+     * Method printing the database content into the console.
      */
     private void printCursor() {
         if (sqlLiteDb == null) return;

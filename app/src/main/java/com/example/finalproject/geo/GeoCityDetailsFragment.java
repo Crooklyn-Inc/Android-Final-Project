@@ -1,3 +1,8 @@
+/**
+ * @author Pavel Samarin (040 966 422)
+ * @created August 5, 2020
+ * @version 1.1.1
+ */
 package com.example.finalproject.geo;
 
 import android.content.Context;
@@ -20,16 +25,16 @@ import android.widget.TextView;
 import com.example.finalproject.R;
 
 /**
- * Class implementing the fragment for visualisation of the selected city attributes as well as Map and Add/Remove from Favourites buttons.
+ * Class implementing the fragment for visualisation of the selected city attributes as well as 'Map', 'Add to Favourites' and 'Remove from Favourites' buttons.
  */
 public class GeoCityDetailsFragment extends Fragment {
     /**
-     * callback interface inside the fragment implemented by the host activity. The host activity can therefore receive and process mouse click done in the fragment.
+     * Callback interface declared inside GeoCityDetailsFragment class and implemented by the host activity. It is used to process in the host activity 'Add to Favourites' and 'Remove from Favourites' button click events occurring in the fragment.
      */
     public interface OnCityStatusChangeListener {
         /**
-         * callback method to process the city status (favourable/unfavourable) change and adding/removing from the database respectively.
-         * @param index
+         * Callback method to process the city status (favourable/unfavourable) change and adding/removing from the database respectively.
+         * @param index index of the selected city element in the array list stored in memory.
          */
         public void onCityStatusChange(Long index);
     }
@@ -96,7 +101,7 @@ public class GeoCityDetailsFragment extends Fragment {
     }
 
     /**
-     * inner class implementing adapter for the list displaying selected city attributes.
+     * Inner class implementing adapter for the list displaying selected city attributes.
      */
     class GeoListViewCityAttrAdapter extends BaseAdapter {
 
