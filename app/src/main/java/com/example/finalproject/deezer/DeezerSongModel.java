@@ -1,4 +1,12 @@
 package com.example.finalproject.deezer;
+/*
+ * @author Yulia Tsvetkova
+ * @version 1
+ * @ August 4, 2020
+ */
+/*
+This activity is the simple POJO class to create DeezerSongModel object
+ */
 
 public class DeezerSongModel {
 

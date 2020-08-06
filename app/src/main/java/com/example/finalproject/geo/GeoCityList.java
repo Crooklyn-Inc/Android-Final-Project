@@ -1,3 +1,8 @@
+/**
+ * @author Pavel Samarin (040 966 422)
+ * @created August 5, 2020
+ * @version 1.1.1
+ */
 package com.example.finalproject.geo;
 
 import androidx.annotation.NonNull;
@@ -44,6 +49,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
+
  * Class implementing activity for visualisation of the retrieved list of cities.
  */
 public class GeoCityList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GeoCityDetailsFragment.OnCityStatusChangeListener {
@@ -54,11 +60,11 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
 
     private SQLiteDatabase sqlLiteDb = null;
     /**
-     * list of cities retrieved from GeoDataSource web-service. Each element of the outer list represents an inner list of that city attributes.
+     * List of cities retrieved from GeoDataSource web-service. Each element of the outer list represents an inner list of that city attributes.
      */
     private ArrayList<ArrayList<Object>> cityWebDataArray = new ArrayList<ArrayList<Object>>();
     /**
-     * list of cities retrieved from the database of favourite cities. Each element of the outer list represents an inner list of that city attributes.
+     * List of cities retrieved from the database of favourite cities. Each element of the outer list represents an inner list of that city attributes.
      */
     private ArrayList<ArrayList<Object>> favouriteCityArray = new ArrayList<ArrayList<Object>>();
     private ListView geoListViewCities;
@@ -262,7 +268,7 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * method clearing the content of input ArrayList<ArrayList<Object>> parameter.
+     * Method clearing the content of input ArrayList<ArrayList<Object>> parameter.
      * @param arrListOfArrLists
      */
     private void clearArrList(ArrayList<ArrayList<Object>> arrListOfArrLists) {
@@ -277,7 +283,7 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
         }
     }
     /**
-     * callback method listening for a click from 'Add to Favourites' and 'Remove from Favourites' buttons.
+     * Callback method listening for a click from 'Add to Favourites' and 'Remove from Favourites' buttons.
      * @param index index of the city item currently displayed in the activity.
      */
     @Override
@@ -387,9 +393,9 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * inner class implementing adapter for the ListView of cities.
+     * Inner class implementing adapter for the ListView of cities.
      */
-    class GeoListViewAdapter extends BaseAdapter {
+    private class GeoListViewAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -434,7 +440,7 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * method retrieving favourite cities from the database.
+     * Method retrieving favourite cities from the database.
      */
     private void loadDataFromDatabase() {
         GeoDBOpener dbOpener = new GeoDBOpener(this);
@@ -474,7 +480,7 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
         }
     }
     /**
-     * method implementing insertion of the currently selected city into the database of favourite cities.
+     * Method implementing insertion of the currently selected city into the database of favourite cities.
      * @param index index of the selected city in the internal array list.
      * @return database ID of the inserted city record.
      */
@@ -494,7 +500,7 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * method implementing removal of the currently selected city from the database of favourite cities.
+     * Method implementing removal of the currently selected city from the database of favourite cities.
      * @param id database ID of the record to be removed from the database.
      */
     void removeCityFromFavourites(Long id) {
@@ -515,7 +521,7 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * method printing the database content into the console.
+     * Method printing the database content into the console.
      */
     private void printCursor() {
         if (sqlLiteDb != null) {
@@ -529,7 +535,7 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
     }
 
     /**
-     * method printing the database content into the console.
+     * Method printing the database content into the console.
      * @param c cursor instance to be used for retrieving the database content.
      */
     private void printCursor(Cursor c) {

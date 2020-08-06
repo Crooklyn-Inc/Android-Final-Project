@@ -1,3 +1,8 @@
+/**
+ * @author Pavel Samarin (040 966 422)
+ * @created August 5, 2020
+ * @version 1.1.1
+ */
 package com.example.finalproject.geo;
 
 import android.content.Context;
@@ -5,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * helper class implementing creation, upgrading and downgrading of SQLLite database.
+ * Helper class implementing creation, upgrading and downgrading of SQLLite database.
  */
 public class GeoDBOpener extends SQLiteOpenHelper {
 
