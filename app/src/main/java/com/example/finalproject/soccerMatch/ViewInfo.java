@@ -1,10 +1,18 @@
 package com.example.finalproject.soccerMatch;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,8 +23,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import android.widget.RelativeLayout;
@@ -24,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.finalproject.R;
+import com.google.android.material.navigation.NavigationView;
 
 
 import java.io.File;
@@ -41,7 +53,7 @@ import java.util.Date;
 /**
  * ViewInfo class is used to display a single match information on a separate layout.
  */
-public class ViewInfo extends AppCompatActivity {
+public class ViewInfo extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     public ImageView thumbnail;
     public String fileName;
     public RelativeLayout rLayout;
@@ -55,6 +67,20 @@ public class ViewInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_info);
+
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarSMH);
+        setSupportActionBar(myToolbar);
+
+        NavigationView navigationView = findViewById(R.id.smh_nav_menu);
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        DrawerLayout smhDrawer = findViewById(R.id.smh_drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                smhDrawer, myToolbar, R.string.open, R.string.close);
+        smhDrawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         Intent intent = getIntent();
 
@@ -101,6 +127,7 @@ public class ViewInfo extends AppCompatActivity {
 //        date.setText(m.getDate());
 
         videoView.setOnClickListener(click -> {
+
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(m.getVideoUrl()));
             startActivity(i);
         });
@@ -144,6 +171,49 @@ public class ViewInfo extends AppCompatActivity {
         File dir = getFilesDir();
         File f = new File(dir, fileName);
         boolean delete = f.delete();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        if (item.getItemId() == R.id.smhInstructions) {
+
+            AlertDialog.Builder alertD = new AlertDialog.Builder(ViewInfo.this);
+            alertD.setTitle(getResources().getString(R.string.infoSMH))
+                    .setMessage(getResources().getString(R.string.explSMH))
+                    .setNegativeButton(getResources().getString(R.string.backSMH), ((dialog, which) -> {
+
+                    })).create().show();
+
+        } else if (item.getItemId() == R.id.smhAPI) {
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.scorebat.com/video-api/"));
+            startActivity(intent);
+
+        } else if (item.getItemId() == R.id.smhDonate) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle(R.string.donationTitle);
+            alert.setMessage(R.string.donationMessage);
+            final EditText input = new EditText(this);
+            input.setHint("$$$");
+            input.setInputType(InputType.TYPE_CLASS_NUMBER);
+            input.setRawInputType(Configuration.KEYBOARD_12KEY);
+            alert.setView(input);
+            alert.setPositiveButton((R.string.thanks), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    Toast.makeText(getApplicationContext(), "Thank you for your donation!", Toast.LENGTH_LONG).show();
+                }
+            });
+            alert.setNegativeButton((R.string.cancel), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    //Put actions for CANCEL button here, or leave in blank
+                }
+            });
+            alert.show();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.smh_drawer);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 

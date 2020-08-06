@@ -43,6 +43,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Class implementing activity for visualisation of the retrieved list of cities.
+ */
 public class GeoCityList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GeoCityDetailsFragment.OnCityStatusChangeListener {
 
     static final int RESULT_NO_CITY_IN_JSON = 50;
@@ -50,7 +53,13 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
     static final String CITY_LIST_POSITION = "city_listed_position";
 
     private SQLiteDatabase sqlLiteDb = null;
+    /**
+     * list of cities retrieved from GeoDataSource web-service. Each element of the outer list represents an inner list of that city attributes.
+     */
     private ArrayList<ArrayList<Object>> cityWebDataArray = new ArrayList<ArrayList<Object>>();
+    /**
+     * list of cities retrieved from the database of favourite cities. Each element of the outer list represents an inner list of that city attributes.
+     */
     private ArrayList<ArrayList<Object>> favouriteCityArray = new ArrayList<ArrayList<Object>>();
     private ListView geoListViewCities;
     private GeoListViewAdapter geoListViewAdapter;
@@ -252,6 +261,10 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
+    /**
+     * method clearing the content of input ArrayList<ArrayList<Object>> parameter.
+     * @param arrListOfArrLists
+     */
     private void clearArrList(ArrayList<ArrayList<Object>> arrListOfArrLists) {
         if (!arrListOfArrLists.isEmpty()) {
             for(ArrayList<Object> array: arrListOfArrLists) {
@@ -263,7 +276,10 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
             arrListOfArrLists.clear();
         }
     }
-
+    /**
+     * callback method listening for a click from 'Add to Favourites' and 'Remove from Favourites' buttons.
+     * @param index index of the city item currently displayed in the activity.
+     */
     @Override
     public void onCityStatusChange(Long index) {
         if (index <= 0L) {
@@ -370,6 +386,9 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
+    /**
+     * inner class implementing adapter for the ListView of cities.
+     */
     class GeoListViewAdapter extends BaseAdapter {
 
         @Override
@@ -414,6 +433,9 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
+    /**
+     * method retrieving favourite cities from the database.
+     */
     private void loadDataFromDatabase() {
         GeoDBOpener dbOpener = new GeoDBOpener(this);
         clearArrList(favouriteCityArray);
@@ -451,7 +473,11 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
             cursor.moveToNext();
         }
     }
-
+    /**
+     * method implementing insertion of the currently selected city into the database of favourite cities.
+     * @param index index of the selected city in the internal array list.
+     * @return database ID of the inserted city record.
+     */
     long addCityToFavourites(int index) {
         ContentValues contentValues = new ContentValues();
         for (int i = 1; i < GeoDataSource.ATTR_MAP.size() - 1; i++) {
@@ -467,6 +493,10 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
         return newRecordId;
     }
 
+    /**
+     * method implementing removal of the currently selected city from the database of favourite cities.
+     * @param id database ID of the record to be removed from the database.
+     */
     void removeCityFromFavourites(Long id) {
         sqlLiteDb.delete(GeoDBOpener.TABLE_NAME, GeoDBOpener.COL_ID + " = ?", new String[] {id.toString()});
         printCursor();
@@ -484,6 +514,9 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
+    /**
+     * method printing the database content into the console.
+     */
     private void printCursor() {
         if (sqlLiteDb != null) {
             String[] columns = new String[GeoDataSource.ATTR_MAP.size() - 1];
@@ -495,6 +528,10 @@ public class GeoCityList extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
+    /**
+     * method printing the database content into the console.
+     * @param c cursor instance to be used for retrieving the database content.
+     */
     private void printCursor(Cursor c) {
         int numOfCols = c.getColumnCount();
         int numOfRows = c.getCount();
