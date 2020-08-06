@@ -19,6 +19,11 @@ import android.widget.TextView;
 import com.example.finalproject.R;
 
 import java.io.InputStream;
+/*
+ * @author Yulia Tsvetkova
+ * @version 1
+ * @ August 4, 2020
+ */
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +50,7 @@ public class DeezerFragmentDetails extends Fragment {
         TextView title = (TextView) result.findViewById(R.id.title);
         title.setText("Song Name : \"" + dataFromActivity.getString(Deezer_activity3.TITLE) + "\"");
         TextView songDuration = (TextView) result.findViewById(R.id.songDuration);
-       songDuration.setText("Duration : \"" + dataFromActivity.getString(Deezer_activity3.DURATION) + "\"");
+        songDuration.setText("Duration : \"" + dataFromActivity.getString(Deezer_activity3.DURATION) + "\"");
 
        if(imageUrl != null) {
            new DeezerFragmentDetails.DownloadImageTask(viAlbumImage.findViewById(R.id.albumImageView))

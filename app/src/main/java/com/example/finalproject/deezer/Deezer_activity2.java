@@ -25,6 +25,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+/*
+ * @author Yulia Tsvetkova
+ * @version 1
+ * @ August 4, 2020
+ */
+
 
 public class Deezer_activity2 extends AppCompatActivity {
 
@@ -34,6 +40,10 @@ public class Deezer_activity2 extends AppCompatActivity {
     String durationOfSong = "";
     ImageView albumImage = null;
 
+    /**
+     Creating bundle to pass data to the new fragment or activity
+     * Click on the list view item invokes new bundle creation
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +96,9 @@ public class Deezer_activity2 extends AppCompatActivity {
 
     }
 
+    /**
+     * Async task that loads an image from the URL
+     */
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
